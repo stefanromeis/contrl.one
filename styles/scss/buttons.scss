@@ -1,0 +1,82 @@
+///**
+// * Defines styles for button elements.
+// */
+//
+//button,
+//.btn {
+//    border-radius: 0 !important;
+//    font-weight: normal;
+//    text-transform: uppercase;
+//    white-space: normal !important;
+//    font-family: $fontfamily-regular;
+//}
+//
+//button.btn-full-width {
+//    width: 100%;
+//}
+//
+//button.btn-gray {
+//    background-color: $color-gray-dark;
+//    color: #fff;
+//
+//    &:hover,
+//    &:active,
+//    &:focus {
+//        background-color: lighten($color-gray-dark, 5);
+//        color: #fff;
+//    }
+//}
+//
+//button.btn-orange {
+//    background-color: $color-orange;
+//    color: #fff;
+//
+//  @include transition-background();
+//
+//
+//  &:hover,
+//    &:active,
+//    &:focus {
+//        background-color: lighten($color-orange, 5);
+//        color: #fff;
+//
+//      @include transition-background();
+//
+//    }
+//
+//
+//
+//}
+//
+//button.btn {
+//    &.btn-blue {
+//        background-color: $color-blue;
+//        color: #fff;
+//
+//      @include transition-background();
+//
+//      &:hover,
+//        &:focus,
+//        &:active,
+//        &:active.focus {
+//        //background-color: lighten($color-blue, 5);
+//            background-color: $color-orange;
+//            color: #fff;
+//            outline: none;
+//            outline-offset: 0;
+//          @include transition-background();
+//        }
+//
+//      &:disabled:hover,
+//      &:disabled:focus,
+//      &:disabled:active,
+//      &:disabled:visited {
+//        background-color: $color-blue !important;
+//      }
+//    }
+//
+//}
+//
+//.btn-lg, .btn-group-lg > .btn {
+//  padding: 16px 12px 10px 12px!important;
+//}

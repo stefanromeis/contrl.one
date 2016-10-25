@@ -1,0 +1,79 @@
+/**
+ * Defines mixins.
+ */
+
+@mixin appearance($appearance) {
+    -webkit-appearance: $appearance;
+       -moz-appearance: $appearance;
+            appearance: $appearance;
+}
+
+@mixin background-size($size) {
+    -webkit-background-size: $size;
+       -moz-background-size: $size;
+         -o-background-size: $size;
+            background-size: $size;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+         -o-border-radius: $radius;
+            border-radius: $radius;
+}
+
+@mixin box-shadow($shadow) {
+    -webkit-box-shadow: $shadow;
+       -moz-box-shadow: $shadow;
+            box-shadow: $shadow;
+}
+
+@mixin calc($property, $expression) {
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}:    -moz-calc(#{$expression});
+    #{$property}:         calc(#{$expression});
+}
+
+@mixin placeholder-color($color) {
+    ::-webkit-input-placeholder {
+        color: $color;
+    }
+    :-moz-placeholder {
+       color: $color;
+    }
+    ::-moz-placeholder {
+       color: $color;
+    }
+    :-ms-input-placeholder {
+       color: $color;
+    }
+}
+
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+        -ms-transform: $transform;
+            transform: $transform;
+}
+
+@mixin transition($transition) {
+    -webkit-transition: $transition;
+    -moz-transition:    $transition;
+    -ms-transition:     $transition;
+    -o-transition:      $transition;
+    transition:         $transition;
+}
+
+@mixin transition-all() {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+@mixin transition-background() {
+  -webkit-transition: background 0.15s ease-in-out;
+  -moz-transition: background 0.15s ease-in-out;
+  -o-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}

@@ -1,0 +1,27 @@
+.connect-wrapper {
+    position: fixed;
+    display: block;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 300px;
+    text-align: right;
+    button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: rgb(59, 89, 152);
+        border: none;
+        border-radius: 7px;
+        font-size: 1.2em;
+        font-weight: 700;
+        margin: 7px;
+    }
+    .soundcloud-connect-btn {
+        background-color: rgb(255,92,26);
+        top: 85px;
+    }    
+    .twitter-connect-btn {
+        background-color: rgb(85,172,238);
+        top: 85px;
+    }
+}

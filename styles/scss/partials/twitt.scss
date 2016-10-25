@@ -1,0 +1,38 @@
+.twitter-wrapper {
+    position: absolute;
+    display: block;
+    width: 30%;
+    left: 45%;
+    border-right: 1px solid #ccc;
+    top: 60px;
+    bottom: 120px;
+    .post-bar {
+        padding: 10px; 
+        position: absolute;
+        display: block;
+        bottom: 0;
+        width: 100%;
+        .form-control {
+            display: block;
+            height: 34px;
+            max-width: 88.5%;
+        }
+        .post-button {
+            display: block;
+            bottom: 5px;
+            right: 5px;
+            width: 10%;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            vertical-align: center;
+            height: 34px;
+            position: absolute;
+            border-radius: 4px;
+            background: transparent url("../images/send.png") 50% 30% no-repeat;
+            margin: 4px;
+        }
+    }
+    
+}

@@ -1,0 +1,79 @@
+///**
+// * Defines styles for form elements.
+// */
+//
+//form {
+//
+//    label {
+//
+//        em {
+//            color: $color-gray-dark;
+//        }
+//
+//        span {
+//            color: $color-gray-dark;
+//            font-weight: normal;
+//        }
+//
+//        input {
+//            color: $color-blue;
+//        }
+//
+//    }
+//
+//    .form-group.has-error div[role='alert'] {
+//        margin-top: 8px;
+//    }
+//
+//}
+//
+//.form-wrapper {
+//    position: relative;
+//
+//    .form-group {
+//        position: relative;
+//
+//        .form-control {
+//            border-radius: 0;
+//        }
+//
+//    }
+//
+//    .form-loader {
+//        position: absolute;
+//        top: 0;
+//        bottom: 0;
+//        left: 0;
+//        right: 0;
+//        background-color: #fff;
+//        opacity: 0.6;
+//
+//        .loader {
+//            text-align: center;
+//            margin-top: 15%;
+//        }
+//    }
+//}
+//
+///**
+// * Selects
+// */
+//
+//div.input-group-multiple-select:first-child span.input-group-addon-remove {
+//    visibility: hidden;
+//}
+//
+//div.input-group-multiple-select:last-child input.form-control {
+//	border-bottom-right-radius: 3px;
+//	border-top-right-radius: 3px;
+//}
+//
+//div.input-group-multiple-select span.input-group-addon-remove {
+//	cursor: pointer;
+//    background: none;
+//    border: none;
+//}
+//
+//div.input-group-multiple-select {
+//    margin-bottom: 5px;
+//}
