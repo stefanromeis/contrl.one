@@ -1,1 +1,0 @@
-module.exports = require("github:jfromaniello/node-querystring@fix_ie7_bug_with_arrays/index");

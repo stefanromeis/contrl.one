@@ -1,1 +1,0 @@
-module.exports = require("npm:weather@0.1.0/yahoo");

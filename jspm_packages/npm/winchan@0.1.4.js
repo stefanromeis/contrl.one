@@ -1,1 +1,0 @@
-module.exports = require("npm:winchan@0.1.4/winchan.js");
