@@ -1,13 +1,13 @@
-import {inject}         from 'aurelia-framework';
-import * as auth        from 'authentificator';
+import {inject}             from 'aurelia-framework';
+import {Authentificator}    from 'services/authentificator';
  
-@inject(auth)
+@inject(Authentificator)
 export class Twitt {
-    constructor (auth) {
-        this.auth = auth;
-        console.log(this.auth);
+    constructor (Authentificator) {
+        this.Authentificator = Authentificator;
+        console.log(this.Authentificator);
     }
-    search(auth) {
+    search() {
         $.ajax({url: "https://api.twitter.com/oauth/request_token", 
             error: function(error){
                 console.log(error);

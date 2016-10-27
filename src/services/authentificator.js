@@ -1,11 +1,15 @@
 import {inject}         from 'aurelia-framework';
-import {Config}         from 'config';
+import {Config}         from 'services/config';
+import oauth            from 'oauth';
 
-@inject(Config)
+@inject(Config, oauth)
 export class Authentificator {
-    constructor (Config) {
+    constructor (Config, oauth) {
         this.Config = Config;
-        console.log(Config);
+        this.oauth = oauth;
+        console.log(Config.twitter.port);
+        console.log('oauth' + oauth);
+
     }
 
     redirectToTwitterLoginPage () {
@@ -20,15 +24,7 @@ export class Authentificator {
     }
 
     search() {
-        $.ajax({url: "https://api.twitter.com/oauth/request_token", 
-            error: function(error){
-                console.log(error);
-            },
-            success: function(result){
-                $("#div1").html(result);
-                console.log('result');
-            }
-        });
+
     }
 
 }
