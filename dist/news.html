@@ -1,0 +1,20 @@
+<template>
+    <div class="news-wrapper">
+        <div class="news-control">
+            <form submit.delegate="getArticles(source)" >
+                <input id="search" type="text" class="form-control" name="city" maxlength="30" onfocus="this.select()"
+                    placeholder="Search..." autocomplete="off" value.bind="source" blur.trigger="getArticles(source)">
+            </form>
+            <button class="next-button" if.bind="index < 9" click.delegate="getNextNews()"></button>
+            <button class="prev-button" if.bind="index > 0" click.delegate="getPrevNews()"></button>
+        </div>
+        <div class="news-data" if.bind="source">
+            <img if.bind="urlToImage" src.bind="urlToImage" >
+            <h3>${title}</h3>
+            <p class="a">${description}</p>
+            <p class="a">${author}</p>
+            <p class="a">${publishedAt}</p>
+            <a if.bind="url" href="url" >visit site...</p>
+        </div>
+    </div>
+</template>

@@ -14,7 +14,7 @@ export class Facebook {
             
             FB.getLoginStatus(function (response) {
                 if(response.status === 'connected') {
-                    console.log("Facebook Status: OK");
+                    //console.log("Facebook Status: OK");
                     connect();
                 }
                 else if(response.status === 'not_authorized') {
@@ -36,7 +36,7 @@ export class Facebook {
         }(document, 'script', 'facebook-jssdk'));
         
     }
-    
+
     connect() {
         FB.login(function (response) {
             if(response.status === 'connected') {
@@ -52,9 +52,8 @@ export class Facebook {
             }
         }, {scope: 'email'});
     }
-    
 
-    
+
     logout() {
         FB.logout(function(response) {
             document.getElementById('status').innerHTML = "You are not logged into facebook.";

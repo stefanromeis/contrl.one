@@ -1,0 +1,18 @@
+<template>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn" click.delegate="open()">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" if.bind="Gmail.showModal" class="modal" click.delegate="close()">
+
+    <div id="mailModal" if.bind="Gmail.showModal">${Gmail.content.data}</div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" click.delegate="close()">×</span>
+            <h2>${Gmail.content.data}</h2>
+            <div id='modal-content' innerhtml.bind='modal.content'></div>
+            <p class="caption">${modal.caption}</p>
+        </div>
+
+</div>
+</template>

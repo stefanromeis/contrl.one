@@ -26,7 +26,7 @@ System.register([], function (_export, _context) {
                     "consumer_secret": "uZ7pWf1LrzTLSUrvxEPnU5Z2F7IqnI9QEsnXxocbPiclmicAfV",
                     "oauth_version": "1.0",
                     "oauth_signature": "HMAC-SHA1",
-                    "oauth_callback": "http://720018cf.ngrok.io/request-token"
+                    "oauth_callback": "http://6377551a.ngrok.io/request_token"
                 };
             });
 

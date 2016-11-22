@@ -1,0 +1,13 @@
+<template>
+    <div class="gmail-wrapper">
+        <div class="label-bar">
+            <button class='labels' repeat.for="item of labels" click.delegate="getMessages(item)" >${item}</button>
+        </div>
+        <div class='message-content' innerhtml.bind = 'messageContent'></div>
+        <div class="post-bar">
+            <textarea class="form-control" type="text" class="text" value.bind="feed_post" placeholder="Write Email"></textarea>
+            <button class="post-button" click.delegate="post()"></button>
+        </div>
+    </div>
+</template>
+

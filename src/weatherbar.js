@@ -1,5 +1,6 @@
-import {inject}        from 'aurelia-framework';
-import {I18N}          from 'aurelia-i18n'; 
+import {inject}       from 'aurelia-framework';
+import {I18N}         from 'aurelia-i18n';
+
 var jQ = $;
 
 export class Weatherbar {
@@ -10,18 +11,20 @@ export class Weatherbar {
         this.code = "";
         this.temp = "";
         this.unit = "";
+    
     }
     
     attached () {
                 
-        this.loadWeather(this.city);     
-        
+        this.loadWeather(this.city);
+
         var self = this;
         
         setInterval(function(){
             self.loadWeather(self.city);
             console.log('City', self.city);
         }, 30000);
+        
     }
          
                     
@@ -51,6 +54,6 @@ export class Weatherbar {
     
         $("#search").blur();
     }
-    
+
 }
     
