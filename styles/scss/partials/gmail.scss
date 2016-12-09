@@ -18,10 +18,11 @@
         background-color: #eee;
         border:none;
     }
-    .message-content {
+    #message-content {
         position: relative;
-        margin: 10px;
-        max-width: 25%!important;
+        width: 100%;
+        height: 100%;
+        border: none;
     }
     .post-bar {
         padding: 10px;
@@ -49,6 +50,36 @@
             border-radius: 4px;
             background: transparent url("../images/send.png") 50% 30% no-repeat;
             margin: 4px;
+        }
+        .next-button {
+                display: block;
+                float: right;
+                bottom: 5px;
+                right: 5px;
+                width: 10%;
+                border: none;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                height: 34px;
+                border-radius: 4px;
+                background: transparent url("../images/forward.png") 50% 30% no-repeat;
+                margin: 4px;
+        }
+        .prev-button {
+                display: block;
+                float: right;
+                bottom: 5px;
+                right: 5px;
+                width: 10%;
+                border: none;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                height: 34px;
+                border-radius: 4px;
+                background: transparent url("../images/back.png") 50% 30% no-repeat;
+                margin: 4px;
         }
     }
     

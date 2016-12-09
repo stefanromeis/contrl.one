@@ -3,14 +3,13 @@
     <button id="myBtn" click.delegate="open()">Open Modal</button>
 
     <!-- The Modal -->
-    <div id="myModal" if.bind="Gmail.showModal" class="modal" click.delegate="close()">
+    <div id="myModal" class="modal" click.delegate="close($event)">
 
-    <div id="mailModal" if.bind="Gmail.showModal">${Gmail.content.data}</div>
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="close" click.delegate="close()">×</span>
-            <h2>${Gmail.content.data}</h2>
-            <div id='modal-content' innerhtml.bind='modal.content'></div>
+            <span class="close" click.delegate="close($event)">×</span>
+            <h2>${modal.head}</h2>
+            <p innerhtml="">${modal.content}</p>
             <p class="caption">${modal.caption}</p>
         </div>
 

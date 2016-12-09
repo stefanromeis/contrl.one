@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-System.register(['aurelia-framework', 'Gmail'], function (_export, _context) {
+System.register(["aurelia-framework"], function (_export, _context) {
     "use strict";
 
-    var inject, Gmail, _dec, _class, Modal;
+    var inject, Modal;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -14,12 +14,10 @@ System.register(['aurelia-framework', 'Gmail'], function (_export, _context) {
     return {
         setters: [function (_aureliaFramework) {
             inject = _aureliaFramework.inject;
-        }, function (_Gmail) {
-            Gmail = _Gmail.Gmail;
         }],
         execute: function () {
-            _export('Modal', Modal = (_dec = inject(Gmail), _dec(_class = function () {
-                function Modal(Gmail) {
+            _export("Modal", Modal = function () {
+                function Modal() {
                     _classCallCheck(this, Modal);
 
                     this.modal = {
@@ -27,29 +25,24 @@ System.register(['aurelia-framework', 'Gmail'], function (_export, _context) {
                         content: "...",
                         caption: "Date: "
                     };
-                    this.Gmail = Gmail;
                 }
 
-                Modal.prototype.attached = function attached() {
-
-                    console.log('jo', this.Gmail.content.data);
-                };
+                Modal.prototype.attached = function attached() {};
 
                 Modal.prototype.open = function open() {
-                    console.log('jo', this.Gmail.content.data);
-                    console.log('xaxs');
                     $('#myModal').show();
                 };
 
-                Modal.prototype.close = function close() {
-                    $('#myModal').hide();;
+                Modal.prototype.close = function close(event) {
+                    console.log(event.taget);
+                    $('#myModal').hide();
                 };
 
                 return Modal;
-            }()) || _class));
+            }());
 
-            _export('Modal', Modal);
+            _export("Modal", Modal);
         }
     };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGFsLmpzIl0sIm5hbWVzIjpbImluamVjdCIsIkdtYWlsIiwiTW9kYWwiLCJtb2RhbCIsImhlYWQiLCJjb250ZW50IiwiY2FwdGlvbiIsImF0dGFjaGVkIiwiY29uc29sZSIsImxvZyIsImRhdGEiLCJvcGVuIiwiJCIsInNob3ciLCJjbG9zZSIsImhpZGUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFRQSxrQixxQkFBQUEsTTs7QUFDQUMsaUIsVUFBQUEsSzs7OzZCQUdLQyxLLFdBRFpGLE9BQU9DLEtBQVAsQztBQUVHLCtCQUFZQSxLQUFaLEVBQW1CO0FBQUE7O0FBQ2YseUJBQUtFLEtBQUwsR0FBYTtBQUNUQyw4QkFBTSxRQURHO0FBRVRDLGlDQUFTLEtBRkE7QUFHVEMsaUNBQVM7QUFIQSxxQkFBYjtBQUtBLHlCQUFLTCxLQUFMLEdBQWFBLEtBQWI7QUFFSDs7Z0NBRURNLFEsdUJBQVk7O0FBRVJDLDRCQUFRQyxHQUFSLENBQVksSUFBWixFQUFrQixLQUFLUixLQUFMLENBQVdJLE9BQVgsQ0FBbUJLLElBQXJDO0FBQ0gsaUI7O2dDQUlGQyxJLG1CQUFPO0FBQ0ZILDRCQUFRQyxHQUFSLENBQVksSUFBWixFQUFrQixLQUFLUixLQUFMLENBQVdJLE9BQVgsQ0FBbUJLLElBQXJDO0FBQ0RGLDRCQUFRQyxHQUFSLENBQVksTUFBWjtBQUNDRyxzQkFBRSxVQUFGLEVBQWNDLElBQWQ7QUFDSCxpQjs7Z0NBR0RDLEssb0JBQVE7QUFDSEYsc0JBQUUsVUFBRixFQUFjRyxJQUFkLEdBQXFCO0FBQ3pCLGlCIiwiZmlsZSI6Im1vZGFsLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGFsLmpzIl0sIm5hbWVzIjpbImluamVjdCIsIk1vZGFsIiwibW9kYWwiLCJoZWFkIiwiY29udGVudCIsImNhcHRpb24iLCJhdHRhY2hlZCIsIm9wZW4iLCIkIiwic2hvdyIsImNsb3NlIiwiZXZlbnQiLCJjb25zb2xlIiwibG9nIiwidGFnZXQiLCJoaWRlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsa0IscUJBQUFBLE07Ozs2QkFFS0MsSztBQUNULGlDQUFjO0FBQUE7O0FBQ1YseUJBQUtDLEtBQUwsR0FBYTtBQUNUQyw4QkFBTSxRQURHO0FBRVRDLGlDQUFTLEtBRkE7QUFHVEMsaUNBQVM7QUFIQSxxQkFBYjtBQU1IOztnQ0FFREMsUSx1QkFBWSxDQUVYLEM7O2dDQUlGQyxJLG1CQUFPO0FBQ0ZDLHNCQUFFLFVBQUYsRUFBY0MsSUFBZDtBQUNILGlCOztnQ0FHREMsSyxrQkFBT0MsSyxFQUFNO0FBQ1JDLDRCQUFRQyxHQUFSLENBQVlGLE1BQU1HLEtBQWxCO0FBQ0dOLHNCQUFFLFVBQUYsRUFBY08sSUFBZDtBQUlQLGlCIiwiZmlsZSI6Im1vZGFsLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==

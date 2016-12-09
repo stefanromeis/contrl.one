@@ -82,34 +82,17 @@ export class Gmail {
           self.message = data;
           console.log('snippet', self.message);
           //deep first search for data tag
-          var bodyData = search('data', self.message);
-         
-          var html  = Base64.decode(bodyData);
-          
-          html = html.split('�', 1)
-          //var html = Base64.decode(bodyData);
-          html = html[0];
-          console.log('1', html);
+  
 
           // If you're going to use a different library other than js-base64,
           // you may need to replace some characters before passing it to the decoder.
-          if(html.includes('</html>')) {
-            //alert('ishtml');
+            alert('ishtml');
             console.log('is html');
-            //$('#message-content').html(html);
-            //self.messageContent = html;
-            var ifrm = $('#message-content')[0].contentWindow.document;
-            $('body', ifrm).html(html);
-          }
-          else {
-            alert('nohtml');
-            console.log('no html');
-            html = html.replace(/\r\n|\r|\n/g, '<br />')
 
-            var ifrm = $('#message-content')[0].contentWindow.document;
-            $('body', ifrm).html(html);
-            //self.messageContent = html;
-          }
+            var ifrm = $('#message-content');
+            $('body', ifrm).html(self.getBody(self.message.payload));
+          
+          
           
           //console.log('html 2', html);
           //self.messageContent = html;
@@ -117,21 +100,39 @@ export class Gmail {
           //$('.message-content').html(html);
       }); 
 
-      //deep first search
-      let search = (needle, haystack, found = []) => {
-        Object.keys(haystack).forEach((key) => {
-          if(key === needle){
-            found.push(haystack[key]);
-            return found;
-          }
-          if(typeof haystack[key] === 'object'){
-            search(needle, haystack[key], found);
-          }
-        });
-        return found;
-      };
-
     }
+
+    getBody(message) {
+        var encodedBody = '';
+        if(typeof message.parts === 'undefined')
+        {
+          encodedBody = message.body.data;
+        }
+        else
+        {
+          encodedBody = this.getHTMLPart(message.parts);
+        }
+        encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
+        return decodeURIComponent(escape(window.atob(encodedBody)));
+      }
+
+      getHTMLPart(arr) {
+        for(var x = 0; x <= arr.length; x++)
+        {
+          if(typeof arr[x].parts === 'undefined')
+          {
+            if(arr[x].mimeType === 'text/html')
+            {
+              return arr[x].body.data;
+            }
+          }
+          else
+          {
+            return getHTMLPart(arr[x].parts);
+          }
+        }
+        return '';
+      }
 
 
 }
