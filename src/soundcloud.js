@@ -2,7 +2,7 @@ import {inject}        from 'aurelia-framework';
 import {I18N}          from 'aurelia-i18n';
 import $               from 'jquery';
 
-//@inject(SC, Widget)
+//@inject()
 export class Soundcloud {
     
     constructor (){
@@ -23,9 +23,9 @@ export class Soundcloud {
     }
 
     connect() {
-        
+    
         var self = this;
-        
+
         // initiate auth popup
         this.SC.connect().then(function() {
             return self.SC.get('/me');
@@ -35,13 +35,13 @@ export class Soundcloud {
 
             self.SC.get("/me/tracks").then(function(tracks) {
                 self.trackList = tracks;
-                console.log('User tracks loaded', self.trackList);
-
+                
                 var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + self.meSC.username + '/' + self.trackList[self.tracknumber].permalink;
                 document.getElementById('widget').src = result;
-                $('.soundcloud-connect-btn').hide();
+                $('.soundcloud-connect-btn').hide();                
             }); 
-        });
+        });     
+
     }
 
     loadnextTrack() {

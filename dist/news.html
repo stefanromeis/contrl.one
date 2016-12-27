@@ -1,12 +1,17 @@
 <template>
     <div class="news-wrapper">
+        <h5>
+            <img class='headicon' src="images/news.png">&nbsp;NEWS
+        </h5>
         <div class="news-control">
             <form submit.delegate="getArticles(source)" >
                 <input id="search" type="text" class="form-control" name="city" maxlength="30" onfocus="this.select()"
                     placeholder="Search..." autocomplete="off" value.bind="source" blur.trigger="getArticles(source)">
             </form>
-            <button class="next-button" if.bind="index < 9" click.delegate="getNextNews()"></button>
-            <button class="prev-button" if.bind="index > 0" click.delegate="getPrevNews()"></button>
+            <div class="pull-right">
+                <button class="glyphicon glyphicon-chevron-left" if.bind="index > 0" click.delegate="getPrevNews()"></button>
+                <button class="glyphicon glyphicon-chevron-right" if.bind="index < 9" click.delegate="getNextNews()"></button>
+            </div>
         </div>
         <div class="news-data" if.bind="source">
             <img if.bind="urlToImage" src.bind="urlToImage" >

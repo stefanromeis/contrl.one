@@ -1,11 +1,11 @@
-import {inject}     from 'aurelia-framework';
-import {I18N}       from 'aurelia-i18n';
-import 'js-base64';
+import {inject}         from 'aurelia-framework';
+import {I18N}           from 'aurelia-i18n';
 
 
-@inject(Base64)
+@inject()
+
 export class Gmail {
-    constructor(Base64) {
+    constructor() {
         this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
         this.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
         this.API_KEY = ['AIzaSyDkNvkPgkC60vrb0OGvSwg12i0sjHANaYU'];
@@ -15,22 +15,32 @@ export class Gmail {
         this.label = 'INBOX';
         this.connected = false;
         this.message = '';
-        this.Base64 = Base64;
-        console.log('bsae64: ', this.base64);
-        this.messageContent = '...';
+        this.messages = '';
+        this.content = "undefined";
+        this.counter = 0;
+        this.mails = [];
+        this.content = "undefined";
     }
 
-    attached () {
+    attached() {
       this.data = gmailData;
       this.token = localStorage.getItem('gmail.token');
+      
 
       if(this.data) {
+        
         this.connected = true;
         $('.gmail-connect-btn').hide();
         this.getLabels(this.data);
         this.getMessages(this.label);
-        this.getMessage(this.messages[0].id);
+        this.getMessage();
+        
       }
+      else {
+        location.reload()
+      }
+
+      
     }
 
     connect() {
@@ -50,7 +60,7 @@ export class Gmail {
         for (let i = 0; i < this.data.labels.length; i++) {
           let name = this.data.labels[i].name;
           if( name == 'INBOX' || name == 'SENT') {
-            console.log('labels - ', this.data.labels);
+            //console.log('labels - ', this.data.labels);
             this.labels.push(this.data.labels[i].name);
           }
         }
@@ -60,82 +70,138 @@ export class Gmail {
     }
 
     getMessages(label) {
+      //$('.table-inbox tbody').empty();
+      $('.modal').show();
+      this.mails = [];
       this.label = label;
       let self = this;
       $.ajax({
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds='+label,
-          headers: { 'authorization': this.token }
+          headers: { 'authorization': this.token },
       }).done(function( data ) {
-          this.messages = data.messages;
-          console.log('messages', this.messages);
-          self.getMessage(this.messages[0].id)
-          console.log('message id', this.messages[0].id);
-      }); 
+          self.messages = data.messages;
+          self.counter = 0;
+          self.getMessage(self.messages);
+      });
+
     }
 
-    getMessage(id) {
+
+    getMessage(messages) {
       let self = this;
+
+      if (!self.messages[self.counter] || self.counter >= 10) {
+
+          return;
+      }
+
+      let id = messages[self.counter].id;
+
       $.ajax({
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id,
           headers: { 'authorization': token }
       }).done(function( data ) {
+
           self.message = data;
-          console.log('snippet', self.message);
-          //deep first search for data tag
-          var bodyData = search('data', self.message);
-         
-          var html  = Base64.decode(bodyData);
-          
-          html = html.split('�', 1)
-          //var html = Base64.decode(bodyData);
-          html = html[0];
-          console.log('1', html);
+          //self.content = self.getBody(self.message.payload);
 
-          // If you're going to use a different library other than js-base64,
-          // you may need to replace some characters before passing it to the decoder.
-          if(html.includes('</html>')) {
-            //alert('ishtml');
-            console.log('is html');
-            //$('#message-content').html(html);
-            //self.messageContent = html;
-            var ifrm = $('#message-content')[0].contentWindow.document;
-            $('body', ifrm).html(html);
-          }
-          else {
-            alert('nohtml');
-            console.log('no html');
-            html = html.replace(/\r\n|\r|\n/g, '<br />')
+          var mail = {};
 
-            var ifrm = $('#message-content')[0].contentWindow.document;
-            $('body', ifrm).html(html);
-            //self.messageContent = html;
-          }
-          
-          //console.log('html 2', html);
-          //self.messageContent = html;
-          //console.log(self.messageContent);
-          //$('.message-content').html(html);
+          mail.content = data.payload;
+          //self.content = self.getBody(self.message.payload);
+          //console.log('con ', self.message.payload);
+
+          mail.id = id;
+          mail.from = self.getHeader(self.message.payload.headers, 'From')
+          mail.subject = self.getHeader(self.message.payload.headers, 'Subject')
+          mail.date = self.getHeader(self.message.payload.headers, 'Date')
+
+          self.mails.push(mail);
+          //console.log(self.mails);
+          //self.appendMessageRow(self.message)
+          self.counter++;
+
+          //var ifrm = $('#message-content')[0].contentWindow.document;
+          //$('body', ifrm).html(self.getBody(data.payload));
+          self.getMessage(messages);
       }); 
-
-      //deep first search
-      let search = (needle, haystack, found = []) => {
-        Object.keys(haystack).forEach((key) => {
-          if(key === needle){
-            found.push(haystack[key]);
-            return found;
-          }
-          if(typeof haystack[key] === 'object'){
-            search(needle, haystack[key], found);
-          }
-        });
-        return found;
-      };
 
     }
 
+    getHeader(headers, index) {
+      var header = '';
+      $.each(headers, function(){
+        if(this.name === index){
+          header = this.value;
+        }
+      });
+      return header;
+    }
 
-}
+    getBody(message) {
 
+        var encodedBody = '';
+        if(typeof message.parts === 'undefined') {
+          encodedBody = message.body.data;
+        }
+        else {
+          encodedBody = this.getHTMLPart(message.parts);
+        }
+        encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
+        return decodeURIComponent(escape(window.atob(encodedBody)));
+    }
+      
+    getHTMLPart(arr) {
 
+        for(let x = 0; x <= arr.length; x++) {
+          if(typeof arr[x].parts === "undefined") {
+            if(arr[x].mimeType === 'text/html') {
+              return arr[x].body.data;
+            }
+          }
+          else {
+            return this.getHTMLPart(arr[x].parts);
+          }
+        }
+        return '';
+    }
 
-    
+    appendMessageRow(message) {
+      $('.table-inbox tbody').append(
+          '<tr>\
+            <td>'+this.getHeader(message.payload.headers, 'From')+'</td>\
+            <td>\
+              <a click.delegate="this.openModal('+message.id+')" data-toggle="modal">' + this.getHeader(message.payload.headers, 'Subject') + '\
+              </a>\
+            </td>\
+            <td>'+this.getHeader(message.payload.headers, 'Date')+'</td>\
+          </tr>'
+        );
+    }
+
+    openModal(id) {
+
+      console.log('mails ', this.mails);
+
+      var result = $.grep(this.mails, function(e){ return e.id == id; });
+
+      console.log('res ', result);
+
+      var ifrm = $('#message-content')[0].contentWindow.document;
+      $('body', ifrm).html(this.getBody(result[0].content));
+
+      
+      $('.fade')
+        .attr('style', 'display: block !important; opacity: 0;')
+        .animate({opacity: 1});
+      $('.mod').attr('style','display:flex !important');
+
+    }
+    closeModal() {
+      $('.fade')
+        .attr('style', 'display: none !important; opacity: 1;')
+        .animate({opacity: 0});
+      $('.mod').attr('style','display:none !important');
+    }
+
+} 

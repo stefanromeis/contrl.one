@@ -2,6 +2,9 @@
     position: relative;
     display: block;
     width: 15%;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    background-color: #efefef;
     label {
         display: block;
         width: 100%;
@@ -11,7 +14,7 @@
         margin: 5px 0px;
         text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
     }
-    img {
+    #profile-img {
         padding: 3px;
         margin: 10px 0;
         position: relative;
@@ -22,5 +25,8 @@
         -moz-box-shadow: 0px 7px 5px rgba(0,0,0,0.3); 
         -webkit-box-shadow: 0px 7px 5px rgba(0,0,0,0.3); 
         -o-box-shadow: 0px 7px 5px rgba(0,0,0,0.3);
+    }
+    .headicon {
+        margin-bottom: 4px;
     }
 }

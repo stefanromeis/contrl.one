@@ -1,7 +1,10 @@
 <template>
     <div id="weatherbar">
-        <h2><i class="${code}"></i> ${temp}&deg;${unit}</h2>
-        
+        <h5>
+            <img class='headicon' src="images/weather.png">&nbsp;WEATHER
+        </h5>
+        <h2><i class="${code}"></i> ${temp}${unit}</h2>
+    
         <form role="form" submit.delegate="loadWeather(city)">
             <input id="weathersearch" type="search" class="form-control" name="city" maxlength="50" onfocus="this.select()"
             placeholder="${city}, ${region}" autocomplete="off" value.bind="city" blur.trigger="loadWeather(city)">

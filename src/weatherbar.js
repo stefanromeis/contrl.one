@@ -31,7 +31,7 @@ export class Weatherbar {
     loadWeather(city) {
         
         var self = this;
-      
+        
         jQ.simpleWeather({
             location: city,
             woeid: '',
@@ -39,20 +39,22 @@ export class Weatherbar {
             success: function(weather) {
                 self.code = 'icon-'+weather.code;
                 self.temp = weather.temp;
-                self.unit = weather.units.temp;
+                self.unit = '°'+weather.units.temp;
                 self.city = weather.city;
                 self.region = weather.region;
                 
-                localStorage.setItem("weather.city", weather.city);
+                localStorage.setItem("weather.city", city);
 
             },
             error: function(error) {
               console.log(error);
-              self.city = error;
+              self.temp = 'No weather info';
+              self.unit = '';
+              self.code = '';
+
             }
         });
-    
-        $("#search").blur();
+        document.getElementById("weathersearch").blur();
     }
 
 }

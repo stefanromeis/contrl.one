@@ -3,9 +3,14 @@
     display: block;
     width: 30%;
     left: 45%;
-    border-right: 1px solid #ccc;
     top: 60px;
     bottom: 120px;
+    border-radius: 10px;
+    background-color: #efefef;
+    border: 3px solid #fff;
+    .headicon {
+        margin-bottom: 1px;
+    }
     .post-bar {
         padding: 10px;
         position: absolute;
