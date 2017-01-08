@@ -1,0 +1,16 @@
+<template>
+    <require from="instagram"></require>
+    <require from="facebook"></require>
+    <require from="twitter"></require>
+    <div class="social-media-wrapper">
+        <h5>
+            <img class='headicon' src="images/social_media_2.png">&nbsp; SOCIAL MEDIA
+            <button repeat.for="component of components">
+                <div class="component" click.delegate="loadComponent(component)">${component}</div>
+            </button>
+        </h5>
+        <instagram if.bind="Instagram.active"></instagram>
+        <facebook if.bind="Facebook.active"></facebook>
+        <twitter if.bind="Twitter.active"></twitter>
+    </div>
+</template>

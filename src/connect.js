@@ -1,13 +1,11 @@
 import {inject}         from 'aurelia-framework';
 import {Facebook}       from 'facebook';
 import {Soundcloud}     from 'soundcloud';
-import {Gmail}          from 'gmail';
 
-@inject(Facebook, Soundcloud, Gmail)
+@inject(Facebook, Soundcloud)
 export class Connect {
-    constructor (Facebook, Soundcloud, Gmail) {
+    constructor (Facebook, Soundcloud) {
         this.Facebook = Facebook;
         this.Soundcloud = Soundcloud;
-        this.Gmail = Gmail;
     }
 }

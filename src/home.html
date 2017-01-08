@@ -1,5 +1,6 @@
 <template>
     <require from="connect"></require>
+    <require from="social-media"></require>
     <require from="facebook"></require>
     <require from="soundcloud"></require>
     <require from="profile"></require>
@@ -8,10 +9,10 @@
     <require from="gmail"></require>
     <!--<require from="modal"></require>-->
     <!--<require from="twitt"></require>-->
-    <!--<require from="instagram"></require>-->
+    <require from="instagram"></require>
 
     <div class="header">
-        <a href="#" >
+        <a href="#">
             <img src="images/dash-logo.png" alt="logo">
         </a>
     </div>
@@ -20,11 +21,13 @@
     <weatherbar></weatherbar>
     <connect></connect>
     <news></news>
-    <facebook></facebook>
+    <!--<facebook></facebook>-->
+    <social-media>
+        <instagram></instagram>
+    </social-media>
     <gmail></gmail>
     <!--<modal></modal>-->
     <!--<twitt></twitt>-->
-    <!--<instagram></instagram>-->
     <soundcloud></soundcloud>
     
 </template>

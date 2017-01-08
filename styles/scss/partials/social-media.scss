@@ -1,0 +1,18 @@
+.social-media-wrapper {
+    position: absolute;
+    display: block;
+    width: 30%;
+    left: 45%;
+    top: 60px;
+    bottom: 120px;
+    border-radius: 10px;
+    background-color: #efefef;
+    border: 3px solid #fff;
+    .headicon {
+        margin-bottom: 1px;
+    }
+    button {
+        padding: 0px 5px 0px 5px;
+    }
+    
+}

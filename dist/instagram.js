@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-System.register(['aurelia-framework', 'aurelia-pal-browser', 'services/ig-service'], function (_export, _context) {
+System.register(["aurelia-framework"], function (_export, _context) {
   "use strict";
 
-  var inject, initialize, IgService, _dec, _class, Instagram;
+  var inject, _dec, _class, Instagram;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -14,41 +14,25 @@ System.register(['aurelia-framework', 'aurelia-pal-browser', 'services/ig-servic
   return {
     setters: [function (_aureliaFramework) {
       inject = _aureliaFramework.inject;
-    }, function (_aureliaPalBrowser) {
-      initialize = _aureliaPalBrowser.initialize;
-    }, function (_servicesIgService) {
-      IgService = _servicesIgService.IgService;
     }],
     execute: function () {
-      initialize();
-
-      _export('Instagram', Instagram = (_dec = inject(IgService), _dec(_class = function () {
-        function Instagram(igService) {
+      _export("Instagram", Instagram = (_dec = inject(), _dec(_class = function () {
+        function Instagram() {
           _classCallCheck(this, Instagram);
 
           this.heading = "Me";
           this.me = {};
 
-          this.igService = igService;
+          this.active = false;
         }
 
-        Instagram.prototype.activate = function activate() {
-          var _this = this;
-
-          if (localStorage.getItem('token')) {
-            return this.igService.me().then(function (res) {
-              return res.response.data;
-            }).then(function (me) {
-              _this.me = me;
-            });
-          }
-        };
+        Instagram.prototype.activate = function activate() {};
 
         return Instagram;
       }()) || _class));
 
-      _export('Instagram', Instagram);
+      _export("Instagram", Instagram);
     }
   };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluc3RhZ3JhbS5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJpbml0aWFsaXplIiwiSWdTZXJ2aWNlIiwiSW5zdGFncmFtIiwiaWdTZXJ2aWNlIiwiaGVhZGluZyIsIm1lIiwiYWN0aXZhdGUiLCJsb2NhbFN0b3JhZ2UiLCJnZXRJdGVtIiwidGhlbiIsInJlcyIsInJlc3BvbnNlIiwiZGF0YSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7O0FBQVFBLFkscUJBQUFBLE07O0FBQ0FDLGdCLHNCQUFBQSxVOztBQUNBQyxlLHNCQUFBQSxTOzs7QUFDUkQ7OzJCQUlhRSxTLFdBRFpILE9BQU9FLFNBQVAsQztBQUtDLDJCQUFZRSxTQUFaLEVBQXNCO0FBQUE7O0FBQUEsZUFIdEJDLE9BR3NCLEdBSFosSUFHWTtBQUFBLGVBRnRCQyxFQUVzQixHQUZqQixFQUVpQjs7QUFFcEIsZUFBS0YsU0FBTCxHQUFpQkEsU0FBakI7QUFDRDs7NEJBRURHLFEsdUJBQVc7QUFBQTs7QUFDVCxjQUFHQyxhQUFhQyxPQUFiLENBQXFCLE9BQXJCLENBQUgsRUFBaUM7QUFFL0IsbUJBQU8sS0FBS0wsU0FBTCxDQUFlRSxFQUFmLEdBQ0pJLElBREksQ0FDQztBQUFBLHFCQUFPQyxJQUFJQyxRQUFKLENBQWFDLElBQXBCO0FBQUEsYUFERCxFQUVKSCxJQUZJLENBRUMsY0FDSjtBQUVFLG9CQUFLSixFQUFMLEdBQVVBLEVBQVY7QUFDRCxhQU5FLENBQVA7QUFPQztBQUNKLFMiLCJmaWxlIjoiaW5zdGFncmFtLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluc3RhZ3JhbS5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJJbnN0YWdyYW0iLCJoZWFkaW5nIiwibWUiLCJhY3RpdmUiLCJhY3RpdmF0ZSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7O0FBQVFBLFkscUJBQUFBLE07OzsyQkFJS0MsUyxXQURaRCxRO0FBTUMsNkJBQWE7QUFBQTs7QUFBQSxlQUpiRSxPQUlhLEdBSkgsSUFJRztBQUFBLGVBSGJDLEVBR2EsR0FIUixFQUdROztBQUVYLGVBQUtDLE1BQUwsR0FBYyxLQUFkO0FBQ0Q7OzRCQUVEQyxRLHVCQUFXLENBRVYsQyIsImZpbGUiOiJpbnN0YWdyYW0uanMiLCJzb3VyY2VSb290IjoiL3NyYyJ9

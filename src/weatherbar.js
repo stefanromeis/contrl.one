@@ -47,7 +47,7 @@ export class Weatherbar {
 
             },
             error: function(error) {
-              console.log(error);
+              console.log('Error ' + error + ' for ' + city);
               self.temp = 'No weather info';
               self.unit = '';
               self.code = '';

@@ -34,7 +34,7 @@ export function configure(aurelia) {
     //aurelia.use.plugin('aurelia-html-import-template-loader')
     aurelia.start()
         .then(() => aurelia.setRoot())
-       .then(() => {
+        .then(() => {
 
             // enable wrapper animations (navbar toggle)
             if ($('body').hasClass('loggedIn')) {

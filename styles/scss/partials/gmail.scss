@@ -38,6 +38,10 @@
             opacity: 1.0;
         }
     }
+    .gmail-connect-btn {
+        background-color: #4285F4;
+        top: 85px;
+    }
     .list-wrapper {
         position: inherit;
         display: block;
@@ -52,27 +56,39 @@
         word-wrap: break-word;
         .table {
             width: 100%;
+            .headrow {
+                width:100%;
+                border-bottom: 2px solid #ddd;
+                text-align: left;
+                padding: 8px;
+                margin: 0px;  
+            }
             .row {
                 width:100%;
                 border-bottom: 2px solid #ddd;
                 text-align: left;
                 padding: 8px;
                 margin: 0px;
+                cursor: pointer;
+                background-color: #fff;
                 //display: flex;
-                .cell {
+            }
+            .row:hover {
+                background-color:#eee;
+            }
+            .cell {
                     display: inline-block;
                     width: 30%;
                     float: left;
                 }
-                .subject {
-                    display: inline-block;
-                    width: 45%;
-                    margin: 0 3px 0 3px;
-                }
-                .date {
-                    float: right;
-                    width: 23%;
-                }
+            .subject {
+                display: inline-block;
+                width: 45%;
+                padding: 0 5px 0 5px;
+            }
+            .date {
+                float: right;
+                width: 23%;
             }
         }
     }
@@ -89,7 +105,7 @@
 }
 
     /* The Modal (background) */
-.mod {
+.mod, .reply-mod {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -104,7 +120,12 @@
     align-items: center;
     justify-content: center;
 }
-
+.reply-mod {
+    min-height: auto;
+}
+.hide {
+    display:none !important;
+}
 /* Modal Content/Box */
 .mod-content {
     position: relative;
@@ -112,8 +133,8 @@
     margin: 20px auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    max-width: 700px; /* Could be more or less, depending on screen size */
-    min-width: 750px; /* Could be more or less, depending on screen size */
+    max-width: 700px; 
+    min-width: 750px; 
     height: 90%;
     border-radius: 20px;
     border-radius:10px;
@@ -126,23 +147,22 @@
     overflow: hidden;
     .mod-header {
         border-bottom: 1px solid #eee;
-        height: 40px;
+        padding-bottom: 5px;
     }
     .mod-body {
-        height: 100%;
-        padding-bottom: 60px;
+        height: 90%;
     }
     .mod-footer {
-        position: relative;
+        position: absolute;
         height: 60px;
-        bottom: 50px;
+        bottom: 0%;
         background-color: #fff;
     }
 }
 
 
 /* The Close Button */
-.close {
+.close, .reply {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -154,4 +174,9 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.reply {
+    font-size: 1em;
+    background-color:#fff;
+    padding:0px;
 }
