@@ -1,12 +1,16 @@
+import {DialogService}  from 'aurelia-dialog';
 import {inject}         from 'aurelia-framework';
 import {I18N}           from 'aurelia-i18n';
+import {Prompt}         from 'prompt';
+
+@inject(DialogService)
 
 export class Gmail {
-    constructor() {
+    constructor(dialogService) {
+        this.dialogService = dialogService;
         this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
         this.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
         this.API_KEY = ['AIzaSyDkNvkPgkC60vrb0OGvSwg12i0sjHANaYU'];
-        this.authObj;
         this.labels = [];
         this.label = 'INBOX';
         this.connected = false;
@@ -17,27 +21,28 @@ export class Gmail {
         this.content = "undefined";
         this.token = localStorage.getItem('gmail.token') || 'undefined';
         console.log(this.token);
+        console.log(gmailData);
+        this.data = gmailData;
         this.modalMessage = {
           subject: "",
           from: "",
           date: ""
        };
        this.showReplyMod = true;
-       if(gmailData) {
-          this.attached();
+       if(this.token !== 'undefined') {
+          this.attached(); 
        }
     }
 
     attached () {
-      this.data = gmailData;
-      if(this.data) {
+      if(this.data !== 'undefined' && this.data.labels !== 'undefined') {
         this.connected = true;
         this.getLabels(this.data);
         this.getMessages(this.label);
       }
       else {
         location.reload();
-      }      
+      }     
     }
 
     connect() {
@@ -66,18 +71,19 @@ export class Gmail {
 
     getMessages(label) {
       //$('.table-inbox tbody').empty();
-      $('.modal').show();
+      console.log('ask for it');
       this.mails = [];
       this.label = label;
       let self = this;
+      this.counter = 0;
       $.ajax({
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds='+label,
           headers: { 'authorization': this.token },
       }).done(function( data ) {
           self.messages = data.messages;
-          self.counter = 0;
           self.getMessage(self.messages);
           $('.gmail-connect-btn').hide();
+          console.log('get it');
       });
     }
 
@@ -150,6 +156,7 @@ export class Gmail {
       var result = $.grep(this.mails, function(e){ return e.id == id; });
 
       this.modalMessage.subject = result[0].subject;
+      console.log(this.modalMessage.subject);
       this.modalMessage.from = result[0].from;
       this.modalMessage.date = result[0].date;
 
@@ -187,6 +194,8 @@ export class Gmail {
 
     send () {
 
+      let self = this;
+
       var mail =  'MIME-Version: 1.0\r\n'+
                   'To: '+$('#compose-to').val()+'\r\n'+
                   'Subject: '+$('#compose-subject').val()+'\r\n\r\n'+
@@ -203,7 +212,7 @@ export class Gmail {
         data: mail
 
       }).done(function() {  
-        console.log('Email Successfully send');
+        self.openModal();
       })
       .fail(function() {
         console.log('Error Sending Email');
@@ -222,4 +231,16 @@ export class Gmail {
       $('.reply-mod').attr('style','display:flex !important');
     }
 
+    openModal() {
+      this.dialogService.open({viewModel: Prompt, model: 'Email successfully send.' }).then(response => {
+         console.log(response);
+			
+         if (!response.wasCancelled) {
+            console.log('OK');
+         } else {
+            console.log('cancelled');
+         }
+         console.log(response.output);
+      });
+   }
 } 

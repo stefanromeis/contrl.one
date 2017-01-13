@@ -1,17 +1,14 @@
 <template>
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn" click.delegate="open()">Open Modal</button>
+   <ai-dialog>
+      <ai-dialog-body>
+         <h2>${message}</h2>
+      </ai-dialog-body>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal" click.delegate="close($event)">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-                
-            <h2>${modal.head}</h2>
-            <p innerhtml="">${modal.content}</p>
-            <p class="caption">${modal.caption}</p>
-        </div>
-
-</div>
+      <ai-dialog-footer>
+         <button click.trigger = "controller.cancel()">Cancel</button>
+         <button click.trigger = "controller.ok(message)">Ok</button>
+      </ai-dialog-footer>
+	
+   </ai-dialog>
+	
 </template>

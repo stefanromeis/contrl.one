@@ -2,11 +2,14 @@
     display: block;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    height: 120px;
+    width: 100% - $component-margin-correction;
+    height: 115px;
     overflow: hidden;
+    border-radius: 10px;
+    background-color: $color-white;
+    margin: $component-margin;
     iframe {
-        border-top: 1px solid #ccc;
+        width: 100% - $component-margin-correction;
     }
     .headicon {
         margin-bottom: 10px;

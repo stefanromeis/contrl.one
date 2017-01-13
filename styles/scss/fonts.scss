@@ -11,9 +11,13 @@
 }
 
 h5 {
-    margin-left: 10px;
-    padding: 0px;
+    margin: 0px!important;
+    padding: 5px 0px 3px 10px;
+	background-color: $color-grey;
+	border-radius: 10px 10px 0px 0px;
+	color: $h-color!important;
 }
+
 
 //@font-face {
 //	font-family: 'Aspira-Demi';

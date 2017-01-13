@@ -1,18 +1,22 @@
 .social-media-wrapper {
     position: absolute;
     display: block;
-    width: 30%;
+    width: 30% - $component-margin-correction-inner;
+    margin: $component-margin;
     left: 45%;
     top: 60px;
     bottom: 120px;
     border-radius: 10px;
-    background-color: #efefef;
-    border: 3px solid #fff;
+    background-color: $color-white;
     .headicon {
         margin-bottom: 1px;
     }
+    h5 {
+        height: 32px;
+        padding-top: 5px;
+        line-height: 0.3em;
+    }
     button {
-        padding: 0px 5px 0px 5px;
     }
     
 }

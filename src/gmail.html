@@ -26,10 +26,12 @@
                     <div class="subject"><strong>Subject</strong></div>
                     <div class="date"><strong>Date/Time</strong></div>
                 </div>
-                <div class="row" repeat.for="mail of mails" a href="#" click.delegate="openMessage(mail.id)">
-                    <div class="cell">${mail.from}</div>
-                    <div class="subject"><a href="#">${mail.subject}</a></div>
-                    <div class="date">${mail.date}</div>
+                <div class="list-body">
+                    <div class="row" repeat.for="mail of mails" a href="#" click.delegate="openMessage(mail.id)">
+                        <div class="cell">${mail.from}</div>
+                        <div class="subject"><a href="#">${mail.subject}</a></div>
+                        <div class="date">${mail.date}</div>
+                    </div>
                 </div>
             </div>
         </div>

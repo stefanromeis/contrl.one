@@ -1,39 +1,35 @@
 .gmail-wrapper {
     position: absolute;
     display: block;
-    width: 25%;
+    width: 25% - $component-margin-correction;
+    margin: $component-margin;
     right: 0%;
     border-right: 1px solid #ccc;
     top: 60px;
     bottom: 120px;
     overflow-x: hidden;
     overflow-y: hidden;
-    background-color: #efefef;
+    background-color: $color-white;
     border-radius: 10px;
-    border: 3px solid #fff;
     .label-bar {  
         display: block;  
         border-bottom: 1px solid #aaa;
         .labels {
-        opacity: 0.7;
-        padding: 10px 10px 10px 10px;
-        border: none;
-        background-color: #efefef;  
+            opacity: 0.7;
+            padding: 10px 10px 10px 10px;
+            border: none;
         }
         .labels:hover  {
-            background-color: #eee;
             border:none;
             opacity: 1.0;
         }
         .label-right {
-            opacity: 0.8;
+            opacity: 0.7;
             padding: 10px 10px 10px 10px;
             border: none;
-            background-color: #efefef; 
             float: right;
         }
-        .labels:hover  {
-            background-color: #eee;
+        .label-right:hover  {
             border:none;
             opacity: 1.0;
         }
@@ -46,7 +42,7 @@
         position: inherit;
         display: block;
         width: 100%;
-        height: 90%;
+        height: 95%;
         border: none;
         font-family: arial, sans-serif;
         overflow-y: scroll;
@@ -54,6 +50,8 @@
         -ms-hyphens: auto;
         -webkit-hyphens: auto;
         word-wrap: break-word;
+        font-size: 0.9em;
+        overflow: hidden;
         .table {
             width: 100%;
             .headrow {
@@ -61,7 +59,15 @@
                 border-bottom: 2px solid #ddd;
                 text-align: left;
                 padding: 8px;
-                margin: 0px;  
+                margin: 0px; 
+            }
+            .list-body {
+                position: absolute;
+                overflow-y: scroll;
+                display: block;
+                height: 90%;
+                border-radius: 0 0 10px;
+                padding-bottom:50px;
             }
             .row {
                 width:100%;
@@ -70,17 +76,17 @@
                 padding: 8px;
                 margin: 0px;
                 cursor: pointer;
-                background-color: #fff;
+                background-color: $color-white;
                 //display: flex;
             }
             .row:hover {
                 background-color:#eee;
             }
             .cell {
-                    display: inline-block;
-                    width: 30%;
-                    float: left;
-                }
+                display: inline-block;
+                width: 30%;
+                float: left;
+            }
             .subject {
                 display: inline-block;
                 width: 45%;

@@ -1,5 +1,26 @@
+html {
+  overflow:hidden;
+}
 body {
-  margin: 0;
+}
+.background {
+  background: url(../images/bg.jpg) center center no-repeat;
+  position: absolute;
+  display: block;
+  height: 120%;
+  width: 120%;
+  left:-10%;
+  top:-10%;
+  background-size: cover;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  margin:-20px;
 }
 
 nav-bar {
@@ -29,4 +50,5 @@ nav-bar {
 
 .headicon {
     width: 20px;
+    opacity: 0.7;
 }
