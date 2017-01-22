@@ -34,7 +34,6 @@ export class News {
     }
 
 
-
     loadNews() {
         document.getElementById("search").blur();
         this.author = this.articles[this.index].author;

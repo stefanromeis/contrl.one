@@ -18,7 +18,7 @@
       // Your Client ID can be retrieved from your project in the Google
       // Developer Console, https://console.developers.google.com
       var CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
-      var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
+      var SCOPES = ['https://mail.google.com/'];
       var apiKey = 'AIzaSyAGjXd4bZPlolpC4lp1OR_pCrMan9ERz5s';
       var token = '';
       var gmailData = undefined;
@@ -44,6 +44,7 @@
 
         if (authResult && !authResult.error) {
           // Hide a//uth UI, then load client library.
+          console.log(authResult.access_token);
           token = 'Bearer ' + authResult.access_token;     
           localStorage.setItem('gmail.token', token);
           requestGmailData('https://www.googleapis.com/gmail/v1/users/me/labels');

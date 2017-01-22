@@ -1,11 +1,16 @@
 .instagram-wrapper {
     position: absolute;
     display: block;
-    width: 30%;
-    left: 45%;
     border-right: 1px solid #ccc;
-    top: 60px;
-    bottom: 120px;
+    top: 32px;
+    bottom: 0px;
+    width: 100%;
+    overflow-y: scroll;
+    img {
+        padding: 3px;
+        border-radius: 100%;
+        width: 30px;
+    }
     .post-bar {
         padding: 10px; 
         position: absolute;
@@ -32,6 +37,29 @@
             border-radius: 4px;
             background: transparent url("../images/send.png") 50% 30% no-repeat;
             margin: 4px;
+        }
+    }
+    .images {
+        width: 100%;
+        display: block;
+        .col-md-6 {
+            padding: 0px 10px 20px 10px;
+        }
+        img {
+            width: 100%;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px!important;
+        }
+        .image-details {
+            display: block;
+            background-color: #fff;
+            position: relative;
+            top: -150px;
+            text-align: center;
+            width: 100%;
+            height: 50px;
+            margin-bottom: -50px;
         }
     }
     

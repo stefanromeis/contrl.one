@@ -77,3 +77,12 @@
 //div.input-group-multiple-select {
 //    margin-bottom: 5px;
 //}
+input {
+    background-color: rgba(255, 255, 255, 0);
+}
+input:focus {
+    background-color: rgba(255, 255, 255, 1);
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}

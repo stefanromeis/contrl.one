@@ -9,8 +9,8 @@
                 <div class="component" click.delegate="loadComponent(component)">${component}</div>
             </button>
         </h5>
-        <instagram if.bind="Instagram.active"></instagram>
-        <facebook if.bind="Facebook.active"></facebook>
-        <twitter if.bind="Twitter.active"></twitter>
+        <compose view="instagram.html" view-model.bind="Instagram" if.bind="Instagram.active"></compose>
+        <compose view="facebook.html" view-model.bind="Facebook" if.bind="Facebook.active"></compose>
+        <compose view="twitter.html" view-model.bind="Twitter" if.bind="Twitter.active"></compose>
     </div>
 </template>

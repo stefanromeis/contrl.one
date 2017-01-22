@@ -1,9 +1,33 @@
 <!-- src/instagram.html  -->
 <template>
   <div class="instagram-wrapper">
-    <h2 class="text-center">${heading}</h2>
-    <p class="text-center">
-      <a click.trigger="signin()" class="btn btn-primary">Login</a>
-    </p>
+    <div class="label-bar"> 
+      <button class='label-right'>
+        <a href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token">
+          <span class="glyphicon glyphicon-log-in" aria-hidden="true" if.bind="!token" class="btn btn-primary"></span>
+        </a>
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true" if.bind="token" class="btn btn-primary" click.delegate="signOut()"></span>
+        <span class="profile-img"><img src="${user.profile_picture}"></span>
+        <span class="followed-by"><strong>Media: </strong>${user.media}</span>
+        <span class="followed-by"><strong>Followed By: </strong>${user.followed_by}</span>
+        <span class="followed-by"><strong>Follows: </strong>${user.follows}</span>
+      </button>
+    </div>
+    <!--
+    <div class="images" repeat.for="image of images">
+      <img if.bind="image.urlToImage" src.bind="image.urlToImage" >
+    </div>
+    -->
+    <div class="images" repeat.for="image of images">
+      <div class="col-md-6">
+        <img if.bind="image.urlToImage" src.bind="image.urlToImage">
+        <div class="image-details">
+          <div class="detail">Likes: ${image.likes}</div>
+          <div class="detail">Comments: ${image.comments}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<!-- href="https://instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token"-->

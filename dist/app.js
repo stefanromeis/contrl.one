@@ -21,8 +21,7 @@ System.register([], function (_export, _context) {
 
         App.prototype.configureRouter = function configureRouter(config, router) {
           config.title = 'contrl.one';
-          config.map([{ route: ['', 'home'], name: 'home', moduleId: 'home', nav: true }]);
-
+          config.map([{ route: ['', 'home', ':#?'], name: 'home', moduleId: 'home', nav: true }]);
           this.router = router;
         };
 
@@ -33,4 +32,4 @@ System.register([], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJBcHAiLCJjb25maWd1cmVSb3V0ZXIiLCJjb25maWciLCJyb3V0ZXIiLCJ0aXRsZSIsIm1hcCIsInJvdXRlIiwibmFtZSIsIm1vZHVsZUlkIiwibmF2Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7O3FCQUNhQSxHOzs7OztzQkFDWEMsZSw0QkFBZ0JDLE0sRUFBUUMsTSxFQUFRO0FBQzlCRCxpQkFBT0UsS0FBUCxHQUFlLFlBQWY7QUFDQUYsaUJBQU9HLEdBQVAsQ0FBVyxDQUNULEVBQUVDLE9BQU8sQ0FBQyxFQUFELEVBQUssTUFBTCxDQUFULEVBQXVCQyxNQUFNLE1BQTdCLEVBQTBDQyxVQUFVLE1BQXBELEVBQWlFQyxLQUFLLElBQXRFLEVBRFMsQ0FBWDs7QUFPQSxlQUFLTixNQUFMLEdBQWNBLE1BQWQ7QUFFRCxTIiwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJBcHAiLCJjb25maWd1cmVSb3V0ZXIiLCJjb25maWciLCJyb3V0ZXIiLCJ0aXRsZSIsIm1hcCIsInJvdXRlIiwibmFtZSIsIm1vZHVsZUlkIiwibmF2Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7O3FCQUNhQSxHOzs7OztzQkFDWEMsZSw0QkFBZ0JDLE0sRUFBUUMsTSxFQUFRO0FBQzlCRCxpQkFBT0UsS0FBUCxHQUFlLFlBQWY7QUFDQUYsaUJBQU9HLEdBQVAsQ0FBVyxDQUNULEVBQUVDLE9BQU8sQ0FBQyxFQUFELEVBQUssTUFBTCxFQUFhLEtBQWIsQ0FBVCxFQUE4QkMsTUFBTSxNQUFwQyxFQUFpREMsVUFBVSxNQUEzRCxFQUF3RUMsS0FBSyxJQUE3RSxFQURTLENBQVg7QUFNQSxlQUFLTixNQUFMLEdBQWNBLE1BQWQ7QUFFRCxTIiwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=

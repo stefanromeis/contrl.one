@@ -77,3 +77,10 @@
   -o-transition: background 0.15s ease-in-out;
   transition: background 0.15s ease-in-out;
 }
+
+@mixin transition-background-color($background-color) {
+    background-color: #fff;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}

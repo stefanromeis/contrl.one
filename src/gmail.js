@@ -9,7 +9,7 @@ export class Gmail {
     constructor(dialogService) {
         this.dialogService = dialogService;
         this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
-        this.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
+        this.SCOPES = [ 'https://mail.google.com/'];
         this.API_KEY = ['AIzaSyDkNvkPgkC60vrb0OGvSwg12i0sjHANaYU'];
         this.labels = [];
         this.label = 'INBOX';
@@ -18,25 +18,28 @@ export class Gmail {
         this.messages = '';
         this.counter = 0;
         this.mails = [];
+        this.unreadMessages = 0;
         this.content = "undefined";
         this.token = localStorage.getItem('gmail.token') || 'undefined';
-        console.log(this.token);
-        console.log(gmailData);
-        this.data = gmailData;
+        this.data = gmailData || 'undefined';
         this.modalMessage = {
           subject: "",
           from: "",
           date: ""
        };
        this.showReplyMod = true;
-       if(this.token !== 'undefined') {
-          this.attached(); 
+       if(this.token !== "undefined") {
+          this.attached();
        }
     }
 
     attached () {
+      let self= this;
       if(this.data !== 'undefined' && this.data.labels !== 'undefined') {
         this.connected = true;
+        setInterval(function(){
+            self.getUnreadMessages();
+        }, 10000);
         this.getLabels(this.data);
         this.getMessages(this.label);
       }
@@ -56,11 +59,11 @@ export class Gmail {
     }
     
     getLabels(data) {
+      this.getUnreadMessages();
       if (this.data.labels.length > 0) {
         for (let i = 0; i < this.data.labels.length; i++) {
           let name = this.data.labels[i].name;
           if( name == 'INBOX' || name == 'SENT') {
-            //console.log('labels - ', this.data.labels);
             this.labels.push(this.data.labels[i].name);
           }
         }
@@ -70,8 +73,6 @@ export class Gmail {
     }
 
     getMessages(label) {
-      //$('.table-inbox tbody').empty();
-      console.log('ask for it');
       this.mails = [];
       this.label = label;
       let self = this;
@@ -83,17 +84,16 @@ export class Gmail {
           self.messages = data.messages;
           self.getMessage(self.messages);
           $('.gmail-connect-btn').hide();
-          console.log('get it');
       });
     }
 
 
     getMessage(messages) {
       let self = this;
+
       if (!self.messages[self.counter] || self.counter >= 10) {
           return;
       }
-
       let id = messages[self.counter].id;
 
       $.ajax({
@@ -107,7 +107,7 @@ export class Gmail {
           mail.from = self.getHeader(data.payload.headers, 'From')
           mail.subject = self.getHeader(data.payload.headers, 'Subject')
           mail.date = self.getHeader(data.payload.headers, 'Date')
-
+          mail.unread = $.inArray('UNREAD', data.labelIds) > -1;
           self.mails.push(mail);
           self.counter++;
           self.getMessage(messages);
@@ -156,7 +156,6 @@ export class Gmail {
       var result = $.grep(this.mails, function(e){ return e.id == id; });
 
       this.modalMessage.subject = result[0].subject;
-      console.log(this.modalMessage.subject);
       this.modalMessage.from = result[0].from;
       this.modalMessage.date = result[0].date;
 
@@ -168,9 +167,11 @@ export class Gmail {
         .animate({opacity: 1});
       $('.mod').attr('style','display:flex !important');
 
+      this.setMessageAsRead(id);
     }
 
     closeModal() {
+
       $('.mod, .reply-mod').attr('style','display:none !important');
       var ifrm = $('#message-content')[0].contentWindow.document;
       $('body', ifrm).animate({
@@ -233,14 +234,56 @@ export class Gmail {
 
     openModal() {
       this.dialogService.open({viewModel: Prompt, model: 'Email successfully send.' }).then(response => {
-         console.log(response);
-			
-         if (!response.wasCancelled) {
+          console.log(response);
+      
+          if (!response.wasCancelled) {
             console.log('OK');
-         } else {
+          } else {
             console.log('cancelled');
-         }
-         console.log(response.output);
+          }
+          console.log(response.output);
       });
-   }
+    }
+
+    getUnreadMessages() {
+      let self = this;
+
+      $.ajax({
+        url: 'https://www.googleapis.com/gmail/v1/users/me/labels/INBOX',
+        headers: { 'authorization': this.token },
+      }).done(function( data ) {
+        if(self.unreadMessages != data.messagesUnread) {
+          self.unreadMessages = data.messagesUnread;
+          self.getMessages(self.label);
+        } 
+      });
+    }
+
+    setMessageAsRead(id) {
+      let self = this;
+
+      var result = $.grep(this.mails, function(e){ return e.id == id; });
+
+      if(result[0].unread) {
+
+        result[0].unread = false;
+
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          headers: { 'authorization': token,
+                      "Content-Type": "application/json"},
+          url: 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id+'/modify',
+          data: JSON.stringify({"removeLabelIds":["UNREAD"]})
+        })
+        .done(function( data ) {
+          self.unreadMessages--;
+        })
+        .fail(function(){
+          // when the Deferred is rejected.
+          console.log('Setting mail as read failed!');
+        })
+      }
+
+    }
 } 

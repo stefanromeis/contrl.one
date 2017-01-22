@@ -3,13 +3,15 @@
          <h5>
             <img class='headicon' src="images/mail.png">&nbsp; MAIL
         </h5>
-        <button class="gmail-connect-btn" click.delegate="connect()">
+        <button if.bind="!connected" class="gmail-connect-btn" click.delegate="connect()">
             Connect with Gmail
         </button>
         <div class="label-bar" if.bind="connected" > 
             <button class='labels' repeat.for="item of labels" >
                 <span class="glyphicon glyphicon-send" if.bind="item == 'SENT'" aria-hidden="true" click.delegate="getMessages(item)"></span>
-                <span class="glyphicon glyphicon-inbox" if.bind="item == 'INBOX'" aria-hidden="true" click.delegate="getMessages(item)"></span>
+                <span class="glyphicon glyphicon-inbox" if.bind="item == 'INBOX'" aria-hidden="true" click.delegate="getMessages(item)">
+                    <span class="unread-mails" if.bind="unreadMessages > 0">${unreadMessages}</span>
+                </span>
             </button>
             <button class='label-right' click.delegate="getMessages(label)">
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
@@ -28,7 +30,10 @@
                 </div>
                 <div class="list-body">
                     <div class="row" repeat.for="mail of mails" a href="#" click.delegate="openMessage(mail.id)">
-                        <div class="cell">${mail.from}</div>
+                        <div class="cell">
+                            <span class="unread" if.bind="mail.unread">NEW</span>
+                            ${mail.from}
+                        </div>
                         <div class="subject"><a href="#">${mail.subject}</a></div>
                         <div class="date">${mail.date}</div>
                     </div>
