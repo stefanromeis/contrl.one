@@ -14,6 +14,7 @@ export class Gmail {
         this.labels = [];
         this.label = 'INBOX';
         this.connected = false;
+        this.isLoading = false;
         this.message = '';
         this.messages = '';
         this.counter = 0;
@@ -29,11 +30,13 @@ export class Gmail {
        };
        this.showReplyMod = true;
        if(this.token !== "undefined") {
-          this.attached();
+          this.init();
        }
+       //console.log(this.token)
     }
 
-    attached () {
+    init () {
+      
       let self= this;
       if(this.data !== 'undefined' && this.data.labels !== 'undefined') {
         this.connected = true;
@@ -75,8 +78,10 @@ export class Gmail {
     getMessages(label) {
       this.mails = [];
       this.label = label;
-      let self = this;
       this.counter = 0;
+
+      let self = this;
+
       $.ajax({
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds='+label,
           headers: { 'authorization': this.token },
@@ -89,9 +94,11 @@ export class Gmail {
 
 
     getMessage(messages) {
+      this.isLoading = true;
       let self = this;
 
       if (!self.messages[self.counter] || self.counter >= 10) {
+          this.isLoading = false;
           return;
       }
       let id = messages[self.counter].id;
@@ -111,6 +118,7 @@ export class Gmail {
           self.mails.push(mail);
           self.counter++;
           self.getMessage(messages);
+
       }); 
 
     }
@@ -200,7 +208,6 @@ export class Gmail {
       var mail =  'MIME-Version: 1.0\r\n'+
                   'To: '+$('#compose-to').val()+'\r\n'+
                   'Subject: '+$('#compose-subject').val()+'\r\n\r\n'+
-
                   ''+$('#compose-message').val()+'\r\n\r\n';
 
       $.ajax({
@@ -213,7 +220,7 @@ export class Gmail {
         data: mail
 
       }).done(function() {  
-        self.openModal();
+        self.openDialog();
       })
       .fail(function() {
         console.log('Error Sending Email');
@@ -232,7 +239,7 @@ export class Gmail {
       $('.reply-mod').attr('style','display:flex !important');
     }
 
-    openModal() {
+    openDialog() {
       this.dialogService.open({viewModel: Prompt, model: 'Email successfully send.' }).then(response => {
           console.log(response);
       
@@ -286,4 +293,25 @@ export class Gmail {
       }
 
     }
-} 
+}
+
+var accessToken;
+var config = {
+    'client_id': '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com',
+    'scope': 'https://www.googleapis.com/auth/userinfo.profile',
+};    
+ 
+function getUserInfo() {
+    $.ajax({
+        url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + accessToken,
+        data: null,
+        success: function(response) {
+            console.log('We have gotten info back....');
+            console.log(response);
+            $('#user').html(response.name);
+             
+        },
+        dataType: "jsonp"
+    });
+}          
+ 

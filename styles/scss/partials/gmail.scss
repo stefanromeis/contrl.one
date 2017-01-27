@@ -14,45 +14,13 @@
     h5 {
         height: 32px;
     }
-    .label-bar {  
-        display: block;  
-        border-bottom: 1px solid #aaa;
-        .labels {
-            opacity: 0.7;
-            padding: 10px 10px 10px 10px;
-            border: none;
-            .unread-mails {
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 10px;
-                font-weight:600;
-                border-radius: 14px;
-                background-color: red;
-                color:white;
-                padding: 1px 4px;
-                position: relative;
-                left: -20px;
-                top: -10px;
-            }
-        }
-        .labels:hover  {
-            border:none;
-            opacity: 1.0;
-        }
-        .label-right {
-            opacity: 0.7;
-            padding: 10px 10px 10px 10px;
-            border: none;
-            float: right;
-        }
-        .label-right:hover  {
-            border:none;
-            opacity: 1.0;
-        }
-    }
+    
+    /*
     .gmail-connect-btn {
         background-color: #4285F4;
         top: 85px;
     }
+    */
     .list-wrapper {
         position: inherit;
         display: block;

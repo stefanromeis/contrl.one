@@ -15,7 +15,7 @@ export class Soundcloud {
             client_id: "443f2da68b0ce89934a41dc950c78679",
             redirect_uri: "http://localhost:9000/dist/callback.html"
         });
-
+        this.connected = false;
     } 
     
     attached(){
@@ -38,7 +38,7 @@ export class Soundcloud {
                 
                 var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + self.meSC.username + '/' + self.trackList[self.tracknumber].permalink;
                 document.getElementById('widget').src = result;
-                $('.soundcloud-connect-btn').hide();                
+                self.connected = true;               
             }); 
         });     
 

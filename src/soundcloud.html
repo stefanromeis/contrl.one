@@ -3,7 +3,19 @@
         <h5 style="position: absolute">
             <img class='headicon' src="images/music.png">&nbsp;MUSIC
         </h5>
-         <iframe id="widget"
+        <button if.bind="!connected" click.delegate="connect()">
+            <a class="btn btn-block btn-social btn-soundcloud"
+            href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token" if.bind="!token">
+                <span class="fa fa-soundcloud"></span> Login into Soundcloud
+            </a>
+        </button>
+        <button if.bind="!connected" click.delegate="connect()">
+            <a class="btn btn-block btn-social btn-spotify"
+            href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token" if.bind="!token">
+                <span class="fa fa-spotify"></span> Login into Spotify
+            </a>
+        </button>
+        <iframe id="widget"
             src="dist/soundcloud-init.html"
             frameborder="no">
         </iframe>

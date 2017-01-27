@@ -16,7 +16,7 @@ export class SocialMedia {
                                 'instagram': this.Instagram
                             };
 
-        this.latest = localStorage.getItem("social-media.latest") || "undefined";
+        this.latest = localStorage.getItem("social-media.latest") || "facebook";
     }          
 
     attached() {

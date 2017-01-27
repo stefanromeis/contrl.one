@@ -7,7 +7,7 @@ export class Instagram {
   constructor(http){
     // initialize
     this.http = http;
-    this.active = true;
+    this.active = false;
     this.user = {};
     this.imageCount = 10;
     this.images = [];
@@ -34,7 +34,7 @@ export class Instagram {
       type: 'GET',
       data: {access_token: self.token},
     }).done(function( data ) {
-        console.log('userdata ', data.data.profile_picture);
+        //console.log('userdata ', data.data);
         self.user.username = data.data.username;
         self.user.fullname = data.data.fullname;
         self.user.profile_picture = data.data.profile_picture;
@@ -50,12 +50,13 @@ export class Instagram {
       type: 'GET',
       data: {access_token: self.token, count: self.imageCount},
     }).done(function( data ) {
-        console.log(data);
+        //console.log(data);
         for(var x = 0; x < data.data.length; x++) {
           var image = {};
           image.urlToImage = data.data[x].images.low_resolution.url;
           image.comments = data.data[x].comments.count;
           image.likes = data.data[x].likes.count;
+          image.link = data.data[x].link;
           self.images.push(image);
           self.loggedIn = true;
         }

@@ -1,41 +1,109 @@
 .facebook-wrapper {
     position: absolute;
     display: block;
-    width: 30%;
-    left: 45%;
-    top: 60px;
-    bottom: 120px;
-    border-radius: 10px;
-    border: 3px solid #fff;
+    top: 32px;
+    bottom: 0px;
+    width: 100%;
+    overflow-y: scroll;
     .headicon {
         margin-bottom: 1px;
     }
-    .post-bar {
-        padding: 10px;
-        position: absolute;
-        display: block;
-        bottom: 0;
-        width: 100%;
-        .form-control {
-            display: block;
-            height: 34px;
-            max-width: 88.5%;
+    .feed {
+        border-radius: 10px;
+        overflow: hidden;
+        .post {
+            padding:10px;
+            border-bottom: 1px solid $color-grey;
+            background-color: $color-white;
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            .post-author {
+                font-weight: bolder;
+                display: inline-block;
+            }
+            .post-place {
+                display: inline-block;
+                color: #6a6a7a;
+                font-size: 0.9em;
+                strong {
+                    font-size: 1em;
+                    color: #000;
+                }
+            }
+            .post-date {
+                color: #777;
+                font-size: 0.95em;
+                margin-bottom: 7px;
+            }
+            .post-message {
+                margin-bottom: 7px;
+            }
+            .post-picture {
+                width: 100%;
+                img {
+                    width: 100%;
+                }
+            }
+            .post-discription {
+                text-align: center;
+                color: #777;
+                background-color: #fff;
+                padding: 5px;
+            }
+            .post-footer{
+                width: 100%;
+                display:block;
+                height: 30px;
+                .post-reactions {
+                    display: inline-block;
+                    margin-top:10px;
+                    span {
+                        top:2px;
+                    }
+                }
+                .post-comments {
+                    position:inherit;
+                    display: inline-block;
+                    margin:10px 0px 0px 7px;
+                    span {
+                        top:2px;
+                    }
+                }
+                .post-trash {
+                    margin: 1px 0px 0px 7px;
+                    display: inline-block;
+                    position: absolute;
+                    right: 0;
+                }
+            }
         }
-        .post-button {
-            display: block;
-            bottom: 5px;
-            right: 5px;
-            width: 10%;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-            height: 34px;
-            position: absolute;
-            border-radius: 4px;
-            background: transparent url("../images/send.png") 50% 30% no-repeat;
-            margin: 4px;
+        .post:hover {
+            background-color: #eee;
         }
     }
-    
+    .mod-fb {
+        display: flex; /* Hidden by default */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        overflow-y: hidden;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;        
+        .mod-content {
+            overflow-y: scroll;
+            display: block;
+        }
+        .modal-footer {
+            width: 710px;
+            bottom: 10px;
+            margin-top:20px;
+        }
+    }
 }
