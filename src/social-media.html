@@ -1,14 +1,23 @@
 <template>
-    <require from="instagram"></require>
-    <require from="facebook"></require>
-    <require from="twitter"></require>
     <div class="social-media-wrapper">
-        <h5>
-            <img class='headicon' src="images/social_media_2.png">&nbsp; SOCIAL MEDIA
-            <button repeat.for="component of components">
-                <div class="component" click.delegate="loadComponent(component)">${component}</div>
-            </button>
-        </h5>
+        <div class="comp-header">
+            <img class='headicon' src="images/social_media_2.png">
+            <h5>
+                SOCIAL MEDIA
+            </h5>      
+                 
+            <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
+                <option repeat.for="component of components" value.bind="component">${component}</option>
+            </select>
+     
+            <button class="pull-right" repeat.for="component of components" click.delegate="loadComponent(component)">
+                <a class="btn btn-block btn-social btn-${component}" >
+                    <span class="fa fa-${component}"></span>
+                </a>
+            </button>            
+
+        </div>
+            
         <compose view="instagram.html" view-model.bind="Instagram" if.bind="Instagram.active"></compose>
         <compose view="facebook.html" view-model.bind="Facebook" if.bind="Facebook.active"></compose>
         <compose view="twitter.html" view-model.bind="Twitter" if.bind="Twitter.active"></compose>

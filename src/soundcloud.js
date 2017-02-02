@@ -9,13 +9,14 @@ export class Soundcloud {
         this.tracknumber = 0;
         this.trackList;
         this.meSC;
-        this.iframeElement   = document.getElementById('widget');
+        this.iframeElement   = document.getElementById('sc-sc-widget');
         this.SC = SC;
         this.SC.initialize({
             client_id: "443f2da68b0ce89934a41dc950c78679",
             redirect_uri: "http://localhost:9000/dist/callback.html"
         });
         this.connected = false;
+        this.active = false;
     } 
     
     attached(){
@@ -37,7 +38,7 @@ export class Soundcloud {
                 self.trackList = tracks;
                 
                 var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + self.meSC.username + '/' + self.trackList[self.tracknumber].permalink;
-                document.getElementById('widget').src = result;
+                document.getElementById('sc-widget').src = result;
                 self.connected = true;               
             }); 
         });     
@@ -48,7 +49,7 @@ export class Soundcloud {
         this.tracknumber++;
         if(this.trackList[tracknumber]) {
             var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + this.trackList[tracknumber].permalink;
-            document.getElementById('widget').src = result;
+            document.getElementById('sc-widget').src = result;
         }
         else {
             self.iframeElement.html("no more tracks available.");
@@ -75,7 +76,7 @@ export class Soundcloud {
     loadTrack(tracknumber) {
         console.log('loaded Tracknumber: '+ tracknumber);
         var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + trackList[tracknumber].permalink;
-        document.getElementById('widget').src = result;
+        document.getElementById('sc-widget').src = result;
     } 
 
 }

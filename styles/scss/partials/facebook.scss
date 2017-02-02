@@ -9,12 +9,13 @@
         margin-bottom: 1px;
     }
     .feed {
-        border-radius: 10px;
+        border-radius: 0 0 10px 10px;
         overflow: hidden;
         .post {
             padding:10px;
             border-bottom: 1px solid $color-grey;
             background-color: $color-white;
+            overflow: hidden;
             a {
                 text-decoration: none;
                 color: black;
@@ -56,6 +57,7 @@
                 width: 100%;
                 display:block;
                 height: 30px;
+                padding: 0px 10px;
                 .post-reactions {
                     display: inline-block;
                     margin-top:10px;
@@ -72,7 +74,7 @@
                     }
                 }
                 .post-trash {
-                    margin: 1px 0px 0px 7px;
+                    margin: 10px 10px 0px 7px;
                     display: inline-block;
                     position: absolute;
                     right: 0;

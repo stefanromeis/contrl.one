@@ -116,7 +116,7 @@ export class Facebook {
         "me/posts?fields=caption,link,name,message,description,shares,updated_time,from,story,comments,reactions,place,full_picture",
             function (response) {
                 if (response && !response.error) {
-                    console.log('res ', response);
+                    //console.log('res ', response);
                     self.feed = [];
                     for(var x = 0; x < response.data.length; x++) {
                         let post = {};

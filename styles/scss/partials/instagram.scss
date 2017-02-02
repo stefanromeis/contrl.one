@@ -8,7 +8,7 @@
     .label-bar {  
         display: block;  
         border-bottom: 1px solid #aaa;
-        height: 41px;
+        height: 40px;
         margin-bottom: 10px;
         .btn-instagram {
             background-color: #3F729B;
@@ -68,16 +68,20 @@
                 top: 0; left: 0; bottom: 0; right: 0;
                 margin: 0px 10px 20px 10px;
                 vertical-align: middle;
+                border-radius: 10px!important;
             }
             .image-details:hover {
                 background-color: rgba(0,0,0,0.4);
                 color: rgba(255,255,255,1.0);
                 .image-details-center {
+                    text-align: center;
+                    position: absolute;
                     display: block;
                     height: 46px;
-                    margin: 0 auto;
-                    top: 50%;
-                    position: relative;
+                    width: 200px;
+                    margin-left: -100px;
+                    left: 50%;
+                    top: 50%!important;
                     margin-top: -23px;
                 }
             }

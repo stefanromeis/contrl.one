@@ -13,12 +13,12 @@
       </button>
     </div>
 
-    <button if.bind="!token">
-      <a class="btn btn-block btn-social btn-instagram"
+    <div if.bind="!token" >
+      <a class="btn btn-block btn-social btn-instagram" 
       href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token" if.bind="!token">
         <span class="fa fa-instagram"></span> Login into Instagram
       </a>
-    </button>
+    </div>
     
     <!--
     <div class="images" repeat.for="image of images">
@@ -28,7 +28,7 @@
     <div class="images" repeat.for="image of images">
       <div class="col-md-6">
         <img if.bind="image.urlToImage" src.bind="image.urlToImage">
-        <a href="${image.link}">
+        <a href="${image.link}" target="_blank">
           <div class="image-details">
             <div class="image-details-center">
               <div class="detail">Likes: ${image.likes}</div>

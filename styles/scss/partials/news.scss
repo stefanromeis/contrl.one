@@ -9,17 +9,82 @@
     overflow: hidden;
     background-color: $color-white;
     border-radius: 10px;
-    .news-data {
-        padding-left: 10px;
-        padding-right: 10px;
-        position: inherit;
-        display: block;
-        height: 90%;
-        overflow-y: scroll;
+    .article-header {
+        height: 40px;
+        width: 100%;
+        border-bottom: 1px solid #aaa;
         img {
-            padding-top: 10px;
+            height:27px;
+            display: inline-block;
+            margin: 6px 0px 0px 10px;
+        }
+        h3 {
+            padding: 6px 0px 0px 10px;
+            margin: 0;
+            display: inline-block;
+            height: 40px;
+            color: #666;
+            font-weight: 400;
+        }
+    }
+    .article-body {
+        display: block;
+        //height: 90%;
+        top: 72px;
+        bottom: 0px;
+        overflow-y: scroll;
+        position: absolute;
+        .article {
+            padding: 10px;
             display: block;
-            width: 30%;
+            background-color: rgba(255,255,255,0.4);
+            width: 100%;
+            margin-bottom: 10px;
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            .image-place {
+                display: block;
+                border-radius: 10px 10px 0 0;
+                position:relative;
+                overflow: hidden;
+                
+                h4{
+                    position:absolute;
+                    top: 0;
+                    z-index: 1;
+                    background-color: rgba(0,0,0,0.4);
+                    margin-top: 0;
+                    padding: 10px;
+                    color: #fff;
+                    border-radius: 10px 10px 0 0;
+                    font-weight: 400;
+                    width: 100%;
+                    line-height: 1.5em;
+                }
+                img {
+                    border-radius: 10px 10px 0 0;
+                    width: 100%;
+                }
+            }
+            .author {
+                color: #999;
+                font-style: italic;
+                padding-top: 10px;
+                text-align: center;
+                font-size: 0.9em;
+            }
+            .description {
+                background-color: $color-white;
+                padding: 10px 10px 10px 10px;
+                margin: 0px;
+                border-radius: 0 0 10px 10px;
+                text-align: justify;
+            }
+        }
+        .article:hover {
+            background-color: rgba(255,255,255,.7);
         }
     }
     .news-control {

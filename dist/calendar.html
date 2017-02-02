@@ -1,0 +1,33 @@
+<template>
+    <div id="calendar-wrapper">
+        <div class="comp-header">
+            <img class='headicon' src="images/calendar.png">
+            <h5>CALENDAR</h5>
+            <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
+                <option repeat.for="component of components" value.bind="component">${component}</option>
+            </select>
+            <div class="devide">| </div> 
+            <button class="glyphicon-plus pull-right" click.delegate="newDate()">
+            </button> 
+        </div>
+        
+        <div if.bind="!connected" click.delegate="connect()">
+           <a class="btn btn-block btn-social btn-google">
+                <span class="fa fa-google"></span> Login into Google
+            </a>
+        </div>
+
+        <div class="data-wrapper" if.bind="connected">
+            <span class="notifications" if.bind="notifications > 0">${notifications}</span>
+            <div class="data" repeat.for="data of calData">
+                <a href="${data.htmlLink}" target="_blank">
+                    <div class="title">
+                        ${data.start[2]}.${data.start[1]}.${data.start[0].split('20')[1]} |
+                        <b>${data.summary}</b>
+                    </div>
+                    <!--<div class="title">${data.id}</div>-->
+                </a>
+            </div>
+        </div>
+    </div>
+</template> 

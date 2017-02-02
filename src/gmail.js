@@ -9,7 +9,8 @@ export class Gmail {
     constructor(dialogService) {
         this.dialogService = dialogService;
         this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
-        this.SCOPES = [ 'https://mail.google.com/'];
+        this.SCOPES = ['https://mail.google.com/', 
+                       "https://www.googleapis.com/auth/calendar.readonly"];
         this.API_KEY = ['AIzaSyDkNvkPgkC60vrb0OGvSwg12i0sjHANaYU'];
         this.labels = [];
         this.label = 'INBOX';
@@ -21,7 +22,8 @@ export class Gmail {
         this.mails = [];
         this.unreadMessages = 0;
         this.content = "undefined";
-        this.token = localStorage.getItem('gmail.token') || 'undefined';
+        this.token = localStorage.getItem('google.token') || 'undefined';
+        console.log('gmailData ' , gmailData);
         this.data = gmailData || 'undefined';
         this.modalMessage = {
           subject: "",
@@ -36,19 +38,19 @@ export class Gmail {
     }
 
     init () {
-      
-      let self= this;
-      if(this.data !== 'undefined' && this.data.labels !== 'undefined') {
-        this.connected = true;
+      this.requestGmailData('https://www.googleapis.com/gmail/v1/users/me/labels');
+      let self = this;
+      /*if(this.data !== 'undefined' && this.data.labels !== 'undefined') {
         setInterval(function(){
             self.getUnreadMessages();
         }, 10000);
         this.getLabels(this.data);
         this.getMessages(this.label);
-      }
-      else {
-        location.reload();
-      }     
+      //}
+      //else {
+        //localStorage.removeItem('google.token');
+        //location.reload();
+      }*/     
     }
 
     connect() {
@@ -60,7 +62,39 @@ export class Gmail {
           },
         handleAuthResult); 
     }
+
+    logout() {
+      localStorage.removeItem('google.token');
+      
+      $('<iframe>', {
+        src: 'https://accounts.google.com/logout',
+        id:  'myFrame',
+        frameborder: 0,
+        scrolling: 'no'
+        })
+      .appendTo('body');
+      
+      setTimeout(location.reload(), 2000);
+    }
     
+    requestGmailData(url) {
+        let self = this;
+        $.ajax({
+            url: url,
+            headers: { 'authorization': self.token }
+        }).done(function( data ) {
+            self.data = data;
+            setInterval(function(){
+                self.getUnreadMessages();
+            }, 10000);
+            self.getLabels(self.data);
+            self.getMessages(self.label);
+            })
+          .fail(function() {
+            self.connected = false;
+          })
+    }
+
     getLabels(data) {
       this.getUnreadMessages();
       if (this.data.labels.length > 0) {
@@ -89,6 +123,9 @@ export class Gmail {
           self.messages = data.messages;
           self.getMessage(self.messages);
           $('.gmail-connect-btn').hide();
+          self.connected = true;
+      }).fail(function() {
+          self.connected = false;
       });
     }
 
@@ -293,25 +330,5 @@ export class Gmail {
       }
 
     }
-}
-
-var accessToken;
-var config = {
-    'client_id': '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com',
-    'scope': 'https://www.googleapis.com/auth/userinfo.profile',
-};    
- 
-function getUserInfo() {
-    $.ajax({
-        url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + accessToken,
-        data: null,
-        success: function(response) {
-            console.log('We have gotten info back....');
-            console.log(response);
-            $('#user').html(response.name);
-             
-        },
-        dataType: "jsonp"
-    });
-}          
+}   
  

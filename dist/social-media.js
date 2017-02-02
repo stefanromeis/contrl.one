@@ -31,25 +31,37 @@ System.register(['aurelia-framework', 'aurelia-i18n', 'facebook', 'instagram'], 
                     this.label = 'Instagram';
 
                     this.components = ['facebook', 'instagram'];
-                    this.componentsO = {
+                    this.componentsSocial = {
                         'facebook': this.Facebook,
                         'instagram': this.Instagram
                     };
 
                     this.latest = localStorage.getItem("social-media.latest") || "facebook";
+                    this.active = this.latest;
+                    this.init();
                 }
 
-                SocialMedia.prototype.attached = function attached() {
-                    this.componentsO[this.latest].active = true;
+                SocialMedia.prototype.init = function init() {
+                    var _this = this;
+
+                    console.log('latest', this.latest);
+
+                    this.componentsSocial[this.active].active = true;
+
+                    $(this.selectComp).on('change', function (e) {
+                        _this.loadComponent(e.target.value);
+                    });
                 };
 
                 SocialMedia.prototype.loadComponent = function loadComponent(component) {
-                    console.log(component);
-                    if (component in this.componentsO) {
-                        this.componentsO[this.latest].active = false;
-                        this.latest = component;
-                        this.componentsO[component].active = true;
+                    console.log('comp ', component);
+                    if (component in this.componentsSocial) {
+                        this.componentsSocial[this.active].active = false;
+                        console.log('comp inactive', this.active);
+                        this.active = component;
+                        this.componentsSocial[component].active = true;
                         localStorage.setItem("social-media.latest", component);
+                        console.log('component active:', this.active);
                     } else {
                         console.log('component NA');
                     }
@@ -62,4 +74,4 @@ System.register(['aurelia-framework', 'aurelia-i18n', 'facebook', 'instagram'], 
         }
     };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2lhbC1tZWRpYS5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJJMThOIiwiRmFjZWJvb2siLCJJbnN0YWdyYW0iLCJTb2NpYWxNZWRpYSIsImxhYmVsIiwiY29tcG9uZW50cyIsImNvbXBvbmVudHNPIiwibGF0ZXN0IiwibG9jYWxTdG9yYWdlIiwiZ2V0SXRlbSIsImF0dGFjaGVkIiwiYWN0aXZlIiwibG9hZENvbXBvbmVudCIsImNvbXBvbmVudCIsImNvbnNvbGUiLCJsb2ciLCJzZXRJdGVtIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsa0IscUJBQUFBLE07O0FBQ0FDLGdCLGdCQUFBQSxJOztBQUNBQyxvQixhQUFBQSxROztBQUNBQyxxQixjQUFBQSxTOzs7bUNBR0tDLFcsV0FEWkosT0FBUUUsUUFBUixFQUFrQkMsU0FBbEIsQztBQUVHLHFDQUFhRCxRQUFiLEVBQXVCQyxTQUF2QixFQUFrQztBQUFBOztBQUM5Qix5QkFBS0QsUUFBTCxHQUFnQkEsUUFBaEI7QUFDQSx5QkFBS0MsU0FBTCxHQUFpQkEsU0FBakI7QUFDQSx5QkFBS0UsS0FBTCxHQUFhLFdBQWI7O0FBRUEseUJBQUtDLFVBQUwsR0FBa0IsQ0FBQyxVQUFELEVBQWEsV0FBYixDQUFsQjtBQUNBLHlCQUFLQyxXQUFMLEdBQXFCO0FBQ0csb0NBQVksS0FBS0wsUUFEcEI7QUFFRyxxQ0FBYSxLQUFLQztBQUZyQixxQkFBckI7O0FBS0EseUJBQUtLLE1BQUwsR0FBY0MsYUFBYUMsT0FBYixDQUFxQixxQkFBckIsS0FBK0MsVUFBN0Q7QUFDSDs7c0NBRURDLFEsdUJBQVc7QUFDUCx5QkFBS0osV0FBTCxDQUFpQixLQUFLQyxNQUF0QixFQUE4QkksTUFBOUIsR0FBdUMsSUFBdkM7QUFDSCxpQjs7c0NBRURDLGEsMEJBQWVDLFMsRUFBVztBQUN0QkMsNEJBQVFDLEdBQVIsQ0FBWUYsU0FBWjtBQUNBLHdCQUFJQSxhQUFhLEtBQUtQLFdBQXRCLEVBQW1DO0FBQy9CLDZCQUFLQSxXQUFMLENBQWlCLEtBQUtDLE1BQXRCLEVBQThCSSxNQUE5QixHQUF1QyxLQUF2QztBQUNBLDZCQUFLSixNQUFMLEdBQWNNLFNBQWQ7QUFDQSw2QkFBS1AsV0FBTCxDQUFpQk8sU0FBakIsRUFBNEJGLE1BQTVCLEdBQXFDLElBQXJDO0FBQ0FILHFDQUFhUSxPQUFiLENBQXFCLHFCQUFyQixFQUE0Q0gsU0FBNUM7QUFDSCxxQkFMRCxNQU1LO0FBQ0RDLGdDQUFRQyxHQUFSLENBQVksY0FBWjtBQUNIO0FBQ0osaUIiLCJmaWxlIjoic29jaWFsLW1lZGlhLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2lhbC1tZWRpYS5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJJMThOIiwiRmFjZWJvb2siLCJJbnN0YWdyYW0iLCJTb2NpYWxNZWRpYSIsImxhYmVsIiwiY29tcG9uZW50cyIsImNvbXBvbmVudHNTb2NpYWwiLCJsYXRlc3QiLCJsb2NhbFN0b3JhZ2UiLCJnZXRJdGVtIiwiYWN0aXZlIiwiaW5pdCIsImNvbnNvbGUiLCJsb2ciLCIkIiwic2VsZWN0Q29tcCIsIm9uIiwibG9hZENvbXBvbmVudCIsImUiLCJ0YXJnZXQiLCJ2YWx1ZSIsImNvbXBvbmVudCIsInNldEl0ZW0iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFRQSxrQixxQkFBQUEsTTs7QUFDQUMsZ0IsZ0JBQUFBLEk7O0FBQ0FDLG9CLGFBQUFBLFE7O0FBQ0FDLHFCLGNBQUFBLFM7OzttQ0FJS0MsVyxXQURaSixPQUFRRSxRQUFSLEVBQWtCQyxTQUFsQixDO0FBR0cscUNBQWFELFFBQWIsRUFBdUJDLFNBQXZCLEVBQWtDO0FBQUE7O0FBRTlCLHlCQUFLRCxRQUFMLEdBQWdCQSxRQUFoQjtBQUNBLHlCQUFLQyxTQUFMLEdBQWlCQSxTQUFqQjtBQUNBLHlCQUFLRSxLQUFMLEdBQWEsV0FBYjs7QUFFQSx5QkFBS0MsVUFBTCxHQUFrQixDQUFDLFVBQUQsRUFBYSxXQUFiLENBQWxCO0FBQ0EseUJBQUtDLGdCQUFMLEdBQTBCO0FBQ0Ysb0NBQVksS0FBS0wsUUFEZjtBQUVGLHFDQUFhLEtBQUtDO0FBRmhCLHFCQUExQjs7QUFLQSx5QkFBS0ssTUFBTCxHQUFjQyxhQUFhQyxPQUFiLENBQXFCLHFCQUFyQixLQUErQyxVQUE3RDtBQUNBLHlCQUFLQyxNQUFMLEdBQWMsS0FBS0gsTUFBbkI7QUFDQSx5QkFBS0ksSUFBTDtBQUVIOztzQ0FFREEsSSxtQkFBTztBQUFBOztBQUNIQyw0QkFBUUMsR0FBUixDQUFZLFFBQVosRUFBc0IsS0FBS04sTUFBM0I7O0FBRUEseUJBQUtELGdCQUFMLENBQXNCLEtBQUtJLE1BQTNCLEVBQW1DQSxNQUFuQyxHQUE0QyxJQUE1Qzs7QUFJQUksc0JBQUUsS0FBS0MsVUFBUCxFQUFtQkMsRUFBbkIsQ0FBc0IsUUFBdEIsRUFBZ0MsYUFBSztBQUNqQyw4QkFBS0MsYUFBTCxDQUFvQkMsRUFBRUMsTUFBRixDQUFTQyxLQUE3QjtBQUNILHFCQUZEO0FBSUgsaUI7O3NDQUVESCxhLDBCQUFlSSxTLEVBQVc7QUFDdEJULDRCQUFRQyxHQUFSLENBQVksT0FBWixFQUFxQlEsU0FBckI7QUFDQSx3QkFBSUEsYUFBYSxLQUFLZixnQkFBdEIsRUFBd0M7QUFDcEMsNkJBQUtBLGdCQUFMLENBQXNCLEtBQUtJLE1BQTNCLEVBQW1DQSxNQUFuQyxHQUE0QyxLQUE1QztBQUNBRSxnQ0FBUUMsR0FBUixDQUFZLGVBQVosRUFBNkIsS0FBS0gsTUFBbEM7QUFDQSw2QkFBS0EsTUFBTCxHQUFjVyxTQUFkO0FBQ0EsNkJBQUtmLGdCQUFMLENBQXNCZSxTQUF0QixFQUFpQ1gsTUFBakMsR0FBMEMsSUFBMUM7QUFDQUYscUNBQWFjLE9BQWIsQ0FBcUIscUJBQXJCLEVBQTRDRCxTQUE1QztBQUNBVCxnQ0FBUUMsR0FBUixDQUFZLG1CQUFaLEVBQWlDLEtBQUtILE1BQXRDO0FBQ0gscUJBUEQsTUFRSztBQUNERSxnQ0FBUUMsR0FBUixDQUFZLGNBQVo7QUFDSDtBQUNKLGlCIiwiZmlsZSI6InNvY2lhbC1tZWRpYS5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=

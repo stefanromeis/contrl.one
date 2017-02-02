@@ -22,7 +22,7 @@ export class Instagram {
 
     if(this.token !== "undefined" && this.token != null) {
       this.signIn();
-    }
+    } 
 
   }
 
@@ -68,20 +68,23 @@ export class Instagram {
     this.images = [];
     this.user = {};
     localStorage.removeItem('instagram.token');
-     window.location.href = "#";
+    window.location.href = "#";
   }
 
   getStringFromUrl(str) {
     var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
+    if(window.location.href.includes('access_token')) {
+      var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
+      for(var i = 0; i < hashes.length; i++) {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+      }
+      if(vars[str].length < 80) {
+          localStorage.setItem('instagram.token', vars[str]);
+          return vars[str];
+      }
     }
-    localStorage.setItem('instagram.token', vars[str]);
-    return vars[str];
   }
   
 }

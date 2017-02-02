@@ -1,13 +1,14 @@
 <template>
     <div class="gmail-wrapper"> 
-         <h5>
-            <img class='headicon' src="images/mail.png">&nbsp; MAIL
-        </h5>
-        <button if.bind="!connected" click.delegate="connect()">
+        <div class="comp-header">
+        <img class='headicon' src="images/mail.png">
+        <h5> MAIL</h5></br>
+        <div if.bind="!connected" click.delegate="connect()">
            <a class="btn btn-block btn-social btn-google">
                 <span class="fa fa-google"></span> Login into Google
             </a>
-        </button>
+        </div>
+        </div>
         <div class="label-bar" if.bind="connected" > 
             <button class='labels' repeat.for="item of labels"  if.bind="!isLoading">
                 <span class="glyphicon glyphicon-send" if.bind="item == 'SENT' " aria-hidden="true" click.delegate="getMessages(item)"></span>
@@ -15,14 +16,18 @@
                     <span class="unread-mails" if.bind="unreadMessages > 0">${unreadMessages}</span>
                 </span>
             </button>
-           <button class="labels s-padding" if.bind="!isLoading">
+            <button class="labels s-padding" if.bind="isLoading">
                 <div class="spinner">
                     <div class="double-bounce1"></div>
                     <div class="double-bounce2"></div>
                 </div>
             </button>
-            <button class="labels" if.bind="isLoading">
-                <div class="spinner">
+            <button class="labels pull-right" if.bind="!isLoading">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true" class="btn btn-primary" 
+                 click.delegate="logout()"></span>
+            </button>
+            <button class="label-right s-padding" if.bind="isLoading">
+                <div class="spinner" >
                     <div class="double-bounce1"></div>
                     <div class="double-bounce2"></div>
                 </div>
