@@ -1,0 +1,47 @@
+.header{
+    position: relative;
+    display: block;
+    background-color: $color-darkgrey;
+    .navbar {
+        background-color: rgba(255,255,255,0);
+        margin-bottom: 0!important;
+        height: 64px;
+        border: none!important;
+        .navbar-brand {
+            padding: 0;
+            margin: 10px 0 0 10px;
+            width: 170px;
+            background: url("../images/logo8.png") 0% 0% no-repeat;
+            background-size: 100%;
+        }
+        ul.nav {
+            a {
+                padding:20px!important;
+                color: #ccc;
+                font-weight: 300;
+                background-color: rgba(255,255,255,0)!important;
+            }
+            a:hover { 
+                color: #fff !important; 
+                @include transition-color();
+            }
+            .user {
+                margin-top: 1px;
+                a {
+                    padding: 0!important;
+                    margin-left: 20px;
+                    margin-left: 20px;
+                }
+                #profile-img {
+                    padding: 10px;
+                    display: inline-block;
+                    border-radius: 100%;
+                    width: 60px;
+                }
+                #name {
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}

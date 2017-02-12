@@ -1,19 +1,23 @@
-import {inject}       from 'aurelia-framework';
-import {I18N}         from 'aurelia-i18n';
+import {DialogService}  from 'aurelia-dialog';
+import {inject}         from 'aurelia-framework';
+import {I18N}           from 'aurelia-i18n';
+import {Prompt}         from 'prompt';
 
-var jQ = $;
-
+@inject(DialogService)
 export class Calendar {
-    constructor () {
-      this.SCOPES = ['https://mail.google.com/', 
-                    'https://www.googleapis.com/auth/calendar.readonly'];
-      this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
-      this.token = localStorage.getItem('google.token') || 'undefined';
-      this.connected = false;
-      this.isLoading = false;
-      this.calData = [];
-      this.notifications = 0;
-      this.count = "";
+    constructor (DialogService) {
+        this.dialogService = DialogService;
+        this.SCOPES = ['https://mail.google.com/', 
+                        'https://www.googleapis.com/auth/calendar'];
+        this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
+        this.token = localStorage.getItem('google.token') || 'undefined';
+        this.connected = false;
+        this.isLoading = false;
+        this.calData = [];
+        this.notifications = 0;
+        this.count = "";
+        this.modalOpen = false;
+      
     }
     
     attached () {
@@ -24,8 +28,10 @@ export class Calendar {
             this.getCalendarList();
             setInterval(function(){
                 self.getCalendarList();
-            }, 3000);
+            }, 6000);
         }
+
+        //this.createEntry();
     }
          
     connect() {
@@ -42,7 +48,7 @@ export class Calendar {
         let self = this;
         $.ajax({
             url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events?orderBy=startTime&singleEvents=true',
-            headers: { 'authorization': this.token },
+            headers: { 'authorization': self.token },
         }).done(function( data ) {
             self.calData = [];
             for(var x = 0; x < data.items.length; x++) {
@@ -59,20 +65,69 @@ export class Calendar {
                 }
                 self.calData.push(cData);
             }
-            let count = self.calData.length;
-            if(count > self.count && self.count != "") {
-                console.log('yop');
-                self.notifications = self.notifications + count - self.count;
-                self.count = count;
-            }
-            else {
-                console.log('yep');
-                self.count = count;
-            }
-            self.connected = true;
         }).fail(function() {
             self.connected = false;
         });
+    }
+
+    openModal() {
+        this.modalOpen = true;
+    }
+
+    closeModal() {
+        this.modalOpen = false;
+    }
+
+    createEntry () {
+        let self = this;
+        let sDate = this.startDate.split(".");
+        let eDate = this.endDate.split(".");
+
+        let startDate = sDate[2]+'-'+sDate[1]+'-'+sDate[0]+'T'+this.startTime+':00+01:00';
+        let endDate = eDate[2]+'-'+eDate[1]+'-'+eDate[0]+'T'+this.endTime+':00+01:00';
+        
+        console.log('startDate', startDate);
+        console.log('endDate', endDate);
+        //let date = "2015-05-28T17:00:00-07:00";
+
+        let data = {
+            "summary": this.summary,
+            "location": this.location,
+            "description": this.description,
+            "start": {
+                "dateTime": startDate
+            },
+            "end": {
+                "dateTime": endDate 
+            }
+        };
+
+        $.ajax({
+            type: "POST",
+            url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            headers: { 'authorization': self.token },
+        }).done(function( data ) {
+            console.log(data);
+            self.modalOpen = false;
+            self.modalOpen();
+        }).fail(function(err) {
+            console.log(err);
+        });
+    }
+
+    openDialog() {
+      this.dialogService.open({viewModel: Prompt, model: 'Creating new entry in calendar successful.' }).then(response => {
+          console.log(response);
+      
+          if (!response.wasCancelled) {
+            console.log('OK');
+          } else {
+            console.log('cancelled');
+          }
+          console.log(response.output);
+      });
     }
 }
     

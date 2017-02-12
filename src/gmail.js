@@ -6,8 +6,8 @@ import {Prompt}         from 'prompt';
 @inject(DialogService)
 
 export class Gmail {
-    constructor(dialogService) {
-        this.dialogService = dialogService;
+    constructor(DialogService) {
+        this.dialogService = DialogService;
         this.CLIENT_ID = '746849452307-shhj8dj68odgekedt0v1l9lbmndn0qqu.apps.googleusercontent.com';
         this.SCOPES = ['https://mail.google.com/', 
                        "https://www.googleapis.com/auth/calendar.readonly"];
@@ -23,8 +23,7 @@ export class Gmail {
         this.unreadMessages = 0;
         this.content = "undefined";
         this.token = localStorage.getItem('google.token') || 'undefined';
-        console.log('gmailData ' , gmailData);
-        this.data = gmailData || 'undefined';
+        this.data = 'undefined';
         this.modalMessage = {
           subject: "",
           from: "",
@@ -34,7 +33,6 @@ export class Gmail {
        if(this.token !== "undefined") {
           this.init();
        }
-       //console.log(this.token)
     }
 
     init () {
@@ -54,10 +52,11 @@ export class Gmail {
     }
 
     connect() {
+      let self = this;
       gapi.auth.authorize(
           {
-          client_id: this.CLIENT_ID, 
-          scope: this.SCOPES.join(' '),
+          client_id: self.CLIENT_ID, 
+          scope: self.SCOPES.join(' '),
           immediate: false
           },
         handleAuthResult); 
@@ -80,19 +79,19 @@ export class Gmail {
     requestGmailData(url) {
         let self = this;
         $.ajax({
-            url: url,
-            headers: { 'authorization': self.token }
+          url: url,
+          headers: { 'authorization': self.token }
         }).done(function( data ) {
-            self.data = data;
-            setInterval(function(){
-                self.getUnreadMessages();
-            }, 10000);
-            self.getLabels(self.data);
-            self.getMessages(self.label);
-            })
-          .fail(function() {
-            self.connected = false;
-          })
+          self.data = data;
+          setInterval(function(){
+              self.getUnreadMessages();
+          }, 15000);
+          self.getLabels(self.data);
+          self.getMessages(self.label);
+        })
+        .fail(function() {
+          self.connected = false;
+        })
     }
 
     getLabels(data) {
@@ -144,7 +143,6 @@ export class Gmail {
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id,
           headers: { 'authorization': token }
       }).done(function( data ) {
-
           var mail = {};
           mail.content = data.payload;
           mail.id = id;

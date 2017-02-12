@@ -9,6 +9,7 @@ export class News {
         this.sources = [];
         this.source = localStorage.getItem("newsSource") || "cnn";
         this.articles;
+        this.tempArticles;
         this.author;
         this.description;
         this.publishedAt;
@@ -55,6 +56,12 @@ export class News {
                     self.sources.push(source);
                 }
                 self.getArticles(self.source);
+
+                setInterval(function(){
+                    self.getArticles(self.source);
+                }, 10000);
+
+                
             })
     }
 
@@ -75,12 +82,24 @@ export class News {
         this.http.fetch('https://newsapi.org/v1/articles?source='+source.toLowerCase()+'&apiKey=356bfc9442404652add03b1e0cc1a527')
             .then(response => response.json())
             .then(data => {
-                self.articles = data.articles; 
+                self.articles = data.articles;
                 //console.log(data.articles);
                 //self.loadNews();   
                 this.isLoading = false;
-           
-            }) 
+            })
+            let count = self.calData.length;
+            if(count > self.count && self.count != "") {
+                self.notifications = self.notifications + count - self.count;
+                self.count = count;
+            }
+            else if(count < self.count && self.count != "") {
+                self.notifications = 0;
+                self.count = count;
+            }
+            else {
+                self.count = count;
+            }
+            self.connected = true;
     }
 
 

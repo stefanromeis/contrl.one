@@ -6,8 +6,8 @@ import {Prompt}         from 'prompt';
 @inject(DialogService)
 
 export class Facebook {
-    constructor (DialogService) {
-        this.dialogService = DialogService;
+    constructor (dialogService) {
+        this.dialogService = dialogService;
         this.active = false;
         this.connected = false;
         this.isLoading = true;
@@ -26,7 +26,9 @@ export class Facebook {
         }
         this.feed = [];
         this.feed_post = "";
-        this.modal = false;        
+        this.modal = false;
+        this.notifications = 0;
+        this.notificationIds = [];  
         let self = this;
 
         window.fbAsyncInit = function() {
@@ -40,7 +42,7 @@ export class Facebook {
             
             FB.getLoginStatus(function (response) {
                 if(response.status === 'connected') {
-                    console.log("Facebook Status: OK");
+                    //console.log("Facebook Status: OK");
                     self.connect();
                 }
                 else if(response.status === 'not_authorized') {
@@ -68,10 +70,14 @@ export class Facebook {
         let self = this;
         FB.login(function (response) {
             if(response.status === 'connected') {
-                console.log("We are connected to FB."); 
+                //console.log("We are connected to FB."); 
                 self.connected = true;            
                 self.getInfo();
                 self.getFeed();
+                setInterval(function(){
+                    self.getFeed();
+                }, 20000);
+
             }
             else if(response.status === 'not_authorized') {
                 console.log("We are not loggin in.");
@@ -103,10 +109,12 @@ export class Facebook {
     getInfo() {
         FB.api('me', 'GET', {fields: 'name, first_name, last_name, age_range, link, gender, locale, picture, timezone, updated_time, email'}
         , function(response){
-            document.getElementById('name').innerHTML = response.name;
+            document.getElementById('name').innerHTML = response.first_name;
             document.getElementById('profile-img').src = "http://graph.facebook.com/" + response.id + "/picture";
-
         })
+        var json = {
+	   			'name': 'test',
+			};
     }
 
     getFeed () {
@@ -117,7 +125,7 @@ export class Facebook {
             function (response) {
                 if (response && !response.error) {
                     //console.log('res ', response);
-                    self.feed = [];
+                    let tempFeed = [];
                     for(var x = 0; x < response.data.length; x++) {
                         let post = {};
                         post.id = response.data[x].id;
@@ -138,9 +146,29 @@ export class Facebook {
                         }                           
                         if(response.data[x].comments) {
                             post.comments = response.data[x].comments.data.length;
-                        }   
-                        self.feed.push(post);
+                        }
+
+                        tempFeed.push(post);
+
                     }
+                    if(self.feed.length > 0 ) {
+                        if(self.feed[0].id != tempFeed[0].id) {
+                            console.log('ye');
+                            for(var x = 1; x < tempFeed.length; x++) {
+                                if(self.feed[0].id == tempFeed[x].id ) {
+                                    self.notifications = self.notifications + x;
+                                    console.log(self.notifications);
+                                    for(let i = 0; i < x; i++) {
+                                        self.notificationIds.push(tempFeed[i].id);
+                                        console.log('ids ', self.notificationIds);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    self.feed = tempFeed;
+
                     self.isLoading = false;
                 }
                 else {
@@ -151,27 +179,12 @@ export class Facebook {
         );
     }
 
-    openModal() {
-        this.modalOpen = true;
+    openModal(bool) {
+        this.modalOpen = bool;
     }
 
-    closeModal(){
-        this.modalOpen = false;
-    }
-
-    openSuccessDialog() {
-      this.dialogService.open({viewModel: Prompt, model: 'Post on wall successfull.' }).then(response => {
-          if (!response.wasCancelled) {
-            console.log('OK');
-          } else {
-            console.log('cancelled');
-          }
-          console.log(response.output);
-      });
-    }
-
-    openFailDialog() {
-      this.dialogService.open({viewModel: Prompt, model: 'Post on wall failed. You have to provide a message at least.' }).then(response => {
+    openDialog(model) {
+      this.dialogService.open({viewModel: Prompt, model: model }).then(response => {
           if (!response.wasCancelled) {
             console.log('OK');
           } else {
@@ -193,29 +206,50 @@ export class Facebook {
             name: self.name
         },function(response) {
             if (response && !response.error) {
-                console.log(response);
                 self.modalOpen = false;
                 self.getFeed();
-                self.openSuccessDialog();
+                self.openDialog('Post on wall successful.');
             }
             else {
-                self.openFailDialog();
+                self.openDialog('Post on wall failed. You have to provide a message at least.');
             }
         });
     }
 
     deletePost(id) {
         let self = this;
+        console.log(id);
         FB.api(
             "/"+id+"",
             "DELETE",
             function (response) {
                 if (response && !response.error) {
-                    console.log('deleted');
+                    self.setNotification(id);
                     self.getFeed();
+                }
+                if(response.error) {
+                    console.log('delete ', response);
                 }
             }
         );
+    }
+
+    openNewTab(url, id) {
+        console.log('url', url);
+        console.log('id', id);
+        if(url != undefined) {
+            let win = window.open(url, '_blank');
+            win.focus();
+        }
+
+        this.setNotification(id);
+    }
+
+    setNotification(id) {
+        if($.inArray(id, this.notificationIds) > -1) {
+            this.notifications = this.notifications - 1;
+            this.notificationIds.splice( $.inArray(id, this.notificationIds), 1 );
+        }
     }
     
 }

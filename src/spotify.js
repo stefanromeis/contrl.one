@@ -9,12 +9,13 @@ export class Spotify {
         this.connected = false;
         this.active = false;
         this.clientID = '3f25006f76cd43a8a52b1452e949b697';
-        this.token = localStorage.getItem('spotify.token') !== "undefined" && 
-            localStorage.getItem('spotify.token') != null ? 
-            localStorage.getItem('spotify.token') : 
-            this.getStringFromUrl('access_token');
+        this.token = localStorage.getItem('spotify.token');
+        this.token =    this.token  !== "undefined" && 
+                        this.token  != null ? 
+                        this.token  : 
+                        this.getStringFromUrl('access_token');
 
-        console.log('token ' , this.token);
+        //console.log('token ' , this.token);
         if(this.token !== "undefined" && this.token != null) {
             this.connect();
         }
@@ -25,14 +26,23 @@ export class Spotify {
     }
 
     connect() {
-        var self = this;
+        let self = this;
         $.ajax({
-            url: 'https://api.spotify.com/v1/me/tracks',
+            url: 'https://api.spotify.com/v1/me/playlists',
             headers: {
-                'Authorization': 'Bearer ' + this.token
+                'Authorization': 'Bearer ' + self.token
             },
             success: function(response) {
-                console.log('spotify me ', response);
+                console.log('spotify me ',response.items[0].uri);
+                //let result = "https://embed.spotify.com/?uri=spotify:track:"+response.items[1].track.id+"&theme=white";
+                let res = "https://embed.spotify.com/?uri="+response.items[0].uri+"&theme=white&accessToken="+self.token;
+                if(document.getElementById('spotify-widget') != null) {
+                    document.getElementById('spotify-widget').src = res;
+                }
+            },
+            error: function(err) {
+                console.log('spotify me ', err);
+                self.signOut();
             }
         });
     }

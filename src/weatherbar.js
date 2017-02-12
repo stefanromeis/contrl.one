@@ -22,8 +22,7 @@ export class Weatherbar {
         
         setInterval(function(){
             self.loadWeather(self.city);
-            console.log('City', self.city);
-        }, 30000);
+        }, 60000);
         
     }
          
@@ -33,7 +32,7 @@ export class Weatherbar {
         var self = this;
         
         jQ.simpleWeather({
-            location: city,
+            location: self.city,
             woeid: '',
             unit: 'c',
             success: function(weather) {
@@ -51,7 +50,6 @@ export class Weatherbar {
               self.temp = 'No weather info';
               self.unit = '';
               self.code = '';
-
             }
         });
         document.getElementById("weathersearch").blur();

@@ -60,15 +60,15 @@ export class Soundcloud {
         tracknumber--;
         if(tracknumber > 0) {
             $.ajax({
-                    type: 'HEAD',
-                    url: 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + trackList[tracknumber].permalink,
-                success: function() {
-                    loadTrack(tracknumber);
-                },
-                error: function() {
-                    tracknumber--;
-                    loadTrack(tracknumber);
-                }
+                type: 'HEAD',
+                url: 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + trackList[tracknumber].permalink,
+            success: function() {
+                loadTrack(tracknumber);
+            },
+            error: function() {
+                tracknumber--;
+                loadTrack(tracknumber);
+            }
             });       
         }
     }

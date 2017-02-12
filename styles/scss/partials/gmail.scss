@@ -134,9 +134,31 @@
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     overflow: hidden;
+    padding: 0;
+    .background-img-blurred {
+        background: url(../images/bg.jpg) center center no-repeat;
+        position:absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        z-index:1;
+        -webkit-filter: blur(20px);
+        -moz-filter: blur(20px);
+        -o-filter: blur(20px);
+        -ms-filter: blur(20px);
+        filter: blur(20px);	
+        background-attachment:fixed;
+    }  
+    .mod-text {
+        position:relative;
+        z-index:100;
+        background-color: rgba(255,255,255,.8);
+        padding: 20px;
+        height: 100%;
+    }
     .mod-header {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
+        padding-bottom: 10px;
     }
     .mod-body {
         height: 90%;
@@ -166,6 +188,5 @@
 }
 .reply {
     font-size: 1em;
-    background-color:#fff;
     padding:0px;
 }

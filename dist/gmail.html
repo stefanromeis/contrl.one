@@ -69,43 +69,49 @@
     
     <div class="mod" data-keyboard="true" data-backdrop="static">
         <div class="mod-content">
-            <div class="mod-header">
-                <button type="button" class="close" click.delegate="closeModal()">  
-                <span aria-hidden="false" >&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">${modalMessage.subject} </br >
-                    <small>
-                        ${modalMessage.from}
-                        <button type="button" class="reply" click.delegate="reply()">
-                            Reply
-                            <span class="glyphicon glyphicon-share"></span>
-                        </button>  
-                    </small>
-                </h4>
-            </div>
-            <div class="mod-body">
-                <iframe id="message-content"></iframe>
+            <div class="background-img-blurred"></div>
+            <div class="mod-text">
+                <div class="mod-header">
+                    <button type="button" class="close" click.delegate="closeModal()">  
+                    <span aria-hidden="false" >&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">${modalMessage.subject} </br >
+                        <small>
+                            ${modalMessage.from}
+                            <button type="button" class="reply" click.delegate="reply()">
+                                Reply
+                                <span class="glyphicon glyphicon-share"></span>
+                            </button>  
+                        </small>
+                    </h4>
+                </div>
+                <div class="mod-body">
+                    <iframe id="message-content"></iframe>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="reply-mod" data-keyboard="true" data-backdrop="static">
         <div class="mod-content">
-            <div class="mod-body">
-                <div class="form-group">
-                    <label for="example-search-input" class="col-2 col-form-label">To</label>
-                    <input type="email" class="form-control" id="compose-to" value="${modalMessage.mailadress}" required />
+            <div class="background-img-blurred"></div>
+            <div class="mod-text">
+                <div class="mod-body">
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">To</label>
+                        <input type="email" class="form-control" id="compose-to" value="${modalMessage.mailadress}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">Subject</label>
+                        <input type="text" class="form-control" id="compose-subject" value="${modalMessage.subject}" required />
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="example-search-input" class="col-2 col-form-label">Subject</label>
-                    <input type="text" class="form-control" id="compose-subject" value="${modalMessage.subject}" required />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" click.delegate="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" click.delegate="send()">Send</button>
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" click.delegate="closeModal()">Cancel</button>
-                <button type="submit" class="btn btn-primary" click.delegate="send()">Send</button>
             </div>
         </div>
     </div>    

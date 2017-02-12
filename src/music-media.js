@@ -24,8 +24,6 @@ export class MusicMedia {
     }          
 
     init() {
-        console.log('latest', this.latest);
-
         this.componentsMusic[this.latest].active = true;
         //$('#selectComp').val(this.latest);
 
@@ -36,15 +34,12 @@ export class MusicMedia {
     }
 
     loadComponent (component) {
-        console.log('comp ', component);
         if (component in this.componentsMusic) {
             this.componentsMusic[this.active].active = false;
-            console.log('comp inactive', this.active); 
             this.active = component;
             this.componentsMusic[this.active].connect();
             this.componentsMusic[component].active = true;
             localStorage.setItem("music-media.latest", component)
-            console.log('component active:', this.active );
         }
         else {
             console.log('component NA');

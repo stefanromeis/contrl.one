@@ -7,7 +7,7 @@
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
             <div class="devide">| </div> 
-            <button class="glyphicon-plus pull-right" click.delegate="newDate()">
+            <button class="glyphicon-plus pull-right" click.delegate="openModal()">
             </button> 
         </div>
         
@@ -29,5 +29,53 @@
                 </a>
             </div>
         </div>
+        <div class="mod mod-cal" data-keyboard="true" data-backdrop="static" if.bind="modalOpen">
+            <div class="mod-content">
+                <div class="background-img-blurred"></div>
+                <div class="mod-text">
+                <div class="mod-header">
+                    <button type="button" class="close" click.delegate="closeModal()">  
+                    <span aria-hidden="false" >&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Create New Entry in Calendar</h4>
+                </div>
+                </br>
+                <div class="mod-body">
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">Summary</label>
+                        <input type="email" class="form-control" value.bind="summary" />
+                    </div>
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">Location</label>
+                        <input type="text" class="form-control" value.bind="location" />
+                    </div>
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">Description</label>
+                        <input type="text" class="form-control" value.bind="description" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="example-search-input" class="col-2 col-form-label">Start Date</label>
+                        <input type="text" class="form-control" value.bind="startDate" placeholder="DD.MM.YYYY" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="example-search-input" class="col-2 col-form-labell">Start Time</label>
+                        <input type="text" class="form-control " value.bind="startTime" placeholder="HH:MM" />
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="example-search-input" class="col-2 col-form-labell">End Date</label>
+                        <input type="text" class="form-control " value.bind="endDate" placeholder="DD.MM.YYYY" />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="example-search-input" class="col-2 col-form-labell">End Time</label>
+                        <input type="text" class="form-control " value.bind="endTime" placeholder="HH:MM" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" click.delegate="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" click.delegate="createEntry()">Send</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div> 
     </div>
 </template> 

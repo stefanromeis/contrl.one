@@ -84,3 +84,11 @@
     -ms-transition: background-color 1000ms linear;
     transition: background-color 1000ms linear;
 }
+
+@mixin transition-color() {
+    -webkit-transition: color 300ms linear, color 400ms linear;
+    -moz-transition: color 300ms linear, color 400ms linear;
+    -o-transition: color 300ms linear, color 400ms linear;
+    -ms-transition: color 300ms linear, color 400ms linear;
+    transition: color 300ms linear, color 400ms linear;
+}

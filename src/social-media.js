@@ -26,7 +26,6 @@ export class SocialMedia {
     }          
 
     init() {
-        console.log('latest', this.latest);
 
         this.componentsSocial[this.active].active = true;
         //$('#selectComp').val(this.latest);
@@ -39,14 +38,11 @@ export class SocialMedia {
     }
 
     loadComponent (component) {
-        console.log('comp ', component);
         if (component in this.componentsSocial) {
             this.componentsSocial[this.active].active = false;
-            console.log('comp inactive', this.active); 
             this.active = component;
             this.componentsSocial[component].active = true;
             localStorage.setItem("social-media.latest", component)
-            console.log('component active:', this.active );
         }
         else {
             console.log('component NA');
