@@ -3,29 +3,69 @@ import {HttpClient}     from 'aurelia-fetch-client';
  
 @inject(HttpClient)
 export class Api {
-	constructor(http){
-		this.http = http;
+
+	constructor(http) {
+        http.configure(config => {
+            config
+                .withBaseUrl('http://localhost/api/');
+        });
+
+        this.http = http;
+		//this.createUser();
+    }
+
+	//create new User
+	createUser() {
+		var userdata = {
+			'name': 'Stefan',
+			'json': JSON.stringify({test: '1'}),
+			'email': 's.romeis@gmail.com'
+		}
+		this.http.fetch('user', {
+				method: 'post',
+				body: JSON.stringify(userdata)
+			})
+			.then(data => {
+				console.log('Create User Response', data);
+			})
 	}
 
 	//create new User
-	createUser(json) {
-		var result = "default";
-		
-		result = $.ajax({
-			type : 'POST',
-			async : false,
-			url : 'api/user',
-			data: JSON.stringify(json),
-		}).responseText;
-		
-		return result;
+	getUser() {
+		var userdata = {
+			'name': 'Stefan',
+			'json': JSON.stringify({test: '1'}),
+			'email': 's.romeis@gmail.com'
+		}
+		this.http.fetch('user', {
+				method: 'post',
+				body: JSON.stringify(userdata)
+			})
+			.then(data => {
+				console.log('Create User Response', data);
+			})
 	}
 
 	//update User
 	updateUser(UserID, json) {
+		var userdata = {
+			'name': 'Stefan',
+			'json': JSON.stringify({test: '1'}),
+			'email': 's.romeis@gmail.com'
+		}
+		this.http.fetch('user', {
+				method: 'post',
+				body: JSON.stringify(userdata)
+			})
+			.then(data => {
+				console.log('Create User Response', data);
+			})
+	}
+
+	
+	updateUser(UserID, json) {
 		var result = $.ajax({
 			type : 'PUT',
-			async : false,
 			url : 'api/user/' + UserID,
 			data: JSON.stringify(json)
 		}).responseText;
@@ -37,18 +77,19 @@ export class Api {
 	getUser(UserID) {
 		var result = $.ajax({
 			type : 'GET',
-			async : false, 
-			url : 'api/user/' + UserID,
-			success: function(data){ 
+			url : 'http://localhost/mme/mme2_uebung_4/api/user/124',
+			success: function(data){
+				console.log(data);
 				return null;
 			},
 			error: function(data) {
-				alert('ID '+UserID+' not found');
+				console.log(data);
 			}
 		}).responseText;
 
 		return result;
 	}
+	
 
 	//get all Users
 	getAll(emailAddress) {

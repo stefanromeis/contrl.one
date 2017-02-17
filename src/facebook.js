@@ -2,12 +2,14 @@ import {DialogService}  from 'aurelia-dialog';
 import {inject}         from 'aurelia-framework';
 import {I18N}           from 'aurelia-i18n';
 import {Prompt}         from 'prompt';
+import {Api}            from 'services/api';
 
-@inject(DialogService)
+@inject(DialogService, Api)
 
 export class Facebook {
-    constructor (dialogService) {
+    constructor (dialogService, Api) {
         this.dialogService = dialogService;
+        this.api = Api;
         this.active = false;
         this.connected = false;
         this.isLoading = true;
@@ -63,6 +65,7 @@ export class Facebook {
             js.src = "http://connect.facebook.net/en_US/all.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
         
     }
     
@@ -80,7 +83,7 @@ export class Facebook {
 
             }
             else if(response.status === 'not_authorized') {
-                console.log("We are not loggin in.");
+                console.log("Not authorized.");
             }
             else {
                 console.log("You are not logged into facebook.");
@@ -112,9 +115,6 @@ export class Facebook {
             document.getElementById('name').innerHTML = response.first_name;
             document.getElementById('profile-img').src = "http://graph.facebook.com/" + response.id + "/picture";
         })
-        var json = {
-	   			'name': 'test',
-			};
     }
 
     getFeed () {

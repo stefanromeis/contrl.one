@@ -1,13 +1,14 @@
 import Backend      from 'i18next-xhr-backend';
 import 'fetch';
 
+
 export function configure(aurelia) {
 
     aurelia.use
         .standardConfiguration()
         .developmentLogging()
         .plugin('aurelia-animator-css')
-        .plugin('aurelia-dialog');  
+        .plugin('aurelia-dialog')
 
 
     // enable i18n
@@ -26,9 +27,6 @@ export function configure(aurelia) {
         });
     });
 
-
-    // enable aurelia-dialog (modals)
-    // aurelia.use.plugin('aurelia-dialog');
 
     //Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
     //aurelia.use.plugin('aurelia-html-import-template-loader')
