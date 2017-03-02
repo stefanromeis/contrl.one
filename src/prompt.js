@@ -15,6 +15,5 @@ export class Prompt {
    activate(message) {
       this.message = message;
    }
-
    
 }
