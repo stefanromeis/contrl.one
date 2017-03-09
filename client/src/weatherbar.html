@@ -1,0 +1,14 @@
+<template>
+    <div id="weatherbar">
+        <div class="comp-header">
+            <img class='headicon' src="images/weather.png">
+            <h5>WEATHER</h5>
+        </div>
+        
+        <h2><i class="${code}"></i> ${temp}${unit}</h2>
+        <form role="form" submit.delegate="loadWeather(city)">
+            <input id="weathersearch" type="search" class="form-control" name="city" maxlength="50" onfocus="this.select()"
+            placeholder="${city}, ${region}" autocomplete="off" value.bind="city" blur.trigger="loadWeather(city)">
+        </form>
+    </div>
+</template> 

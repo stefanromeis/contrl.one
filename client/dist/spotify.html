@@ -1,0 +1,13 @@
+<template>
+    <div class="spotify-wrapper">
+            <a class="btn btn-block btn-social btn-spotify"
+            href="https://accounts.spotify.com/authorize?client_id=3f25006f76cd43a8a52b1452e949b697&redirect_uri=http://localhost:9000&scope=user-library-read&response_type=token&state=123" 
+            if.bind="token == 'undefined'">
+                <span class="fa fa-spotify"></span> Login into Spotify
+            </a>
+            <div class="spotify-widget" if.bind="token">
+                <iframe id="spotify-widget"
+                width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+    </div>
+</template> 

@@ -1,0 +1,18 @@
+.sc-wrapper {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100% - $component-margin-correction;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: $color-white;
+    margin: $component-margin;
+    iframe {
+        width: 100% - $component-margin-correction;
+    }
+    .headicon {
+        margin-top: 3px;
+    }
+}
+

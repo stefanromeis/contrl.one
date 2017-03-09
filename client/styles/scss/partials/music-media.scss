@@ -1,0 +1,19 @@
+.music-media-wrapper {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 84.5%;
+    height: 115px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: $color-white;
+    margin: $component-margin 0 $component-margin $component-margin;
+    right: $component-margin;
+    iframe {
+        width: 100% - $component-margin-correction;
+    }
+    .headicon {
+        margin-top: 3px;
+    }
+}
+

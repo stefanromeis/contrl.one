@@ -1,0 +1,192 @@
+.gmail-wrapper {
+    position: absolute;
+    display: block;
+    width: 25% - $component-margin-correction;
+    margin: $component-margin;
+    right: 0%;
+    border-right: 1px solid #ccc;
+    top: 60px;
+    bottom: 120px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: $color-white;
+    border-radius: 10px;
+    h5 {
+        height: 32px;
+    }
+    
+    /*
+    .gmail-connect-btn {
+        background-color: #4285F4;
+        top: 85px;
+    }
+    */
+    .list-wrapper {
+        position: inherit;
+        display: block;
+        width: 100%;
+        height: 95%;
+        border: none;
+        font-family: arial, sans-serif;
+        overflow-y: scroll;
+        hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        word-wrap: break-word;
+        font-size: 0.9em;
+        overflow: hidden;
+        .table {
+            width: 100%;
+            .headrow {
+                width:100%;
+                border-bottom: 2px solid #ddd;
+                text-align: left;
+                padding: 8px;
+                margin: 0px; 
+            }
+            .list-body {
+                position: absolute;
+                overflow-y: scroll;
+                display: block;
+                height: 90%;
+                border-radius: 0 0 10px;
+                padding-bottom:50px;
+            }
+            .row {
+                width:100%;
+                border-bottom: 2px solid #ddd;
+                text-align: left;
+                padding: 8px;
+                margin: 0px;
+                cursor: pointer;
+                background-color: $color-white;
+                //display: flex;
+            }
+            .row:hover {
+                background-color:#eee;
+            }
+            .cell {
+                display: inline-block;
+                width: 30%;
+                float: left;
+            }
+            .subject {
+                display: inline-block;
+                width: 45%;
+                padding: 0 5px 0 5px;
+            }
+            .date {
+                float: right;
+                width: 23%;
+            }
+        }
+    }
+    .headicon {
+        margin-bottom: 2px;
+    }   
+}
+
+#message-content {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: flex;
+}
+
+    /* The Modal (background) */
+.mod, .reply-mod {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    overflow-y: hidden;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+.reply-mod {
+    min-height: auto;
+}
+.hide {
+    display:none !important;
+}
+/* Modal Content/Box */
+.mod-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 20px auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 700px; 
+    min-width: 750px; 
+    height: 90%;
+    border-radius: 20px;
+    border-radius:10px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    overflow: hidden;
+    padding: 0;
+    .background-img-blurred {
+        background: url(../images/bg.jpg) center center no-repeat;
+        position:absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        z-index:1;
+        -webkit-filter: blur(20px);
+        -moz-filter: blur(20px);
+        -o-filter: blur(20px);
+        -ms-filter: blur(20px);
+        filter: blur(20px);	
+        background-attachment:fixed;
+    }  
+    .mod-text {
+        position:relative;
+        z-index:100;
+        background-color: rgba(255,255,255,.8);
+        padding: 20px;
+        height: 100%;
+    }
+    .mod-header {
+        padding-bottom: 10px;
+    }
+    .mod-body {
+        height: 90%;
+    }
+    .mod-footer {
+        position: absolute;
+        height: 60px;
+        bottom: 0%;
+        background-color: #fff;
+    }
+}
+
+
+/* The Close Button */
+.close, .reply {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.reply {
+    font-size: 1em;
+    padding:0px;
+}

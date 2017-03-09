@@ -1,0 +1,51 @@
+<template>
+    <div class="news-wrapper">
+        <div class="comp-header">
+            <img class='headicon' src="images/news.png">
+            <h5>NEWS</h5>
+            <select ref="selectSource" id="selectSource" 
+            class="pull-right" value.bind="source" if.bind="!isLoading">
+                <option repeat.for="source of sources" value.bind="source.id">${source.name}</option>
+             </select> 
+             
+        </div>
+        <!--
+        <div class="news-control">
+            
+            <form submit.delegate="getArticles(source)" >
+                <input id="search" type="text" class="form-control" name="city" maxlength="30" onfocus="this.select()"
+                    placeholder="Search..." autocomplete="off"  blur.trigger="getArticles(source)">
+            </form>
+            <div class="pull-right">
+                <button class="glyphicon glyphicon-chevron-left" if.bind="index > 0" click.delegate="getPrevNews()"></button>
+                <button class="glyphicon glyphicon-chevron-right" if.bind="index < 9" click.delegate="getNextNews()"></button>
+            </div>
+        </div>
+        -->
+        <div class="spinner-big" if.bind="isLoading">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
+        <div class="article-header" if.bind="!isLoading">
+            <a href="${activeSource.url}" target="_blank">
+                <img src="${activeSource.urlsToLogos}">
+                <!--<h3>${activeSource.name}</h3>-->
+            </a>
+        </div>
+        <div class="article-body" if.bind="!isLoading">
+            <div class="article" if.bind="source" repeat.for="article of articles">
+                <a if.bind="article.url" href="${article.url}" title="${article.title}" target="_blank">
+                    <div class="image-place">
+                        <img if.bind="article.urlToImage" src.bind="article.urlToImage" >
+                        <h4>${article.title}</h4>
+                    </div>
+                    <p class="description" if.bind="article.description">${article.description} 
+                        <p class="author" if.bind="article.author || article.publishedAt">${article.author} (${article.publishedAt})</p>
+                    </p>
+                    
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
