@@ -1,12 +1,14 @@
 #notes-wrapper {
     position: absolute;
     display: block;
-    bottom: 145px;
+    top: 335px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
     border-radius: 10px;
-    height: 13.5%;
+    height: 150px;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
     .comp-header {
         .headicon {
             margin-bottom: 2px;
@@ -21,12 +23,18 @@
             padding: 5px 3px 0px 5px;
             color: #bbb;
         }
+        .logout {
+            opacity: 0.7;
+            padding:0px 10px 0px 10px;
+            font-size: 0.75em;
+            border: none;
+        }
     }
     .data-wrapper {
         padding: 10px;
         display: block;
         bottom: 265px;
-        height: 90px;
+        height: 110px;
         overflow-y: scroll;
         font-size: 0.9em;
         .notifications {
@@ -70,13 +78,13 @@
             }
         }
     }
-    .mod-cal {
+    .mod-notes {
         display: flex; /* Hidden by default */
         z-index: 1; /* Sit on top */
         left: 0;
         top: 0;
         width: 100%; /* Full width */
-        height: 100%; /* Full height */
+        height: 100%;; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         overflow-y: hidden;
@@ -84,7 +92,6 @@
         align-items: center;
         justify-content: center;
         .mod-content {
-            overflow-y: scroll;
             display: block;
             background-color: $color-white;
             padding: 0;
@@ -102,6 +109,11 @@
                 -ms-filter: blur(20px);
                 filter: blur(20px);	
             }  
+            textarea.form-control {
+                height: 200px;
+                max-height: 300px;
+                max-width: 100%;
+            }
             .mod-text {
                 position:relative;
 	            z-index:100;
@@ -109,20 +121,20 @@
                 padding: 20px;
                 overflow-y:scroll;
                 border-radius: 10px;
+                overflow:hidden;
                 .mod-header {
                     padding: 0;
                 }
-            }
-        }
-
-        .modal-footer {
-            width: 710px;
-            bottom: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border: none;
-            button {
-                margin-top: 20px;
+                .modal-footer {
+                    width: 710px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    border: none;
+                    padding: 20px;
+                    button {
+                        margin-top: 20px;
+                    }
+                }
             }
         }
     }

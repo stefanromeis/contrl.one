@@ -7,6 +7,8 @@
     margin: $component-margin;
     top: 60px;
     min-height: 115px;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
     h2 {
         vertical-align: middle;
         font-size: 1.2em;

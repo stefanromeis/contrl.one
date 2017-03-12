@@ -16,7 +16,7 @@ export class Todo {
 		this.connected = localStorage.getItem('contrl.one.token') || false;
 		this.isLoading = false;
 		this.calData = [];
-		this.modalOpen = false;
+		this.openModal = false;
 		this.loginModalOpen = false;
 
 		this.api = 'http://localhost:3001/';
@@ -39,7 +39,11 @@ export class Todo {
 	}
 
 	onKeyUp(ev) {
-		if (ev.keyCode === ENTER_KEY && this.modalOpen) {
+		if(!ev) {
+			this.addNewTodo(this.newTodoTitle);
+			return;
+		}
+		if (ev.keyCode === ENTER_KEY && this.openModal) {
 			this.addNewTodo(this.newTodoTitle);
 		}
 		if (ev.keyCode === ENTER_KEY && this.loginModalOpen) {
@@ -183,9 +187,9 @@ export class Todo {
 			console.log('Error', err);
 			if(err.responseText) {
 				if (err.responseText.includes("jwt expired")) {
-					self.connected = false;
 				}
 			}
+			self.connected = false;
 		});
 	}
 
@@ -220,6 +224,7 @@ export class Todo {
 					self.connected = false;
 				}
 			}
+			self.connected = false;
 		});
 	}
 

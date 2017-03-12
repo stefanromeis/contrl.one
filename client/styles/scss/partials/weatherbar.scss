@@ -12,12 +12,15 @@
 #weatherbar {
     position: absolute;
     display: block;
-    bottom: 0;
+    top: 645px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
     border-radius: 10px;
-    height: 140px;
+    bottom: 0;
+    margin-bottom: 5px; 
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
     i {
       font-family: weather;
       font-size: 40px;

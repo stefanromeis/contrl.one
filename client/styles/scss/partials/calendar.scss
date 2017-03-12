@@ -1,12 +1,14 @@
 #calendar-wrapper {
     position: absolute;
     display: block;
-    top: 335px;
+    top: 490px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
     border-radius: 10px;
     height: 150px;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
     .comp-header {
         .headicon {
             margin-bottom: 2px;

@@ -6,76 +6,122 @@
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
-            <div class="devide">| </div> 
-            <button class="glyphicon-plus pull-right" click.delegate="openModal()">
-            </button> 
+            <div class="devide" if.bind="connected">| </div>
+            <button class="glyphicon-plus pull-right" click.delegate="openModal = true" if.bind="connected">
+            </button>
+            <button class="label-right">
+                <button class="glyphicon glyphicon-log-out pull-right logout" 
+                aria-hidden="true" 
+                if.bind="connected" 
+                class="btn btn-primary" 
+                click.delegate="logout()"></span>
         </div>
         
         <div if.bind="!connected">
-            <a class="btn btn-block btn-social btn-facebook" click.delegate="connect()">
-                <span class="fa fa-facebook"></span> Login to Google
+            <a class="btn btn-block btn-social" click.delegate="loginModalOpen = true">
+                <span class="fa fa-envelope-o"></span> Login with Mailadress
             </a>
         </div>
 
         <div class="data-wrapper" if.bind="connected">
-            <span class="notifications" if.bind="notifications > 0">${notifications}</span>
-            <div class="data" repeat.for="data of calData">
-                <a href="${data.htmlLink}" target="_blank">
-                    <div class="title">
-                        ${data.start[2]}.${data.start[1]}.${data.start[0].split('20')[1]} |
-                        <b>${data.summary}</b>
-                    </div>
-                    <!--<div class="title">${data.id}</div>-->
-                </a>
-            </div>
+            <section class="main" show.bind="items.length">
+                <div class="notes-list">
+                    <div repeat.for="item of items">
+                        <label class="css-label" 
+                        click.delegate="labelDoubleClicked(item)" >${item.title}
+                        </label>
+                        <button click.delegate="$parent.deleteNote(item)" class="destroy">x</button>
+                        <div class="mod mod-notes" data-keyboard="true" data-backdrop="static" if.bind="item.isEditing">
+                            <div class="mod-content">
+                                <div class="background-img-blurred"></div>
+                                <div class="mod-text">
+                                <div class="mod-header">
+                                    <button type="button" class="close" click.delegate="item.isEditing = false">  
+                                    <span aria-hidden="false" >&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Update Note</h4>
+                                </div>
+                                </br>
+                                <div class="mod-body">
+                                    <div class="form-group">
+                                        <input id="search" type="search" 
+                                        class="form-control" placeholder="Whats the title of yout note?" 
+                                        value.bind="newNoteTitle" autofocus>
+                                            <br />
+                                        <textarea class="form-control note-text-input" placeholder="Type the content of your note!" 
+                                            value.bind="newNoteContent">
+                                        </textarea> 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" click.delegate="item.isEditing = false">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" click.delegate="update(item)">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </section>
         </div>
-        <div class="mod mod-cal" data-keyboard="true" data-backdrop="static" if.bind="modalOpen">
+
+        <div class="mod mod-notes" data-keyboard="true" data-backdrop="static" if.bind="openModal">
             <div class="mod-content">
                 <div class="background-img-blurred"></div>
                 <div class="mod-text">
                 <div class="mod-header">
-                    <button type="button" class="close" click.delegate="closeModal()">  
+                    <button type="button" class="close" click.delegate="openModal = false">  
                     <span aria-hidden="false" >&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Create New Entry in Calendar</h4>
+                    <h4 class="modal-title" id="myModalLabel">Create new Note</h4>
                 </div>
                 </br>
                 <div class="mod-body">
                     <div class="form-group">
-                        <label for="example-search-input" class="col-2 col-form-label">Summary</label>
-                        <input type="email" class="form-control" value.bind="summary" />
-                    </div>
-                    <div class="form-group">
-                        <label for="example-search-input" class="col-2 col-form-label">Location</label>
-                        <input type="text" class="form-control" value.bind="location" />
-                    </div>
-                    <div class="form-group">
-                        <label for="example-search-input" class="col-2 col-form-label">Description</label>
-                        <input type="text" class="form-control" value.bind="description" />
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="example-search-input" class="col-2 col-form-label">Start Date</label>
-                        <input type="text" class="form-control" value.bind="startDate" placeholder="DD.MM.YYYY" />
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="example-search-input" class="col-2 col-form-labell">Start Time</label>
-                        <input type="text" class="form-control " value.bind="startTime" placeholder="HH:MM" />
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <label for="example-search-input" class="col-2 col-form-labell">End Date</label>
-                        <input type="text" class="form-control " value.bind="endDate" placeholder="DD.MM.YYYY" />
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label for="example-search-input" class="col-2 col-form-labell">End Time</label>
-                        <input type="text" class="form-control " value.bind="endTime" placeholder="HH:MM" />
+                         <input id="search" type="search" 
+                         class="form-control" placeholder="Whats the title of yout note?" 
+                        value.bind="newNoteTitle" autofocus>
+                            <br />
+                        <textarea class="form-control note-text-input" placeholder="Type the content of your note!" 
+                            value.bind="newNoteContent">
+                        </textarea> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" click.delegate="closeModal()">Cancel</button>
-                        <button type="submit" class="btn btn-primary" click.delegate="createEntry()">Send</button>
+                        <button type="button" class="btn btn-default" click.delegate="openModal = false">Cancel</button>
+                        <button type="submit" class="btn btn-primary" click.delegate="create()">Create</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="mod mod-notes" data-keyboard="true" data-backdrop="static" if.bind="loginModalOpen">
+            <div class="mod-content">
+                <div class="background-img-blurred"></div>
+                <div class="mod-text">
+                <div class="mod-header">
+                    <button type="button" class="close" click.delegate="loginModalOpen = false">  
+                    <span aria-hidden="false" >&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login to Contrl.one</h4>
+                </div>
+                </br>
+                <div class="mod-body">
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">E-Mail</label>
+                        <input type="text" value.bind="email" 
+                            class="form-control" id="email" 
+                            placeholder="Email" keyup.delegate="onKeyUp($event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="example-search-input" class="col-2 col-form-label">Password</label>
+                        <input type="password" value.bind="password" 
+                        class="form-control" id="password" 
+                        placeholder="Password" keyup.delegate="create($event)">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" click.delegate="loginModalOpen = false">Cancel</button>
+                        <button type="submit" class="btn btn-primary" click.delegate="signUp()">Login</button>
                     </div>
                 </div>
                 </div>
             </div>
         </div> 
     </div>
-</template> 
+</template>
