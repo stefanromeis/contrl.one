@@ -4,6 +4,12 @@
 
         <ul class="nav navbar-nav pull-right">
             <li class="active">
+                <div class="datetime">${date} | ${time}</div>
+            </li>
+            <li class="active">
+                <div class="datetime">&#9679;</div>
+            </li>
+            <li class="active">
                 <a href="#" click.delegate="login()" if.bind="!isAuthenticate">Log In</a>
             </li>
             <li class="active">

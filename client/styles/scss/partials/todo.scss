@@ -1,7 +1,7 @@
 #todo-wrapper {
     position: absolute;
     display: block;
-    top: 180px;
+    top: 265px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
@@ -50,7 +50,15 @@
                     label {
                         width: 100%;
                         display: block;
+                        span {
+                            display: inline-block;
+                            width:90%;
+                            white-space: nowrap; 
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                         button {
+                            padding: 0 5px;
                             float: right;
                         }
                     }

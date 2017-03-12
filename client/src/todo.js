@@ -181,8 +181,9 @@ export class Todo {
 			}
 		}).done(function (res) {
 			console.log('ToDoListGet Success', res);
-			self.load(res.todoData);
-
+			if(res.todoData) {
+				self.load(res.todoData);
+			}
 		}).fail(function (err) {
 			console.log('Error', err);
 			if(err.responseText) {

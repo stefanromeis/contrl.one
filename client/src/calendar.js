@@ -33,6 +33,7 @@ export class Calendar {
 
         //this.createEntry();
     }
+    
          
     connect() {
       gapi.auth.authorize(
@@ -111,7 +112,7 @@ export class Calendar {
         }).done(function( data ) {
             console.log(data);
             self.modalOpen = false;
-            self.modalOpen();
+            self.openDialog();
         }).fail(function(err) {
             console.log(err);
         });
@@ -129,5 +130,6 @@ export class Calendar {
           console.log(response.output);
       });
     }
+
 }
     

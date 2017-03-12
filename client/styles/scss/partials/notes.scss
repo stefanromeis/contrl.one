@@ -1,12 +1,12 @@
 #notes-wrapper {
     position: absolute;
     display: block;
-    top: 335px;
+    top: 420px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
     border-radius: 10px;
-    height: 150px;
+    height: 175px;
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
     .comp-header {
@@ -34,34 +34,42 @@
         padding: 10px;
         display: block;
         bottom: 265px;
-        height: 110px;
+        height: 135px;
         overflow-y: scroll;
         font-size: 0.9em;
-        .notifications {
-            display: block;
-            top: 8px;
-            right: 75px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 10px;
-            font-weight:600;
-            border-radius: 14px;
-            background-color: red;
-            color:#fff;
-            height: 14px;
-            width: 14px;
-            position: absolute;
-            margin: 0;
-            line-height: 1.5;
-            opacity: 0.8;
-            text-align: center;
-        }
-        a {
-            display: block;
+        .css-label {
+            vertical-align: middle;
             color:#737373;
             text-decoration: none;
-            :hover {
-                color:#222;
+            display: inline-block;
+            width: 80%;
+            cursor: pointer;
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+            b {
+                font-size: 0.9em;
+                font-weight: normal;
             }
+        }
+        .css-label:hover {
+            color:#222;
+        }
+        .destroy {
+            display: inline-block;
+            color:#737373;
+            padding: 0;
+            float: right;
+            margin-right: 10px;
+            margin-top: 8px;
+        }
+       .destroy:hover {
+            color:#222;
+        }
+        hr {
+            margin: 5px 0;
+            border-color: #ccc;
         }
         .data {
             margin-bottom: 5px;

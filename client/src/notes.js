@@ -59,10 +59,11 @@ export class Notes {
 	}
 
 	addNewNote(title = this.newNoteTitle, content = this.newNoteContent) {
-		if (title == undefined) { return; }
+		if (title == undefined || title.length === 0 ) { 
+			title = 'No title';
+		 }
 
 		title = title.trim();
-		if (title.length === 0) { return; }
 
 		const newNoteItem = new NoteItem(title, content, this.time.date);
 		this.observeItem(newNoteItem);
@@ -121,7 +122,7 @@ export class Notes {
 
 		const simpleItems = JSON.parse(storageContent);
 		this.items = _.map(simpleItems, item => {
-			const notesItem = new NoteItem(item.title);
+			const notesItem = new NoteItem(item.title, item.content, item.time);
 
 			this.observeItem(notesItem);
 
@@ -158,8 +159,9 @@ export class Notes {
 			}
 		}).done(function (res) {
 			console.log('NoteList Success', res);
-			self.load(res.notesData);
-
+			if(res.notesData) {
+				self.load(res.notesData);
+			}
 		}).fail(function (err) {
 			console.log('Error', err);
 			if(err.responseText) {

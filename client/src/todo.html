@@ -23,13 +23,16 @@
 
             <import from="behaviors/focus"></import>
 
-            <section class="main" show.bind="items.length">
+            <section class="main">
                 <ul class="todo-list">
+                <li show.bind="!items.length">Nothin' to do!</li>
                 <li repeat.for="todoItem of items" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
                     <div class="view">
                     <input type="checkbox" id="checkbox-${todoItem.title}" class="css-checkbox" checked.bind="todoItem.isCompleted">
-                    <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" dblclick.delegate="todoItem.labelDoubleClicked()" if.bind = "!todoItem.isEditing">${todoItem.title}
-                        <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
+                    <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" 
+                    dblclick.delegate="todoItem.labelDoubleClicked()" 
+                    if.bind = "!todoItem.isEditing"><span>${todoItem.title}</span>
+                    <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
                     </label>
                     <input id="edit" type="search" class="form-control"
                         value.bind="todoItem.editTitle"

@@ -1,12 +1,12 @@
 #calendar-wrapper {
     position: absolute;
     display: block;
-    top: 490px;
+    top: 60px;
     width: 15% - $component-margin-correction-inner;
     margin: $component-margin;
     background-color: $color-white;
     border-radius: 10px;
-    height: 150px;
+    height: 200px;
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
     .comp-header {
@@ -25,10 +25,10 @@
         }
     }
     .data-wrapper {
-        padding: 10px;
+        padding: 6px 10px;
         display: block;
         bottom: 265px;
-        height: 110px;
+        height: 165px;
         overflow-y: scroll;
         font-size: 0.9em;
         .notifications {

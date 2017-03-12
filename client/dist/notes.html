@@ -24,13 +24,14 @@
         </div>
 
         <div class="data-wrapper" if.bind="connected">
-            <section class="main" show.bind="items.length">
+            <section class="main">
                 <div class="notes-list">
                     <div repeat.for="item of items">
-                        <label class="css-label" 
-                        click.delegate="labelDoubleClicked(item)" >${item.title}
-                        </label>
-                        <button click.delegate="$parent.deleteNote(item)" class="destroy">x</button>
+                        <div class="css-label" click.delegate="labelDoubleClicked(item)" >${item.title} </br>
+                        <b>${item.time}</b>
+                    </div>
+                    <button click.delegate="$parent.deleteNote(item)" class="destroy">x</button>
+                    <hr>
                         <div class="mod mod-notes" data-keyboard="true" data-backdrop="static" if.bind="item.isEditing">
                             <div class="mod-content">
                                 <div class="background-img-blurred"></div>

@@ -1,5 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
+import {Time} from './time'; 
 
 @inject(HttpClient)
 export class Header {
@@ -10,6 +11,9 @@ export class Header {
   constructor(http){
     
     this.http = http;
+    this.TIME = new Time();
+    this.date;
+    this.time;
     var self = this;
     this.lock.on("authenticated", (authResult) => {
       self.lock.getProfile(authResult.idToken, (error, profile) => {
@@ -24,8 +28,17 @@ export class Header {
         self.lock.hide();
       });
     });
-    
-  }  
+
+    this.attached();
+  } 
+
+  attached () {
+    let self = this;
+    setInterval(function(){
+        self.time = self.TIME.time;
+        self.date = self.TIME.date;
+    }, 1000);
+  }
 
   login() {
     this.lock.show();   
