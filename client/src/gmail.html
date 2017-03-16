@@ -48,19 +48,22 @@
         
         <div class="list-wrapper" if.bind="connected" >
             <div class="table">
+                <!--
                 <div class="headrow">
                     <div class="cell"><strong>From</strong></div>
                     <div class="subject"><strong>Subject</strong></div>
                     <div class="date"><strong>Date/Time</strong></div>
                 </div>
+                -->
+                <div class="headrow">
+                    <div class="cell" ><strong>${label}</strong></div>
+                </div>
                 <div class="list-body">
-                    <div class="row" repeat.for="mail of mails" a href="#" click.delegate="openMessage(mail.id)">
-                        <div class="cell">
-                            <span class="unread" if.bind="mail.unread">NEW</span>
-                            ${mail.from}
-                        </div>
+                    <div repeat.for="mail of mails" class="row ${mail.unread ? 'unread' : ''}" a href="#" click.delegate="openMessage(mail.id)">
+                        <div class="cell">${mail.from}</div>
+                        <div class="unread-icon pull-right" if.bind="mail.unread">●</div>
                         <div class="subject"><a href="#">${mail.subject}</a></div>
-                        <div class="date">${mail.date}</div>
+                        <div class="date">${mail.date.split('+')[0].split('-')[0]}</div>
                     </div>
                 </div>
             </div>
@@ -74,9 +77,9 @@
                 <div class="mod-header">
                     <button type="button" class="close" click.delegate="closeModal()">  
                     <span aria-hidden="false" >&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">${modalMessage.subject} </br >
+                    <h4 class="modal-title" id="myModalLabel">${modalMessage.from} </br >
                         <small>
-                            ${modalMessage.from}
+                            ${modalMessage.subject}
                             <button type="button" class="reply" click.delegate="reply()">
                                 Reply
                                 <span class="glyphicon glyphicon-share"></span>

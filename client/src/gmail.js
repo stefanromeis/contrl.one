@@ -133,11 +133,12 @@ export class Gmail {
       this.isLoading = true;
       let self = this;
 
-      if (!self.messages[self.counter] || self.counter >= 10) {
+      if (!messages[self.counter] || self.counter >= 10) {
           this.isLoading = false;
           return;
       }
       let id = messages[self.counter].id;
+      self.counter++;
 
       $.ajax({
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id,
@@ -146,12 +147,12 @@ export class Gmail {
           var mail = {};
           mail.content = data.payload;
           mail.id = id;
-          mail.from = self.getHeader(data.payload.headers, 'From')
-          mail.subject = self.getHeader(data.payload.headers, 'Subject')
-          mail.date = self.getHeader(data.payload.headers, 'Date')
+          mail.from = self.getHeader(data.payload.headers, 'From').split('<')[0].replace(/"/g, '');
+          mail.subject = self.getHeader(data.payload.headers, 'Subject');
+          mail.date = self.getHeader(data.payload.headers, 'Date');
           mail.unread = $.inArray('UNREAD', data.labelIds) > -1;
+          //console.log(mail.id + ' is ' + mail.unread);
           self.mails.push(mail);
-          self.counter++;
           self.getMessage(messages);
 
       }); 
@@ -169,7 +170,7 @@ export class Gmail {
     }
 
     getBody(message) {
-        var encodedBody = '';
+        var encodedBody = 'Sorry, no content available...';
         if(typeof message.parts === 'undefined') {
           encodedBody = message.body.data;
         }
@@ -181,7 +182,7 @@ export class Gmail {
     }
       
     getHTMLPart(arr) {
-        for(let x = 0; x <= arr.length; x++) {
+        for(let x = 0; x < arr.length; x++) {
           if(typeof arr[x].parts === "undefined") {
             if(arr[x].mimeType === 'text/html') {
               return arr[x].body.data;
@@ -305,16 +306,16 @@ export class Gmail {
       let self = this;
 
       var result = $.grep(this.mails, function(e){ return e.id == id; });
-
       if(result[0].unread) {
-
         result[0].unread = false;
 
         $.ajax({
           type: 'POST',
           dataType: 'json',
-          headers: { 'authorization': token,
-                      "Content-Type": "application/json"},
+          headers: { 
+                      'authorization': token,
+                      "Content-Type": "application/json"
+                   },
           url: 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id+'/modify',
           data: JSON.stringify({"removeLabelIds":["UNREAD"]})
         })

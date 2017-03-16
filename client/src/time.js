@@ -38,14 +38,13 @@ export class Time {
         this.month[11] = "December";
         this.clock();
         let self = this;
-        setInterval(function(){
-            self.clock();
-        }, 1000);
+
+        setInterval(() => this.clock(), 1000);
     }
 
     clock() {
         let d = new Date();
-        this.date = this.weekdays[d.getDay()].substr(0, 3) + ', ' +this.getOrdinal(d.getDate()) + " of " + (this.month[d.getMonth()+1])  + " " + d.getFullYear();
+        this.date = this.weekdays[d.getDay()].substr(0, 3) + ', ' +this.getOrdinal(d.getDate()) + " of " + (this.month[d.getMonth()])  + " " + d.getFullYear();
         
         this.time = d.getHours()+':'+d.getMinutes();
         if(d.getMinutes().toString().length == 1) {

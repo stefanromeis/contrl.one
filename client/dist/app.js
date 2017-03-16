@@ -21,8 +21,6 @@ System.register(['aurelia-framework'], function (_export, _context) {
           _classCallCheck(this, App);
         }
 
-        App.prototype.activate = function activate() {};
-
         App.prototype.configureRouter = function configureRouter(config, router) {
           config.title = 'contrl.one';
           config.map([{ route: ['', 'home', ':#?'], name: 'home', moduleId: 'home', nav: true }]);
@@ -36,4 +34,4 @@ System.register(['aurelia-framework'], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJBcHAiLCJhY3RpdmF0ZSIsImNvbmZpZ3VyZVJvdXRlciIsImNvbmZpZyIsInJvdXRlciIsInRpdGxlIiwibWFwIiwicm91dGUiLCJuYW1lIiwibW9kdWxlSWQiLCJuYXYiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFRQSxZLHFCQUFBQSxNOzs7cUJBR0tDLEcsV0FEWkQsUTtBQUdHLHVCQUFhO0FBQUE7QUFDWjs7c0JBRURFLFEsdUJBQVUsQ0FDVCxDOztzQkFFSEMsZSw0QkFBZ0JDLE0sRUFBUUMsTSxFQUFRO0FBQzlCRCxpQkFBT0UsS0FBUCxHQUFlLFlBQWY7QUFDQUYsaUJBQU9HLEdBQVAsQ0FBVyxDQUNULEVBQUVDLE9BQU8sQ0FBQyxFQUFELEVBQUssTUFBTCxFQUFhLEtBQWIsQ0FBVCxFQUE4QkMsTUFBTSxNQUFwQyxFQUFpREMsVUFBVSxNQUEzRCxFQUF3RUMsS0FBSyxJQUE3RSxFQURTLENBQVg7QUFNQSxlQUFLTixNQUFMLEdBQWNBLE1BQWQ7QUFDRCxTIiwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJBcHAiLCJjb25maWd1cmVSb3V0ZXIiLCJjb25maWciLCJyb3V0ZXIiLCJ0aXRsZSIsIm1hcCIsInJvdXRlIiwibmFtZSIsIm1vZHVsZUlkIiwibmF2Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsWSxxQkFBQUEsTTs7O3FCQUdLQyxHLFdBRFpELFE7Ozs7O3NCQUdDRSxlLDRCQUFnQkMsTSxFQUFRQyxNLEVBQVE7QUFDOUJELGlCQUFPRSxLQUFQLEdBQWUsWUFBZjtBQUNBRixpQkFBT0csR0FBUCxDQUFXLENBQ1QsRUFBRUMsT0FBTyxDQUFDLEVBQUQsRUFBSyxNQUFMLEVBQWEsS0FBYixDQUFULEVBQThCQyxNQUFNLE1BQXBDLEVBQWlEQyxVQUFVLE1BQTNELEVBQXdFQyxLQUFLLElBQTdFLEVBRFMsQ0FBWDtBQU1BLGVBQUtOLE1BQUwsR0FBY0EsTUFBZDtBQUNELFMiLCJmaWxlIjoiYXBwLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==

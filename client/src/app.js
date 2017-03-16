@@ -1,13 +1,7 @@
 import {inject} from 'aurelia-framework';
 
-@inject( )
+@inject()
 export class App {
-  
-    constructor(){
-    }
-
-    activate(){
-    }
 
   configureRouter(config, router) {
     config.title = 'contrl.one';

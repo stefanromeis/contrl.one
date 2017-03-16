@@ -17,6 +17,7 @@ export class Soundcloud {
         });
         this.connected = false;
         this.active = false;
+
     } 
     
     attached(){
