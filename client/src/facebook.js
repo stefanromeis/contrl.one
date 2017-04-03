@@ -2,14 +2,12 @@ import {DialogService}  from 'aurelia-dialog';
 import {inject}         from 'aurelia-framework';
 import {I18N}           from 'aurelia-i18n';
 import {Prompt}         from 'prompt';
-import {Api}            from 'services/api';
 
-@inject(DialogService, Api)
+@inject(DialogService)
 
 export class Facebook {
-    constructor (dialogService, Api) {
+    constructor (dialogService) {
         this.dialogService = dialogService;
-        this.api = Api;
         this.active = false;
         this.connected = false;
         this.isLoading = true;
@@ -26,6 +24,7 @@ export class Facebook {
             place: "",
             date: ""
         }
+        
         this.feed = [];
         this.feed_post = "";
         this.modal = false;
@@ -198,12 +197,12 @@ export class Facebook {
         let self = this;
         FB.api(
             '/me/feed', 'post', {
-            message: self.message,
-            place: self.place,
-            link: self.link,
-            description: self.description,
-            picture: self.picture,
-            name: self.name
+                message: self.message,
+                place: self.place,
+                link: self.link,
+                description: self.description,
+                picture: self.picture,
+                name: self.name
         },function(response) {
             if (response && !response.error) {
                 self.modalOpen = false;
@@ -235,8 +234,8 @@ export class Facebook {
     }
 
     openNewTab(url, id) {
-        console.log('url', url);
-        console.log('id', id);
+        //console.log('url', url);
+        //console.log('id', id);
         if(url != undefined) {
             let win = window.open(url, '_blank');
             win.focus();
@@ -253,3 +252,6 @@ export class Facebook {
     }
     
 }
+
+
+          

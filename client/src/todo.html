@@ -15,7 +15,7 @@
         
         <div if.bind="!connected">
             <a class="btn btn-block btn-social" click.delegate="loginModalOpen = true">
-                <span class="fa fa-envelope-o"></span> Login with Mailadress
+                <span class="fa fa-envelope-o"></span> Login
             </a>
         </div>
 
@@ -28,18 +28,19 @@
                 <li show.bind="!items.length">Nothin' to do!</li>
                 <li repeat.for="todoItem of items" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
                     <div class="view">
-                    <input type="checkbox" id="checkbox-${todoItem.title}" class="css-checkbox" checked.bind="todoItem.isCompleted">
-                    <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" 
-                    dblclick.delegate="todoItem.labelDoubleClicked()" 
-                    if.bind = "!todoItem.isEditing"><span>${todoItem.title}</span>
-                    <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
-                    </label>
-                    <input id="edit" type="search" class="form-control"
-                        value.bind="todoItem.editTitle"
-                        focus.bind="todoItem.isEditing"
-                        focusout.delegate="todoItem.finishEditing($event)"
-                        keyup.delegate="todoItem.onKeyUp($event)"
-                        if.bind = "todoItem.isEditing">
+                        <input type="checkbox" id="checkbox-${todoItem.title}" class="css-checkbox" checked.bind="todoItem.isCompleted">
+                        <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" 
+                        dblclick.delegate="todoItem.labelDoubleClicked()" 
+                        if.bind = "!todoItem.isEditing">
+                            <span class="${todoItem.isCompleted ? 'completed' : ''}">${todoItem.title}</span>
+                            <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
+                        </label>
+                        <input id="edit" type="search" class="form-control"
+                            value.bind="todoItem.editTitle"
+                            focus.bind="todoItem.isEditing"
+                            focusout.delegate="todoItem.finishEditing($event)"
+                            keyup.delegate="todoItem.onKeyUp($event)"
+                            if.bind = "todoItem.isEditing">
                     </div>
                 </li>
                 </ul>

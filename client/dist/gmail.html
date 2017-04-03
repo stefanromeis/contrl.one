@@ -10,9 +10,9 @@
         </div>
         </div>
         <div class="label-bar" if.bind="connected" > 
-            <button class='labels' repeat.for="item of labels"  if.bind="!isLoading">
+            <button class="labels ${item == label ? 'active' : ''}" repeat.for="item of labels"  if.bind="!isLoading">
                 <span class="glyphicon glyphicon-send" if.bind="item == 'SENT' " aria-hidden="true" click.delegate="getMessages(item)"></span>
-                <span class="glyphicon glyphicon-inbox" if.bind="item == 'INBOX'" aria-hidden="true" click.delegate="getMessages(item)">
+                <span class="glyphicon glyphicon-inbox item == 'INBOX' ? 'active' : ''" if.bind="item == 'INBOX'" aria-hidden="true" click.delegate="getMessages(item)">
                     <span class="unread-mails" if.bind="unreadMessages > 0">${unreadMessages}</span>
                 </span>
             </button>

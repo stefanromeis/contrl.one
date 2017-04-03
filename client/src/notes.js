@@ -150,7 +150,7 @@ export class Notes {
 		let self = this;
 		$.ajax({
 			type: "GET",
-			url: this.api + 'notes/get',
+			url: this.api + 'notes',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -185,7 +185,7 @@ export class Notes {
 		let self = this;
 		$.ajax({
 			type: "POST",
-			url: this.api + 'notes/save',
+			url: this.api + 'notes',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},

@@ -25,7 +25,7 @@
         }
         .logout {
             opacity: 0.7;
-            padding:0px 10px 0px 10px;
+            padding:0px 10px 0px 0px;
             font-size: 0.75em;
             border: none;
         }
@@ -35,6 +35,7 @@
         display: block;
         bottom: 265px;
         height: 110px;
+        width: 100%;
         overflow-y: scroll;
         font-size: 0.9em;
         ul {
@@ -52,7 +53,7 @@
                         display: block;
                         span {
                             display: inline-block;
-                            width:90%;
+                            width:80%;
                             white-space: nowrap; 
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -161,10 +162,10 @@
         z-index: 1; /* Sit on top */
         left: 0;
         top: 0;
-        width: 100%; /* Full width */
-        height: 100%;; /* Full height */
+        width: 100%; 
+        height: 100%;;
         overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgba(0,0,0,0.4);
         overflow-y: hidden;
         vertical-align: middle;
         align-items: center;
@@ -200,7 +201,6 @@
                 }
             }
         }
-
         .modal-footer {
             width: 710px;
             bottom: 10px;
@@ -211,6 +211,14 @@
             button {
                 margin-top: 20px;
             }
+        }
+    }
+    @media screen and (max-width: 1366px) {
+        h5 {
+            display: none;
+        }
+        .headicon {
+             margin: 6px 10px;
         }
     }
 }

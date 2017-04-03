@@ -18,6 +18,11 @@ h5 {
 	color: $h-color!important;
 }
 
+@media screen and (max-width: 1366px) {
+	* {
+		font-size: 0.98em;
+	}
+}
 
 //@font-face {
 //	font-family: 'Aspira-Demi';

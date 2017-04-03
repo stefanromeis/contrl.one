@@ -31,6 +31,7 @@
         height: 165px;
         overflow-y: scroll;
         font-size: 0.9em;
+        width: 100%;
         .notifications {
             display: block;
             top: 8px;
@@ -127,4 +128,13 @@
             }
         }
     }
+    @media screen and (max-width: 1366px) {
+        h5 {
+            display: none;
+        }
+        .headicon {
+             margin: 6px 10px;
+        }
+    }
 }
+

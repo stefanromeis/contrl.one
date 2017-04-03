@@ -15,10 +15,10 @@ export class Instagram {
       urlToImage : "undefined",
     };
 
-    this.token = localStorage.getItem('instagram.token') !== "undefined" && 
-              localStorage.getItem('instagram.token') != null ? 
-              localStorage.getItem('instagram.token') : 
-              this.getStringFromUrl('access_token');
+    this.token =  
+                  localStorage.getItem('instagram.token') != null ? 
+                  localStorage.getItem('instagram.token') : 
+                  this.getStringFromUrl('access_token');
 
     if(this.token !== "undefined" && this.token != null) {
       this.signIn();

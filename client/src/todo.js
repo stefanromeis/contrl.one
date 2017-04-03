@@ -119,15 +119,6 @@ export class Todo {
 		this.save();
 	}
 
-	onToggleAllChanged() {
-		this.items = _.map(this.items, item => {
-			item.isCompleted = this.areAllChecked;
-			return item;
-		});
-
-		this.updateFilteredItems(this.filter);
-	}
-
 	clearCompletedTodos() {
 		this.items = _(this.items).filter(i => !i.isCompleted);
 		this.areAllChecked = false;
@@ -153,26 +144,11 @@ export class Todo {
 	}
 
 	get() {
-		/*
-		const storageContent = this.storage.getItem(STORAGE_NAME);
-		if (storageContent == undefined) { return; }
-
-		const simpleItems = JSON.parse(storageContent);
-		this.items = _.map(simpleItems, item => {
-			const todoItem = new TodoItem(item.title);
-			todoItem.isCompleted = item.completed;
-
-			this.observeItem(todoItem);
-
-			return todoItem;
-		});
-		this.updateAreAllCheckedState();
-		*/
 
 		let self = this;
 		$.ajax({
 			type: "GET",
-			url: this.api + 'todo/get',
+			url: this.api + 'todo',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -208,7 +184,7 @@ export class Todo {
 		let self = this;
 		$.ajax({
 			type: "POST",
-			url: this.api + 'todo/save',
+			url: this.api + 'todo',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},

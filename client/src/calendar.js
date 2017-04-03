@@ -28,7 +28,7 @@ export class Calendar {
             this.getCalendarList();
             setInterval(function(){
                 self.getCalendarList();
-            }, 6000);
+            }, 20000);
         }
 
         //this.createEntry();
@@ -67,6 +67,7 @@ export class Calendar {
                 self.calData.push(cData);
             }
         }).fail(function() {
+            console.log('Could not load calendar list.');
             self.connected = false;
         });
     }
