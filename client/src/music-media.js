@@ -20,24 +20,26 @@ export class MusicMedia {
         this.latest = localStorage.getItem("music-media.latest") || "spotify";
         this.active = this.latest;
         //console.log('latest', this.latest);
-        this.init();
+        //this.init();
     }          
 
-    init() {
+    attached() {
         this.componentsMusic[this.latest].active = true;
-        //$('#selectComp').val(this.latest);
+        $(this.selectComp).val(this.latest);
 
         // or if no option is preselected
         $(this.selectComp).on('change', e => {
             this.loadComponent (e.target.value);
+            console.log(e.target.value);
         });
     }
 
     loadComponent (component) {
         if (component in this.componentsMusic) {
             this.componentsMusic[this.active].active = false;
+            console.log(this.componentsMusic[this.active].active);
             this.active = component;
-            this.componentsMusic[this.active].connect();
+            //this.componentsMusic[this.active].connect();
             this.componentsMusic[component].active = true;
             localStorage.setItem("music-media.latest", component)
         }

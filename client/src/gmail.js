@@ -24,6 +24,7 @@ export class Gmail {
         this.content = "undefined";
         this.token = localStorage.getItem('google.token') || 'undefined';
         this.data = 'undefined';
+
         this.modalMessage = {
           subject: "",
           from: "",
@@ -33,6 +34,7 @@ export class Gmail {
        if(this.token !== "undefined") {
           this.init();
        }
+
     }
 
     init () {
@@ -49,6 +51,7 @@ export class Gmail {
         //localStorage.removeItem('google.token');
         //location.reload();
       }*/     
+
     }
 
     connect() {

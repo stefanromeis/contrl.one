@@ -42,25 +42,32 @@ export class Instagram {
         self.user.media = data.data.counts.media;
         self.user.follows = data.data.counts.follows;
         self.user.followed_by = data.data.counts.followed_by;
+
+        self.getUserImages(data);
     });
 
+    
+  }
+
+  getUserImages(data) {
+    var self = this;
     $.ajax({
-      url: 'https://api.instagram.com/v1/users/self/media/recent/',
-      dataType: 'jsonp',
-      type: 'GET',
-      data: {access_token: self.token, count: self.imageCount},
-    }).done(function( data ) {
-        //console.log(data);
-        for(var x = 0; x < data.data.length; x++) {
-          var image = {};
-          image.urlToImage = data.data[x].images.low_resolution.url;
-          image.comments = data.data[x].comments.count;
-          image.likes = data.data[x].likes.count;
-          image.link = data.data[x].link;
-          self.images.push(image);
-          self.loggedIn = true;
-        }
-    });
+          url: 'https://api.instagram.com/v1/users/self/media/recent/',
+          dataType: 'jsonp',
+          type: 'GET',
+          data: {access_token: self.token, count: self.imageCount},
+        }).done(function( data ) {
+          //console.log(data);
+          for(var x = 0; x < data.data.length; x++) {
+            var image = {};
+            image.urlToImage = data.data[x].images.low_resolution.url;
+            image.comments = data.data[x].comments.count;
+            image.likes = data.data[x].likes.count;
+            image.link = data.data[x].link;
+            self.images.push(image);
+            self.loggedIn = true;
+          }
+      });
   }
 
   signOut() {

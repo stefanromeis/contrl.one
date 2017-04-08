@@ -4,12 +4,11 @@ import {I18N}           from 'aurelia-i18n';
 import {Prompt}         from 'prompt';
 
 @inject(DialogService)
-
 export class Facebook {
+    
     constructor (dialogService) {
         this.dialogService = dialogService;
         this.active = false;
-        this.connected = false;
         this.isLoading = true;
 
         this.message = '';

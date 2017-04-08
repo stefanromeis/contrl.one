@@ -1,7 +1,8 @@
 <template>
     <div id="notes-wrapper">
         <div class="comp-header">
-            <img class='headicon' src="images/notes.png">
+            <!--<img class='headicon' src="images/notes.png">-->
+            <span class="glyphicon glyphicon-pencil headicon"></span>   
             <h5>NOTES</h5>
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>

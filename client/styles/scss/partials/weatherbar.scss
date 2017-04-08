@@ -94,14 +94,19 @@
         padding: 20px;
         line-height: 0.7;
     }
-
-    .headicon {
-        margin-bottom: 2px;
+    h5 {
+    }
+    span {
+        border-top: 3px solid rgba(0,0,0,0);
     }
     #weathersearch {
         background-color: rgba(255, 255, 255, 0);
     }
     #weathersearch:focus {
         @include transition-background-color(rgba(255, 255, 255, 0));
+    }
+    .headicon {
+        vertical-align: middle;
+        margin-bottom: 4px;
     }
 }

@@ -1,7 +1,8 @@
 <template>
     <div id="calendar-wrapper">
         <div class="comp-header">
-            <img class='headicon' src="images/calendar.png">
+            <!--<img class='headicon' src="images/calendar.png">-->
+            <span class=" glyphicon glyphicon-calendar headicon"></span>
             <h5>CALENDAR</h5>
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>

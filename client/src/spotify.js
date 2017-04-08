@@ -16,13 +16,13 @@ export class Spotify {
                         this.getStringFromUrl('access_token');
 
         //console.log('token ' , this.token);
-        if(this.token !== "undefined" && this.token != null) {
-            this.connect();
-        }
+
     } 
     
     attached(){
-         //this.connect()
+        if(this.token !== "undefined" && this.token != null) {
+            this.connect();
+        }
     }
 
     connect() {

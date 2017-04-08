@@ -1,7 +1,8 @@
 <template>
     <div class="gmail-wrapper"> 
         <div class="comp-header">
-        <img class='headicon' src="images/mail.png">
+        <!--<img class='headicon' src="images/mail.png">-->
+        <span class="glyphicon glyphicon-envelope headicon"></span>
         <h5> MAIL</h5></br>
         <div if.bind="!connected" click.delegate="connect()">
            <a class="btn btn-block btn-social btn-google">
@@ -55,9 +56,11 @@
                     <div class="date"><strong>Date/Time</strong></div>
                 </div>
                 -->
+                 <!--
                 <div class="headrow">
-                    <div class="cell" ><strong>${label}</strong></div>
+                   <div class="cell" ><strong>${label}</strong></div>
                 </div>
+                -->
                 <div class="list-body">
                     <div repeat.for="mail of mails" class="row ${mail.unread ? 'unread' : ''}" a href="#" click.delegate="openMessage(mail.id)">
                         <div class="cell">${mail.from}</div>

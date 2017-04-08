@@ -26,8 +26,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
           config.map([{
             route: ['', 'home', ':#?'],
             name: 'home',
-            moduleId: 'home',
-            nav: true
+            moduleId: 'home'
           }]);
           this.router = router;
         };
@@ -39,4 +38,4 @@ System.register(['aurelia-framework'], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJBcHAiLCJjb25maWd1cmVSb3V0ZXIiLCJjb25maWciLCJyb3V0ZXIiLCJ0aXRsZSIsIm1hcCIsInJvdXRlIiwibmFtZSIsIm1vZHVsZUlkIiwibmF2Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsWSxxQkFBQUEsTTs7O3FCQUdLQyxHLFdBRFpELFE7Ozs7O3NCQUdDRSxlLDRCQUFnQkMsTSxFQUFRQyxNLEVBQVE7QUFDOUJELGlCQUFPRSxLQUFQLEdBQWUsWUFBZjtBQUNBRixpQkFBT0csR0FBUCxDQUFXLENBQ1Q7QUFDRUMsbUJBQU8sQ0FBQyxFQUFELEVBQUssTUFBTCxFQUFhLEtBQWIsQ0FEVDtBQUVFQyxrQkFBTSxNQUZSO0FBR0VDLHNCQUFVLE1BSFo7QUFJRUMsaUJBQUs7QUFKUCxXQURTLENBQVg7QUFVQSxlQUFLTixNQUFMLEdBQWNBLE1BQWQ7QUFDRCxTIiwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJpbmplY3QiLCJBcHAiLCJjb25maWd1cmVSb3V0ZXIiLCJjb25maWciLCJyb3V0ZXIiLCJ0aXRsZSIsIm1hcCIsInJvdXRlIiwibmFtZSIsIm1vZHVsZUlkIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsWSxxQkFBQUEsTTs7O3FCQUdLQyxHLFdBRFpELFE7Ozs7O3NCQUdDRSxlLDRCQUFnQkMsTSxFQUFRQyxNLEVBQVE7QUFDOUJELGlCQUFPRSxLQUFQLEdBQWUsWUFBZjtBQUNBRixpQkFBT0csR0FBUCxDQUFXLENBQ1Q7QUFDRUMsbUJBQU8sQ0FBQyxFQUFELEVBQUssTUFBTCxFQUFhLEtBQWIsQ0FEVDtBQUVFQyxrQkFBTSxNQUZSO0FBR0VDLHNCQUFVO0FBSFosV0FEUyxDQUFYO0FBU0EsZUFBS0wsTUFBTCxHQUFjQSxNQUFkO0FBQ0QsUyIsImZpbGUiOiJhcHAuanMiLCJzb3VyY2VSb290IjoiL3NyYyJ9

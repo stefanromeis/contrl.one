@@ -9,4 +9,9 @@
     border-radius: 10px;
     background-color: $color-white;
     overflow: hidden;
+    .headicon {
+        vertical-align: middle;
+        margin-bottom: 4px;
+        width: 17px;
+    }
 }

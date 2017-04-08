@@ -1,7 +1,9 @@
 <template>
     <div class="news-wrapper">
         <div class="comp-header">
-            <img class='headicon' src="images/news.png">
+            <!--<img class='headicon' src="images/news.png">-->
+            
+            <span class="glyphicon glyphicon-info-sign headicon"></span>   
             <h5>NEWS</h5>
             <select ref="selectSource" id="selectSource" 
             class="pull-right" value.bind="source" if.bind="!isLoading">

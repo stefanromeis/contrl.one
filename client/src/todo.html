@@ -1,7 +1,8 @@
 <template>
     <div id="todo-wrapper">
         <div class="comp-header">
-            <img class='headicon' src="images/todo.png">
+            <!--<img class='headicon' src="images/todo.png">-->
+            <span class="glyphicon glyphicon-list headicon"></span>
             <h5>TODO</h5>
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>

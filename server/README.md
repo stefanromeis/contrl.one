@@ -12,7 +12,7 @@ You can do a POST to `/users` to create a new user.
 
 The body must have:
 
-* `username`: The username
+* `email`: The email-adress
 * `password`: The password
 * `extra`: Some extra information you want to save from the user (It's a string). This could be a color or anything at all.
 
@@ -24,7 +24,7 @@ It returns the following:
 }
 ```
 
-The JWT is signed with the secret located at the `config.json` file. That JWT will contain the `username` and the `extra` information sent.
+The JWT is signed with the secret located at the `config.json` file. That JWT will contain the `email` and the `extra` information sent.
 
 #### POST `/sessions/create`
 
@@ -32,7 +32,7 @@ You can do a POST to `/sessions/create` to log a user in.
 
 The body must have:
 
-* `username`: The username
+* `email`: The email-adress
 * `password`: The password
 
 It returns the following:
@@ -45,13 +45,13 @@ It returns the following:
 
 The JWT is signed with the secret located at the `config.json` file. That JWT will contain the `username` and the `extra` information that you sent at signup time.
 
-### Quotes API
+### contrl.one API
 
-#### GET `/api/random-quote`
+#### GET `/todo`
 
 It returns a String with a Random quote from Chuck Norris. It doesn't require authentication.
 
-#### GET `/api/protected/random-quote`
+#### GET `/todo`
 
 It returns a String with a Random quote from Chuck Norris. It requires authentication. 
 

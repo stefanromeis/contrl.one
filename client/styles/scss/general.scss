@@ -29,10 +29,14 @@ nav-bar {
 
 .splash {
   text-align: center;
-  margin: 10% 0 0 0;
-  box-sizing: border-box;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin-left: -36px
+  //box-sizing: border-box;
 }
 
+/*
 .splash .message {
   font-size: 72px;
   line-height: 72px;
@@ -40,12 +44,11 @@ nav-bar {
   text-transform: uppercase;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
+*/
 .splash .fa-spinner {
   text-align: center;
   display: inline-block;
   font-size: 72px;
-  margin-top: 50px;
 }
 
 .headicon {
@@ -62,7 +65,7 @@ nav-bar {
         .headicon {
             margin-bottom: 1px;
             padding: 0px;
-            margin: 0px 5px 0px 10px;
+            margin: 0px 0px 0px 10px;
             width: 20px;
         }
         h5 {
