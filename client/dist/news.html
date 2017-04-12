@@ -5,11 +5,15 @@
             
             <span class="glyphicon glyphicon-info-sign headicon"></span>   
             <h5>NEWS</h5>
-            <select ref="selectSource" id="selectSource" 
-            class="pull-right" value.bind="source" if.bind="!isLoading">
+
+            
+            <select ref="selectSource" id="selectSource" class="pull-right" value.bind="source">
                 <option repeat.for="source of sources" value.bind="source.id">${source.name}</option>
              </select> 
-             
+             <div class="lang-control pull-right">
+                <a href="#" class="${lang == 'en' ? 'active' : ''}" click.delegate="getSources('en')"> EN</a> |
+                <a href="#" class="${lang == 'de' ? 'active' : ''}" click.delegate="getSources('de')"> DE</a>
+            </div>
         </div>
         <!--
         <div class="news-control">
@@ -29,17 +33,17 @@
             <div class="double-bounce2"></div>
         </div>
 
-        <div class="article-header" if.bind="!isLoading">
+        <div class="article-header" >
             <a href="${activeSource.url}" target="_blank">
-                <img src="${activeSource.urlsToLogos}">
-                <!--<h3>${activeSource.name}</h3>-->
+                <!--<img src="${activeSource.urlsToLogos}">-->
+                <h3>${activeSource.name}</h3> <span class="notifications" if.bind="updates > 0">!</span>
             </a>
         </div>
-        <div class="article-body" if.bind="!isLoading">
-            <div class="article" if.bind="source" repeat.for="article of articles">
+        <div class="article-body">
+            <div class="article" repeat.for="article of articles">
                 <a if.bind="article.url" href="${article.url}" title="${article.title}" target="_blank">
                     <div class="image-place">
-                        <img if.bind="article.urlToImage" src.bind="article.urlToImage" >
+                        <img if.bind="article.urlToImage" src.bind="article.urlToImage">
                         <h4>${article.title}</h4>
                     </div>
                     <p class="description" if.bind="article.description">${article.description} 

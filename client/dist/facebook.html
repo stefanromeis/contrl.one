@@ -1,4 +1,6 @@
 <template>
+    <require from="notification"></require>
+
     <div class="facebook-wrapper">
         <div if.bind="!connected" click.delegate="connect()">
            <a class="btn btn-block btn-social btn-facebook" >

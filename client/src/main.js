@@ -32,19 +32,5 @@ export function configure(aurelia) {
     //aurelia.use.plugin('aurelia-html-import-template-loader')
     aurelia.start()
         .then(() => aurelia.setRoot())
-        /*
-        .then(() => {
-
-            // enable wrapper animations (navbar toggle)
-            if ($('body').hasClass('loggedIn')) {
-                $('#wrapper').addClass('animated');
-            }
-
-           // enable tooltips functionality
-            $('#wrapper').tooltip({
-                selector : '[data-toggle="tooltip"]',
-            });
-
-        });
-        */
+       
 }

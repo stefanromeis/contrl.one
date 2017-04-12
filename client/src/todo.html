@@ -1,6 +1,8 @@
 <template>
-    <div id="todo-wrapper">
-        <div class="comp-header">
+    <require from="bootstrap-tooltip"></require>
+
+    <div id="todo-wrapper" tooltip="placement:top; title: Click + to add new todo-item. Click to check/uncheck. Doubleclick to edit.">
+        <div class="comp-header" data-toggle="tooltip">
             <!--<img class='headicon' src="images/todo.png">-->
             <span class="glyphicon glyphicon-list headicon"></span>
             <h5>TODO</h5>
@@ -23,8 +25,7 @@
         <div class="data-wrapper" if.bind="connected">
 
             <import from="behaviors/focus"></import>
-
-            <section class="main">
+            <section class="main" >
                 <ul class="todo-list">
                 <li show.bind="!items.length">Nothin' to do!</li>
                 <li repeat.for="todoItem of items" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">

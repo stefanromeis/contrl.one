@@ -48,6 +48,24 @@
             border:none;
             opacity: 1.0;
         }
+        .notifications {
+            display: block;
+            top: 8px;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 9px;
+            border-radius: 14px;
+            background-color: red;
+            color: #fff;
+            height: 16px;
+            width: 16px;
+            margin: 0;
+            line-height: 1.5;
+            opacity: .8;
+            text-align: center;
+            margin: 12px 5px;
+            padding: 2px 4px 0 2px;
+            text-align: center;
+        }
     }
     .images {
         width: 100%;

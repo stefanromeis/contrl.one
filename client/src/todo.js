@@ -5,7 +5,6 @@ import { ObserverLocator } from 'aurelia-binding';
 import { TodoItem } from './todo-item';
 import _ from 'underscore';
 
-const STORAGE_NAME = 'todomvc-aurelia';
 const ENTER_KEY = 13;
 
 @inject(DialogService, ObserverLocator)
@@ -20,18 +19,19 @@ export class Todo {
 		this.loginModalOpen = false;
 
 		this.api = 'http://localhost:3001/';
+		this.tooltip = "Click + to add new todo-item. Click to check/uncheck. Doubleclick to edit.";
 
 		this.items = [];
 		this.filteredItems = [];
 		this.filter = '';
 		this.newTodoTitle = null;
 		this.areAllChecked = false;
-
 		this.observerLocator = observerLocator;
 		this.storage = storage || localStorage;
 		if(localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
 			this.get();
 		}
+		
 	}
 
 	activate(params) {

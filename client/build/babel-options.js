@@ -1,5 +1,4 @@
 var path = require('path');
-var paths = require('./paths');
 
 exports.base = function() {
   return {
@@ -19,7 +18,7 @@ exports.base = function() {
       'transform-flow-strip-types'
     ]
   };
-};
+}; 
 
 exports.commonjs = function() {
   var options = exports.base();

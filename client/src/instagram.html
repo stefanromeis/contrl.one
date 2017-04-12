@@ -11,6 +11,7 @@
       <button class="label-right">
           <span class="glyphicon glyphicon-log-out" aria-hidden="true" if.bind="token" class="btn btn-primary" click.delegate="signOut()"></span>
       </button>
+      <span class="notifications pull-right" if.bind="updates > 0">${updates}</span>
     </div>
 
     <div if.bind="!token" >
@@ -20,12 +21,12 @@
       </a>
     </div>
     
-    <div class="images" repeat.for="image of images">
+    <div class="images" repeat.for="image of images" >
       <div class="col-md-6">
-        <img if.bind="image.urlToImage" src.bind="image.urlToImage">
-        <a href="${image.link}" target="_blank">
-          <div class="image-details">
-            <div class="image-details-center">
+        <img if.bind="image.urlToImage" src.bind="image.urlToImage" >
+        <a href="${image.link}" target="_blank" mousedown.delegate="updates > 0" >
+          <div class="image-details" >
+            <div class="image-details-center" >
               <div class="detail">Likes: ${image.likes}</div>
               <div class="detail">Comments: ${image.comments}</div>
           </div>

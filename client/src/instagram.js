@@ -14,6 +14,10 @@ export class Instagram {
     this.image = {
       urlToImage : "undefined",
     };
+    this.interactions = 0;
+    this.tempInteractions = 0;
+    this.updates = 0;
+    this.firstLoad = true;
 
     this.token =  
                   localStorage.getItem('instagram.token') != null ? 
@@ -34,16 +38,18 @@ export class Instagram {
       type: 'GET',
       data: {access_token: self.token},
     }).done(function( data ) {
-        //console.log('userdata ', data.data);
         self.user.username = data.data.username;
         self.user.fullname = data.data.fullname;
         self.user.profile_picture = data.data.profile_picture;
         self.user.website = data.website;
         self.user.media = data.data.counts.media;
         self.user.follows = data.data.counts.follows;
-        self.user.followed_by = data.data.counts.followed_by;
-
+        self.user.followed_by = data.data.counts.followed_by
         self.getUserImages(data);
+        setInterval(function(){
+           self.getUserImages(data);
+        }, 60000);
+        
     });
 
     
@@ -57,16 +63,32 @@ export class Instagram {
           type: 'GET',
           data: {access_token: self.token, count: self.imageCount},
         }).done(function( data ) {
-          //console.log(data);
+          self.interactions = 0;
           for(var x = 0; x < data.data.length; x++) {
             var image = {};
             image.urlToImage = data.data[x].images.low_resolution.url;
             image.comments = data.data[x].comments.count;
             image.likes = data.data[x].likes.count;
+
+            self.interactions += image.comments + image.likes;
+
             image.link = data.data[x].link;
             self.images.push(image);
             self.loggedIn = true;
+
           }
+
+          //check for updates
+          if(self.firstLoad) {
+            self.firstLoad = false;           
+            self.tempInteractions = self.interactions;
+          }
+          else {
+            if(self.tempInteractions != self.interactions) {
+                self.updates = self.interactions - self.tempInteractions;
+            }
+          }
+
       });
   }
 
