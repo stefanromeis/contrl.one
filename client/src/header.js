@@ -1,16 +1,19 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {Time} from './time'; 
+import { inject } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { I18N } from 'aurelia-i18n';
+import { Time } from './time';
+import config from './services/authConfig';
 
-@inject(HttpClient)
+@inject(HttpClient, I18N)
 export class Header {
-  
-  lock = new Auth0Lock('bf0m39n56Z4GdBEdpXcgJJZD8927Cgj8', 'contrl.eu.auth0.com');
+
+  lock = new Auth0Lock(config.providers.auth0.clientId, config.providers.auth0.domain);
   isAuthenticated = false;
-  
-  constructor(http){
-    
+
+  constructor(http, I18N) {
+
     this.http = http;
+    this.i18n = I18N;
     this.TIME = new Time();
     this.date;
     this.time;
@@ -28,26 +31,26 @@ export class Header {
         self.lock.hide();
       });
     });
-
+    this.lang = this.i18n.getLocale();
     this.attached();
-  } 
+  }
 
-  attached () {
+  attached() {
     let self = this;
-    setInterval(function(){
-        self.time = self.TIME.time;
-        self.date = self.TIME.date;
+    setInterval(function () {
+      self.time = self.TIME.time;
+      self.date = self.TIME.date;
     }, 1000);
   }
 
   login() {
-    this.lock.show();   
+    this.lock.show();
   }
 
   logout() {
     localStorage.removeItem('profile');
     localStorage.removeItem('id_token');
-    this.isAuthenticated = false;   
+    this.isAuthenticated = false;
   }
 
   getSecretThing() {
@@ -56,10 +59,14 @@ export class Header {
         'Authorization': 'Bearer ' + localStorage.getItem('id_token')
       }
     })
-    .then(response => response.json())
-    .then(data => this.secretThing = data.text);
+      .then(response => response.json())
+      .then(data => this.secretThing = data.text);
   }
-  
+
+  switchLanguage(lang) {
+    localStorage.setItem('appLanguage', lang);
+    location.reload();
+  }
 }
 
 

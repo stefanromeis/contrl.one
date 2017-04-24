@@ -3,6 +3,13 @@
         <a class="navbar-brand" href="#"></a>
 
         <ul class="nav navbar-nav pull-right">
+            <li class="active lang">
+                <a href="#" class="${lang == 'en' ? 'activeLang' : ''}" click.delegate="switchLanguage('en')"> EN </a> &nbsp;|&nbsp;
+                <a href="#" class="${lang == 'de' ? 'activeLang' : ''}" click.delegate="switchLanguage('de')"> DE </a>
+            </li>
+            <li class="active">
+                <div class="datetime">&#9679;</div>
+            </li>
             <li class="active">
                 <div class="datetime">${date} | ${time}</div>
             </li>
@@ -17,6 +24,9 @@
             </li>
             <li class="active"><a href="#">Impressum </a></li>
             <li class="active"><a href="#">Kontakt </a></li>
+            <li class="active">
+                <div class="datetime">&#9679;</div>
+            </li>
             <li class="user">
                 <a href=""><label id="name"></label><img id="profile-img" /></a>
             </li>

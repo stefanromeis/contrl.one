@@ -1,9 +1,9 @@
 'use strict';
 
-System.register(['aurelia-i18n', 'aurelia-framework', 'services/auth-service', 'services/ig-service'], function (_export, _context) {
+System.register(['aurelia-i18n', 'aurelia-framework'], function (_export, _context) {
   "use strict";
 
-  var I18N, inject, AuthService, IgService, _createClass, _dec, _class, Welcome, UpperValueConverter;
+  var I18N, inject, _createClass, _dec, _class, Welcome, UpperValueConverter;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -16,10 +16,6 @@ System.register(['aurelia-i18n', 'aurelia-framework', 'services/auth-service', '
       I18N = _aureliaI18n.I18N;
     }, function (_aureliaFramework) {
       inject = _aureliaFramework.inject;
-    }, function (_servicesAuthService) {
-      AuthService = _servicesAuthService.AuthService;
-    }, function (_servicesIgService) {
-      IgService = _servicesIgService.IgService;
     }],
     execute: function () {
       _createClass = function () {
@@ -41,24 +37,14 @@ System.register(['aurelia-i18n', 'aurelia-framework', 'services/auth-service', '
       }();
 
       _export('Welcome', Welcome = (_dec = inject(I18N), _dec(_class = function () {
-        function Welcome(authService, igService) {
+        function Welcome() {
           _classCallCheck(this, Welcome);
 
-          this.authService = authService;
-          this.igService = igService;
           this.heading = 'Welcome to the Aurelia Navigation App!';
           this.firstName = 'John';
           this.lastName = 'Doe';
           this.previousValue = this.fullName;
         }
-
-        Welcome.prototype.signin = function signin() {
-          this.authService.signin();
-        };
-
-        Welcome.prototype.signout = function signout() {
-          this.authService.signout();
-        };
 
         Welcome.prototype.activate = function activate() {
           var _this = this;
@@ -111,4 +97,4 @@ System.register(['aurelia-i18n', 'aurelia-framework', 'services/auth-service', '
     }
   };
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUuanMiXSwibmFtZXMiOlsiSTE4TiIsImluamVjdCIsIkF1dGhTZXJ2aWNlIiwiSWdTZXJ2aWNlIiwiV2VsY29tZSIsImF1dGhTZXJ2aWNlIiwiaWdTZXJ2aWNlIiwiaGVhZGluZyIsImZpcnN0TmFtZSIsImxhc3ROYW1lIiwicHJldmlvdXNWYWx1ZSIsImZ1bGxOYW1lIiwic2lnbmluIiwic2lnbm91dCIsImFjdGl2YXRlIiwibG9jYWxTdG9yYWdlIiwiZ2V0SXRlbSIsInJlY2VudCIsInRoZW4iLCJyZXMiLCJyZXNwb25zZSIsImRhdGEiLCJzdWJtaXQiLCJhbGVydCIsImNhbkRlYWN0aXZhdGUiLCJjb25maXJtIiwiVXBwZXJWYWx1ZUNvbnZlcnRlciIsInRvVmlldyIsInZhbHVlIiwidG9VcHBlckNhc2UiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFRQSxVLGdCQUFBQSxJOztBQUNBQyxZLHFCQUFBQSxNOztBQUVBQyxpQix3QkFBQUEsVzs7QUFDQUMsZSxzQkFBQUEsUzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3lCQUdLQyxPLFdBRFpILE9BQU9ELElBQVAsQztBQUVDLHlCQUFZSyxXQUFaLEVBQXlCQyxTQUF6QixFQUFtQztBQUFBOztBQUVqQyxlQUFLRCxXQUFMLEdBQW1CQSxXQUFuQjtBQUNBLGVBQUtDLFNBQUwsR0FBaUJBLFNBQWpCO0FBQ0EsZUFBS0MsT0FBTCxHQUFlLHdDQUFmO0FBQ0EsZUFBS0MsU0FBTCxHQUFpQixNQUFqQjtBQUNBLGVBQUtDLFFBQUwsR0FBZ0IsS0FBaEI7QUFDQSxlQUFLQyxhQUFMLEdBQXFCLEtBQUtDLFFBQTFCO0FBRUQ7OzBCQUVEQyxNLHFCQUFTO0FBRVAsZUFBS1AsV0FBTCxDQUFpQk8sTUFBakI7QUFDRCxTOzswQkFFREMsTyxzQkFBVTtBQUVSLGVBQUtSLFdBQUwsQ0FBaUJRLE9BQWpCO0FBQ0QsUzs7MEJBR0RDLFEsdUJBQVc7QUFBQTs7QUFDVCxjQUFHQyxhQUFhQyxPQUFiLENBQXFCLE9BQXJCLENBQUgsRUFBaUM7QUFFL0IsbUJBQU8sS0FBS1YsU0FBTCxDQUFlVyxNQUFmLEdBQ0pDLElBREksQ0FDQztBQUFBLHFCQUFPQyxJQUFJQyxRQUFKLENBQWFDLElBQXBCO0FBQUEsYUFERCxFQUVKSCxJQUZJLENBRUMsa0JBQ0o7QUFFRSxvQkFBS0QsTUFBTCxHQUFjQSxNQUFkO0FBQ0QsYUFORSxDQUFQO0FBT0M7QUFDSixTOzswQkFXREssTSxxQkFBUztBQUNQLGVBQUtaLGFBQUwsR0FBcUIsS0FBS0MsUUFBMUI7QUFDQVksOEJBQWtCLEtBQUtaLFFBQXZCO0FBQ0QsUzs7MEJBRURhLGEsNEJBQWdCO0FBQ2QsY0FBSSxLQUFLYixRQUFMLEtBQWtCLEtBQUtELGFBQTNCLEVBQTBDO0FBQ3hDLG1CQUFPZSxRQUFRLGlDQUFSLENBQVA7QUFDRDtBQUNGLFM7Ozs7OEJBYmM7QUFDYixtQkFBVSxLQUFLakIsU0FBZixTQUE0QixLQUFLQyxRQUFqQztBQUNEOzs7Ozs7OztxQ0FjVWlCLG1COzs7OztzQ0FDWEMsTSxtQkFBT0MsSyxFQUFPO0FBQ1osaUJBQU9BLFNBQVNBLE1BQU1DLFdBQU4sRUFBaEI7QUFDRCxTIiwiZmlsZSI6ImhvbWUuanMiLCJzb3VyY2VSb290IjoiL3NyYyJ9
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUuanMiXSwibmFtZXMiOlsiSTE4TiIsImluamVjdCIsIldlbGNvbWUiLCJoZWFkaW5nIiwiZmlyc3ROYW1lIiwibGFzdE5hbWUiLCJwcmV2aW91c1ZhbHVlIiwiZnVsbE5hbWUiLCJhY3RpdmF0ZSIsImxvY2FsU3RvcmFnZSIsImdldEl0ZW0iLCJpZ1NlcnZpY2UiLCJyZWNlbnQiLCJ0aGVuIiwicmVzIiwicmVzcG9uc2UiLCJkYXRhIiwic3VibWl0IiwiYWxlcnQiLCJjYW5EZWFjdGl2YXRlIiwiY29uZmlybSIsIlVwcGVyVmFsdWVDb252ZXJ0ZXIiLCJ0b1ZpZXciLCJ2YWx1ZSIsInRvVXBwZXJDYXNlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBUUEsVSxnQkFBQUEsSTs7QUFDQUMsWSxxQkFBQUEsTTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3lCQUtLQyxPLFdBRFpELE9BQU9ELElBQVAsQztBQUVDLDJCQUFjO0FBQUE7O0FBR1osZUFBS0csT0FBTCxHQUFlLHdDQUFmO0FBQ0EsZUFBS0MsU0FBTCxHQUFpQixNQUFqQjtBQUNBLGVBQUtDLFFBQUwsR0FBZ0IsS0FBaEI7QUFDQSxlQUFLQyxhQUFMLEdBQXFCLEtBQUtDLFFBQTFCO0FBRUQ7OzBCQUdEQyxRLHVCQUFXO0FBQUE7O0FBQ1QsY0FBR0MsYUFBYUMsT0FBYixDQUFxQixPQUFyQixDQUFILEVBQWlDO0FBRS9CLG1CQUFPLEtBQUtDLFNBQUwsQ0FBZUMsTUFBZixHQUNKQyxJQURJLENBQ0M7QUFBQSxxQkFBT0MsSUFBSUMsUUFBSixDQUFhQyxJQUFwQjtBQUFBLGFBREQsRUFFSkgsSUFGSSxDQUVDLGtCQUNKO0FBRUUsb0JBQUtELE1BQUwsR0FBY0EsTUFBZDtBQUNELGFBTkUsQ0FBUDtBQU9DO0FBQ0osUzs7MEJBV0RLLE0scUJBQVM7QUFDUCxlQUFLWCxhQUFMLEdBQXFCLEtBQUtDLFFBQTFCO0FBQ0FXLDhCQUFrQixLQUFLWCxRQUF2QjtBQUNELFM7OzBCQUVEWSxhLDRCQUFnQjtBQUNkLGNBQUksS0FBS1osUUFBTCxLQUFrQixLQUFLRCxhQUEzQixFQUEwQztBQUN4QyxtQkFBT2MsUUFBUSxpQ0FBUixDQUFQO0FBQ0Q7QUFDRixTOzs7OzhCQWJjO0FBQ2IsbUJBQVUsS0FBS2hCLFNBQWYsU0FBNEIsS0FBS0MsUUFBakM7QUFDRDs7Ozs7Ozs7cUNBY1VnQixtQjs7Ozs7c0NBQ1hDLE0sbUJBQU9DLEssRUFBTztBQUNaLGlCQUFPQSxTQUFTQSxNQUFNQyxXQUFOLEVBQWhCO0FBQ0QsUyIsImZpbGUiOiJob21lLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==

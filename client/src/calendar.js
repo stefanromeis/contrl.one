@@ -1,12 +1,12 @@
-import { DialogService } from 'aurelia-dialog';
 import { inject } from 'aurelia-framework';
+import { DialogService } from 'aurelia-dialog';
 import { I18N } from 'aurelia-i18n';
 import { Prompt } from 'prompt';
-import {Time} from './time'; 
+import { Time } from './time'; 
 
-@inject(DialogService)
+@inject(DialogService, I18N)
 export class Calendar {
-    constructor(DialogService) {
+    constructor(DialogService, I18N) {
         this.dialogService = DialogService;
         this.SCOPES = ['https://mail.google.com/',
             'https://www.googleapis.com/auth/calendar'];
@@ -19,7 +19,9 @@ export class Calendar {
         this.count = "";
         this.modalOpen = false;
         this.TIME = new Time();
-        this.date = 0;
+        this.date = this.TIME.toView(new Date());
+        this.i18n = I18N;
+
 
     }
 
@@ -27,15 +29,11 @@ export class Calendar {
         let self = this;
         if (this.token !== "undefined") {
             this.connected = true;
-            console.log(this.TIME);
             this.getCalendarList();
             setInterval(function () {
                 self.getCalendarList();
-                self.date = self.TIME.date;
             }, 20000);
         }
-
-        //this.createEntry();
     }
 
 
@@ -63,16 +61,16 @@ export class Calendar {
                 cData.htmlLink = data.items[x].htmlLink;
                 cData.id = data.items[x].id;
                 if (data.items[x].start.dateTime) {
-                    cData.start = data.items[x].start.dateTime.split(/-|T/);
+                    cData.start = self.TIME.toView(data.items[x].start.dateTime);
                 }
                 if (data.items[x].start.date) {
-                    cData.start = data.items[x].start.date.split(/-|T/);
+                    cData.start = self.TIME.toView(data.items[x].start.date);
                 }
                 self.calData.push(cData);
             }
         }).fail(function () {
             console.log('Could not load calendar list.');
-            self.connected = false;
+            //self.connected = false;
         });
     }
 
@@ -105,7 +103,7 @@ export class Calendar {
             },
             "end": {
                 "dateTime": endDate
-            }
+            }  
         };
 
         $.ajax({

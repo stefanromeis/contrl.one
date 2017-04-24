@@ -1,83 +1,93 @@
-import {inject}        from 'aurelia-framework';
-import {I18N}          from 'aurelia-i18n';
-import $               from 'jquery';
+import { inject } from 'aurelia-framework';
+import { I18N } from 'aurelia-i18n';
+import config from './services/authConfig';
 
-//@inject()
 export class Soundcloud {
-    
-    constructor (){
+
+    constructor() {
         this.tracknumber = 0;
         this.trackList;
+        this.clientId = config.providers.soundcloud.clientId;
+        this.redirectUri = config.providers.soundcloud.redirectUri;
         this.meSC;
-        this.iframeElement   = document.getElementById('sc-sc-widget');
+        this.iframeElement = document.getElementById('sc-sc-widget');
         this.SC = SC;
-        this.SC.initialize({
-            client_id: "443f2da68b0ce89934a41dc950c78679",
-            redirect_uri: "http://localhost:9000/dist/callback.html"
-        });
         this.connected = false;
         this.active = false;
+        this.interactions = 0;
+        this.tempInteractions = 0;
+        this.updates = 0;
+        this.meUrl = '#';
 
-    } 
-    
-    attached(){
+        this.SC.initialize({
+            client_id: this.clientId,
+            redirect_uri: this.redirectUri,
+            scope: 'non-expiring'
+        });
+    }
+
+    attached() {
         this.SC.Widget(this.iframeElement);
     }
 
     connect() {
-    
         var self = this;
-
         // initiate auth popup
-        this.SC.connect().then(function() {
+        this.SC.connect().then(function () {
             return self.SC.get('/me');
-        }).then(function(me) {
+        }).then(function (me) {
             self.meSC = me;
-            console.log('Logged into soundcloud as ' + self.meSC.username);
-
-            self.SC.get("/me/tracks").then(function(tracks) {
+            self.meUrl = me.permalink_url;
+            self.SC.get("/me/tracks").then(function (tracks) {
                 self.trackList = tracks;
-                
-                var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + self.meSC.username + '/' + self.trackList[self.tracknumber].permalink;
-                document.getElementById('sc-widget').src = result;
-                self.connected = true;               
-            }); 
-        });     
+                self.loadTrack();
+                self.connected = true;
 
+                self.tempInteractions = self.getInteractions(self.trackList);
+                setInterval(function () {
+                    self.getUpdates();
+                }, 5000);
+            });
+        });
     }
 
-    loadnextTrack() {
+    getUpdates() {
+        var self = this;
+        this.SC.get("/me/tracks").then(function (tracks) {
+            self.interactions = self.getInteractions(tracks);
+            if (self.tempInteractions < self.interactions) {
+                self.updates = self.interactions - self.tempInteractions;
+            }
+        });
+    }
+
+    getInteractions(tracks) {
+        var count = 0;
+        for (let i = 0; i < tracks.length; i++) {
+            var track = tracks[i];
+            count += track.comment_count + track.favoritings_count + track.download_count;
+        }
+        return count;
+    }
+
+    loadNextTrack() {
         this.tracknumber++;
-        if(this.trackList[tracknumber]) {
-            var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + this.trackList[tracknumber].permalink;
+        this.loadTrack();
+    }
+
+    loadPrevTrack() {
+        this.tracknumber--;
+        this.loadTrack();
+    }
+
+    loadTrack() {
+        if (this.trackList[this.tracknumber]) {
+            var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + this.trackList[this.tracknumber].permalink;
             document.getElementById('sc-widget').src = result;
         }
         else {
             self.iframeElement.html("no more tracks available.");
         }
     }
-
-    loadprevTrack() {
-        tracknumber--;
-        if(tracknumber > 0) {
-            $.ajax({
-                type: 'HEAD',
-                url: 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + trackList[tracknumber].permalink,
-            success: function() {
-                loadTrack(tracknumber);
-            },
-            error: function() {
-                tracknumber--;
-                loadTrack(tracknumber);
-            }
-            });       
-        }
-    }
-
-    loadTrack(tracknumber) {
-        console.log('loaded Tracknumber: '+ tracknumber);
-        var result = 'https://w.soundcloud.com/player/?url=http://soundcloud.com/' + this.meSC.username + '/' + trackList[tracknumber].permalink;
-        document.getElementById('sc-widget').src = result;
-    } 
 
 }

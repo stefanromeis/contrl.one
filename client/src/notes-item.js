@@ -1,4 +1,3 @@
-import { inject } from 'aurelia-framework';
 const ENTER_KEY = 13;
 const ESC_KEY = 27;
 

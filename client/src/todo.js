@@ -1,59 +1,44 @@
 import { inject } from 'aurelia-framework';
+import { TodoItem } from 'todo-item';
 import { DialogService } from 'aurelia-dialog';
-import { Prompt } from 'prompt';
 import { ObserverLocator } from 'aurelia-binding';
-import { TodoItem } from './todo-item';
+import { Prompt } from 'prompt';
+import config from 'services/authConfig';
+import keys from 'services/keycodes';
 import _ from 'underscore';
-
-const ENTER_KEY = 13;
 
 @inject(DialogService, ObserverLocator)
 export class Todo {
-	constructor(DialogService, observerLocator, storage = null) {
+	constructor(DialogService, ObserverLocator) {
 		this.dialogService = DialogService;
-
-		this.connected = localStorage.getItem('contrl.one.token') || false;
-		this.isLoading = false;
-		this.calData = [];
+		this.observerLocator = ObserverLocator;
+		this.api = config.providers.contrlOne.api;
+		this.items = [];
+		this.newTodoTitle = null;
 		this.openModal = false;
 		this.loginModalOpen = false;
-
-		this.api = 'http://localhost:3001/';
-		this.tooltip = "Click + to add new todo-item. Click to check/uncheck. Doubleclick to edit.";
-
-		this.items = [];
-		this.filteredItems = [];
-		this.filter = '';
-		this.newTodoTitle = null;
-		this.areAllChecked = false;
-		this.observerLocator = observerLocator;
-		this.storage = storage || localStorage;
-		if(localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
-			this.get();
-		}
-		
 	}
 
-	activate(params) {
-		this.updateFilteredItems(params.filter);
+	attached() {
+		if (localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
+			this.get();
+		}
 	}
 
 	onKeyUp(ev) {
-		if(!ev) {
-			this.addNewTodo(this.newTodoTitle);
-			return;
-		}
-		if (ev.keyCode === ENTER_KEY && this.openModal) {
+		if (ev.keyCode === keys.ENTER && this.openModal) {
 			this.addNewTodo(this.newTodoTitle);
 		}
-		if (ev.keyCode === ENTER_KEY && this.loginModalOpen) {
+		if (ev.keyCode === keys.ESC && this.openModal) {
+			this.openModal = false;
+		}
+		if (ev.keyCode === keys.ENTER && this.loginModalOpen) {
 			this.signUp();
 		}
 	}
 
-	addNewTodo(title = this.newTodoTitle) {
+	addNewTodo(title) {
 		if (title == undefined) { return; }
-
 		title = title.trim();
 		if (title.length === 0) { return; }
 
@@ -61,29 +46,9 @@ export class Todo {
 		this.observeItem(newTodoItem);
 		this.items.push(newTodoItem);
 		this.newTodoTitle = null;
-		this.updateAreAllCheckedState();
-		this.updateFilteredItems(this.filter);
 		this.save();
-	}
+		this.openDialog("Entry created!");
 
-	updateAreAllCheckedState() {
-		this.areAllChecked = _(this.items).all(i => i.isCompleted);
-	}
-
-	updateFilteredItems(filter) {
-		this.filter = filter || '!';
-
-		switch (filter) {
-			case 'active':
-				this.filteredItems = _(this.items).filter(i => !i.isCompleted);
-				break;
-			case 'completed':
-				this.filteredItems = _(this.items).filter(i => i.isCompleted);
-				break;
-			default:
-				this.filteredItems = this.items;
-				break;
-		}
 	}
 
 	observeItem(todoItem) {
@@ -99,35 +64,20 @@ export class Todo {
 	onTitleChanged(todoItem) {
 		if (todoItem.title === '') {
 			this.deleteTodo(todoItem);
-			this.updateAreAllCheckedState();
 		}
-
 		this.save();
 	}
 
 	onIsCompletedChanged() {
-		this.updateAreAllCheckedState();
-		this.updateFilteredItems(this.filter);
-
 		this.save();
 	}
 
 	deleteTodo(todoItem) {
 		this.items = _(this.items).without(todoItem);
-		this.updateAreAllCheckedState();
-		this.updateFilteredItems(this.filter);
-		this.save();
-	}
-
-	clearCompletedTodos() {
-		this.items = _(this.items).filter(i => !i.isCompleted);
-		this.areAllChecked = false;
-		this.updateFilteredItems(this.filter);
 		this.save();
 	}
 
 	load(data) {
-		//const storageContent = this.storage.getItem(STORAGE_NAME);
 		let storageContent = data;
 		if (storageContent == undefined) { return; }
 
@@ -135,20 +85,16 @@ export class Todo {
 		this.items = _.map(simpleItems, item => {
 			const todoItem = new TodoItem(item.title);
 			todoItem.isCompleted = item.completed;
-
 			this.observeItem(todoItem);
-
 			return todoItem;
 		});
-		this.updateAreAllCheckedState();
 	}
 
 	get() {
-
-		let self = this;
+		const self = this;
 		$.ajax({
 			type: "GET",
-			url: this.api + 'todo',
+			url: this.api + '/todo',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -157,12 +103,13 @@ export class Todo {
 			}
 		}).done(function (res) {
 			console.log('ToDoListGet Success', res);
-			if(res.todoData) {
+			self.connected = true;
+			if (res.todoData) {
 				self.load(res.todoData);
 			}
 		}).fail(function (err) {
 			console.log('Error', err);
-			if(err.responseText) {
+			if (err.responseText) {
 				if (err.responseText.includes("jwt expired")) {
 				}
 			}
@@ -171,7 +118,6 @@ export class Todo {
 	}
 
 	save() {
-
 		const simpleItems = _.map(this.items, item => {
 			return {
 				title: item.title,
@@ -179,12 +125,10 @@ export class Todo {
 			}
 		});
 
-		//this.storage.setItem(STORAGE_NAME, JSON.stringify(simpleItems));
-
-		let self = this;
+		const self = this;
 		$.ajax({
 			type: "POST",
-			url: this.api + 'todo',
+			url: this.api + '/todo',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -196,7 +140,7 @@ export class Todo {
 			console.log('Success', res);
 		}).fail(function (err) {
 			console.log('Error', err);
-			if(err.responseText) {
+			if (err.responseText) {
 				if (err.responseText.includes("jwt expired")) {
 					self.connected = false;
 				}
@@ -207,10 +151,10 @@ export class Todo {
 
 
 	signUp() {
-		let self = this;
+		const self = this;
 		$.ajax({
 			type: "POST",
-			url: this.api + "users",
+			url: this.api + "/users",
 			data: {
 				'email': this.email,
 				'password': this.password
@@ -229,14 +173,13 @@ export class Todo {
 			}
 			console.log('Error', err);
 		});
-
 	}
 
 	login() {
-		let self = this;
+		const self = this;
 		$.ajax({
 			type: "POST",
-			url: this.api + "sessions/create",
+			url: this.api + "/sessions/create",
 			data: {
 				'email': this.email,
 				'password': this.password
@@ -260,6 +203,8 @@ export class Todo {
 		this.items = [];
 	}
 
-
+	openDialog(model) {
+		this.dialogService.open({ viewModel: Prompt, model: model });
+	}
 }
 

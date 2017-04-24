@@ -1,13 +1,14 @@
 <template>
-   <ai-dialog>
-      <ai-dialog-body>
-         <h2>${message}</h2>
-      </ai-dialog-body>
+    <ai-dialog class="dialog">
+        <div class=" filter "></div>
+        <ai-dialog-body>
+            ${message}
+        </ai-dialog-body>
 
-      <ai-dialog-footer>
-         <button click.trigger = "controller.cancel()">Cancel</button>
-         <button click.trigger = "controller.ok(message)">Ok</button>
-      </ai-dialog-footer>
-	
-   </ai-dialog>
-	
+        <ai-dialog-footer>
+            <!--<button click.trigger="controller.cancel() ">Cancel</button>
+            <button click.trigger="controller.ok(message) ">Ok</button>-->
+        </ai-dialog-footer>
+
+    </ai-dialog>
+</template>

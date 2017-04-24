@@ -25,7 +25,7 @@
         }
         .logout {
             opacity: 0.7;
-            padding:0px 10px 0px 0px;
+            padding: 0px 10px 0px 0px;
             font-size: 0.75em;
             border: none;
         }
@@ -40,12 +40,12 @@
         font-size: 0.9em;
         .css-label {
             vertical-align: middle;
-            color:#737373;
+            color: #737373;
             text-decoration: none;
             display: inline-block;
             width: 90%;
             cursor: pointer;
-            white-space: nowrap; 
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-weight: bold;
@@ -55,18 +55,18 @@
             }
         }
         .css-label:hover {
-            color:#222;
+            color: #222;
         }
         .destroy {
             display: inline-block;
-            color:#737373;
+            color: #737373;
             padding: 0;
             float: right;
             margin-right: 5px;
             margin-top: 8px;
         }
-       .destroy:hover {
-            color:#222;
+        .destroy:hover {
+            color: #222;
         }
         hr {
             margin: 5px 0;
@@ -77,8 +77,8 @@
             .title {
                 display: block;
                 width: 100%;
-                height: 15px; 
-                white-space: nowrap; 
+                height: 15px;
+                white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 b {
@@ -88,14 +88,21 @@
         }
     }
     .mod-notes {
-        display: flex; /* Hidden by default */
-        z-index: 1; /* Sit on top */
+        display: flex;
+        /* Hidden by default */
+        z-index: 1;
+        /* Sit on top */
         left: 0;
         top: 0;
-        width: 100%; /* Full width */
-        height: 100%;; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        ;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
         overflow-y: hidden;
         vertical-align: middle;
         align-items: center;
@@ -106,31 +113,31 @@
             padding: 0;
             .background-img-blurred {
                 background: url(../images/bg.jpg) center center no-repeat;
-                position:absolute;
-                left:0;
-                right:0;
-                top:0;
-                bottom:0;
-                z-index:1;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
                 -webkit-filter: blur(20px);
                 -moz-filter: blur(20px);
                 -o-filter: blur(20px);
                 -ms-filter: blur(20px);
-                filter: blur(20px);	
-            }  
+                filter: blur(20px);
+            }
             textarea.form-control {
                 height: 200px;
                 max-height: 300px;
                 max-width: 100%;
             }
             .mod-text {
-                position:relative;
-	            z-index:100;
-                background-color: rgba(255,255,255,.8);
+                position: relative;
+                z-index: 100;
+                background-color: rgba(255, 255, 255, .8);
                 padding: 20px;
-                overflow-y:scroll;
+                overflow-y: scroll;
                 border-radius: 10px;
-                overflow:hidden;
+                overflow: hidden;
                 .mod-header {
                     padding: 0;
                 }
@@ -152,7 +159,7 @@
             display: none;
         }
         .headicon {
-             margin: 9px 10px;
+            margin: 9px 10px;
         }
     }
 }

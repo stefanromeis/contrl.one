@@ -21,6 +21,7 @@
     "button_upload": "Hochladen",
     "button_delete_user": "Nutzer Löschen",
     "button_transfer_master_role": "Masterrolle übertragen",
+    "calendar": "Kalender",
     "cancel": "Abbrechen",
     "candidates": "Kandidaten",
     "candidates_with_a_score_lower_than": "Kandidaten mit weniger als {{score}}%",

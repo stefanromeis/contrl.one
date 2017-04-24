@@ -1,5 +1,4 @@
-const ENTER_KEY = 13;
-const ESC_KEY = 27;
+import keys from './services/keycodes'
 
 export class TodoItem {
 	constructor(title) {
@@ -12,6 +11,7 @@ export class TodoItem {
 	labelDoubleClicked() {
 		this.editTitle = this.title;
 		this.isEditing = true;
+		this.isCompleted = false;
 	}
 
 	finishEditing() {
@@ -20,12 +20,13 @@ export class TodoItem {
 	}
 
 	onKeyUp(ev) {
-		if (ev.keyCode === ENTER_KEY) {
-			return this.finishEditing();
+		if (ev.keyCode === keys.ENTER) {
+			this.finishEditing();
 		}
-		if (ev.keyCode === ESC_KEY) {
+		if (ev.keyCode === keys.ESC) {
 			this.editTitle = this.title;
 			this.isEditing = false;
 		}
 	}
 }
+

@@ -1,11 +1,13 @@
 <template>
     <div class="sc-wrapper">
-        <button if.bind="!connected" click.delegate="connect()">
-            <a class="btn btn-block btn-social btn-soundcloud"
-            href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token" if.bind="!token">
-                <span class="fa fa-soundcloud"></span> Login into Soundcloud
-            </a>
-        </button>
+        <div class="center">
+            <button  if.bind="!connected" click.delegate="connect()">
+                <a class="btn btn-block btn-social btn-soundcloud"
+                href="https://api.instagram.com/oauth/authorize/?client_id=91d4983ff3eb468b917f838029fc1d8e&redirect_uri=http://localhost:9000&response_type=token" if.bind="!token">
+                    <span class="fa fa-soundcloud"></span> Login into Soundcloud
+                </a>
+            </button>
+        </div>
         <iframe id="sc-widget"
             src="dist/soundcloud-init.html"
             frameborder="no">

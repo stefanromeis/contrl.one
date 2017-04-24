@@ -3,7 +3,7 @@
         <div class="comp-header">
             <!--<img class='headicon' src="images/calendar.png">-->
             <span class=" glyphicon glyphicon-calendar headicon"></span>
-            <h5>CALENDAR</h5>
+            <h5>${i18n.tr('calendar').toUpperCase()}</h5>
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
@@ -19,13 +19,11 @@
         </div>
 
         <div class="data-wrapper" if.bind="connected">
-            <span class="notifications" if.bind="notifications > 0">${notifications}</span>
             <div class="data" repeat.for="data of calData">
                 <a href="${data.htmlLink}" target="_blank">
-                    <div class="title ${date == data.start[2].data.start[1].data.start[0].split('20')[1] ? 'highlighted' : ''}" >
-                        ${data.start[2]}.${data.start[1]}.${data.start[0].split('20')[1]} -
-                        <b>${data.summary} ${date}</b>
-                        <b>${date}</b>
+                    <div class="title ${date == data.start ? 'highlighted' : ''}" >
+                        ${data.start} -
+                        <b>${data.summary}</b>
                     </div>
                     <!--<div class="title">${data.id}</div>-->
                 </a>

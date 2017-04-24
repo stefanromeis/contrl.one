@@ -6,6 +6,8 @@ var logger          = require('morgan'),
     cors            = require('cors'),
     dotenv          = require('dotenv'),
     bodyParser      = require('body-parser');
+    md5             = require('md5');
+    mysql           = require('./mysql');
 
 var app = express();
 

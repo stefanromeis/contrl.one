@@ -174,6 +174,63 @@
             display: block;
             background-color: $color-white;
             padding: 0;
+            height: 140px;
+            .background-img-blurred {
+                background: url(../images/bg.jpg) center center no-repeat;
+                position:absolute;
+                left:0;
+                right:0;
+                top:0;
+                bottom:0;
+                z-index:1;
+                -webkit-filter: blur(20px);
+                -moz-filter: blur(20px);
+                -o-filter: blur(20px);
+                -ms-filter: blur(20px);
+                filter: blur(20px);	
+            }  
+            .mod-text {
+                position:relative;
+	            z-index:100;
+                background-color: rgba(255,255,255,.8);
+                padding: 20px;
+                overflow-y:scroll;
+                border-radius: 10px;
+                overflow:hidden;
+                .mod-header {
+                    padding: 0;
+                }
+            }
+        }
+        .modal-footer {
+            width: 710px;
+            bottom: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: none;
+            padding: 20px;
+            button {
+                margin-top: 20px;
+            }
+        }
+    }
+    .mod-login-todo {
+        display: flex; /* Hidden by default */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%;;
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4);
+        overflow-y: hidden;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;
+        .mod-content {
+            display: block;
+            background-color: $color-white;
+            padding: 0;
             .background-img-blurred {
                 background: url(../images/bg.jpg) center center no-repeat;
                 position:absolute;

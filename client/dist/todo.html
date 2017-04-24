@@ -1,5 +1,5 @@
 <template>
-    <require from="bootstrap-tooltip"></require>
+    <require from="services/bootstrap-tooltip"></require>
 
     <div id="todo-wrapper" tooltip="placement:top; title: Click + to add new todo-item. Click to check/uncheck. Doubleclick to edit.">
         <div class="comp-header" data-toggle="tooltip">
@@ -64,18 +64,14 @@
                     <div class="form-group">
                          <input id="search" type="search" class="form-control" placeholder="What needs to be done?"
                             keyup.delegate="onKeyUp($event)"
-                            value.bind="newTodoTitle" autofocus>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" click.delegate="openModal = false">Cancel</button>
-                        <button type="submit" class="btn btn-primary" click.delegate="onKeyUp()">Create</button>
+                            value.bind="newTodoTitle" focus.bind="openModal">
                     </div>
                 </div>
                 </div>
             </div>
         </div>
 
-        <div class="mod mod-todo" data-keyboard="true" data-backdrop="static" if.bind="loginModalOpen">
+        <div class="mod mod-login-todo" data-keyboard="true" data-backdrop="static" if.bind="loginModalOpen">
             <div class="mod-content">
                 <div class="background-img-blurred"></div>
                 <div class="mod-text">

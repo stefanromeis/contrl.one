@@ -1,31 +1,19 @@
 import {I18N}   from 'aurelia-i18n';
 import {inject} from 'aurelia-framework';
 
-import {AuthService} from 'services/auth-service';
-import {IgService} from 'services/ig-service';
+
 
 @inject(I18N)
 export class Welcome {
-  constructor(authService, igService){
+  constructor (){
     // Setup Dependencies
-    this.authService = authService;
-    this.igService = igService;
+
     this.heading = 'Welcome to the Aurelia Navigation App!';
     this.firstName = 'John';
     this.lastName = 'Doe';
     this.previousValue = this.fullName;
 
   }  
-
-  signin() {
-    // Sign in
-    this.authService.signin();
-  }
-
-  signout() {
-    // Sign out
-    this.authService.signout();
-  }
 
   // Lifecycle method called when a route is activated
   activate() {

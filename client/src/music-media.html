@@ -1,5 +1,4 @@
 <template>
-
     <div class="music-media-wrapper">
         <div class="comp-header">
             <span class="glyphicon glyphicon-music headicon"></span>
@@ -9,11 +8,17 @@
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
             -->
+
             <button class="pull-right" repeat.for="component of components" click.delegate="loadComponent(component)">
                 <a class="btn btn-block btn-social btn-${component}" >
                     <span class="fa fa-${component}"></span>
+                        <span class="notifications" if.bind="componentsMusic[component].updates > 0">${componentsMusic[component].updates}</span>
                 </a>
-            </button>            
+            </button>
+            <div class="controls pull-right" if.bind="Soundcloud.connected && Soundcloud.active">
+                <button class="glyphicon glyphicon-backward" click.delegate="loadPrev()" if.bind="Soundcloud.tracknumber > 0"></button>
+                <button class="glyphicon glyphicon-forward" click.delegate="loadNext()" ></button>
+            </div>      
         </div>
                 
         <compose view-model.bind="Soundcloud" if.bind="Soundcloud.active"></compose>

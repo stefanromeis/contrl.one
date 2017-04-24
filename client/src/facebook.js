@@ -2,6 +2,7 @@ import {DialogService}  from 'aurelia-dialog';
 import {inject}         from 'aurelia-framework';
 import {I18N}           from 'aurelia-i18n';
 import {Prompt}         from 'prompt';
+import config           from './services/authConfig';
 
 @inject(DialogService)
 export class Facebook {
@@ -28,12 +29,14 @@ export class Facebook {
         this.feed_post = "";
         this.modal = false;
         this.notifications = 0;
-        this.notificationIds = [];  
+        this.notificationIds = []; 
+        this.appId = config.providers.facebook.appId; 
+
         let self = this;
 
         window.fbAsyncInit = function() {
             FB.init({
-              appId      : '672920632846289',
+              appId      : self.appId,
               xfbml      : true,
               cookie     : true,
               status     : true, 

@@ -1,19 +1,29 @@
-import {inject} from 'aurelia-framework';
-import {DialogController} from 'aurelia-dialog';
+import { inject } from 'aurelia-framework';
+import { DialogController } from 'aurelia-dialog';
 
 @inject(DialogController)
 
 export class Prompt {
 
-   constructor(controller){
-      this.controller = controller;
-      this.answer = null;
+    constructor(DialogController) {
+        this.controller = DialogController;
+        this.controller.settings.centerHorizontalOnly = true;
+        this.timer = 2500;
+    }
 
-      controller.settings.centerHorizontalOnly = true;
-   }
+    activate(message) {
+        this.message = message;
 
-   activate(message) {
-      this.message = message;
-   }
-   
+        this.deactivate();
+
+    }
+
+    deactivate() {
+        const self = this;
+        setTimeout(function () {
+            self.controller.ok();
+        }, self.timer);
+    }
+
+
 }

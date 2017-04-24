@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/auth0/in-memory-todo.git"
+    "url": "https://github.com/stefan"
   },
   "keywords": [
-    "todo",
+    "contrlone",
     "in",
     "memory",
     "jwt",
@@ -34,6 +34,7 @@
     "jsonwebtoken": "^5.0.1",
     "lodash": "^2.4.1",
     "morgan": "^1.2.3",
-    "node-soundcloud": "^0.0.6"
+    "mysql": "^2.13.0",
+    "md5": "^2.2.1^"
   }
 }

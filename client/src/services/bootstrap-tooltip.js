@@ -1,4 +1,3 @@
-
 import {customAttribute, inject, bindable} from 'aurelia-framework';
 import $ from 'bootstrap';
 

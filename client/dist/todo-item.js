@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-System.register([], function (_export, _context) {
+System.register(['./services/keycodes'], function (_export, _context) {
 	"use strict";
 
-	var ENTER_KEY, ESC_KEY, TodoItem;
+	var keys, TodoItem;
 
 	function _classCallCheck(instance, Constructor) {
 		if (!(instance instanceof Constructor)) {
@@ -12,12 +12,11 @@ System.register([], function (_export, _context) {
 	}
 
 	return {
-		setters: [],
+		setters: [function (_servicesKeycodes) {
+			keys = _servicesKeycodes.default;
+		}],
 		execute: function () {
-			ENTER_KEY = 13;
-			ESC_KEY = 27;
-
-			_export("TodoItem", TodoItem = function () {
+			_export('TodoItem', TodoItem = function () {
 				function TodoItem(title) {
 					_classCallCheck(this, TodoItem);
 
@@ -30,6 +29,7 @@ System.register([], function (_export, _context) {
 				TodoItem.prototype.labelDoubleClicked = function labelDoubleClicked() {
 					this.editTitle = this.title;
 					this.isEditing = true;
+					this.isCompleted = false;
 				};
 
 				TodoItem.prototype.finishEditing = function finishEditing() {
@@ -38,10 +38,10 @@ System.register([], function (_export, _context) {
 				};
 
 				TodoItem.prototype.onKeyUp = function onKeyUp(ev) {
-					if (ev.keyCode === ENTER_KEY) {
-						return this.finishEditing();
+					if (ev.keyCode === keys.ENTER) {
+						this.finishEditing();
 					}
-					if (ev.keyCode === ESC_KEY) {
+					if (ev.keyCode === keys.ESC) {
 						this.editTitle = this.title;
 						this.isEditing = false;
 					}
@@ -50,8 +50,8 @@ System.register([], function (_export, _context) {
 				return TodoItem;
 			}());
 
-			_export("TodoItem", TodoItem);
+			_export('TodoItem', TodoItem);
 		}
 	};
 });
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRvZG8taXRlbS5qcyJdLCJuYW1lcyI6WyJFTlRFUl9LRVkiLCJFU0NfS0VZIiwiVG9kb0l0ZW0iLCJ0aXRsZSIsImlzQ29tcGxldGVkIiwiaXNFZGl0aW5nIiwidHJpbSIsImVkaXRUaXRsZSIsImxhYmVsRG91YmxlQ2xpY2tlZCIsImZpbmlzaEVkaXRpbmciLCJvbktleVVwIiwiZXYiLCJrZXlDb2RlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7O0FBQU1BLFksR0FBWSxFO0FBQ1pDLFUsR0FBVSxFOzt1QkFFSEMsUTtBQUNaLHNCQUFZQyxLQUFaLEVBQW1CO0FBQUE7O0FBQ2xCLFVBQUtDLFdBQUwsR0FBbUIsS0FBbkI7QUFDQSxVQUFLQyxTQUFMLEdBQWlCLEtBQWpCO0FBQ0EsVUFBS0YsS0FBTCxHQUFhQSxNQUFNRyxJQUFOLEVBQWI7QUFDQSxVQUFLQyxTQUFMLEdBQWlCLElBQWpCO0FBQ0E7O3VCQUVEQyxrQixpQ0FBcUI7QUFDcEIsVUFBS0QsU0FBTCxHQUFpQixLQUFLSixLQUF0QjtBQUNBLFVBQUtFLFNBQUwsR0FBaUIsSUFBakI7QUFDQSxLOzt1QkFFREksYSw0QkFBZ0I7QUFDZixVQUFLTixLQUFMLEdBQWEsS0FBS0ksU0FBTCxDQUFlRCxJQUFmLEVBQWI7QUFDQSxVQUFLRCxTQUFMLEdBQWlCLEtBQWpCO0FBQ0EsSzs7dUJBRURLLE8sb0JBQVFDLEUsRUFBSTtBQUNYLFNBQUlBLEdBQUdDLE9BQUgsS0FBZVosU0FBbkIsRUFBOEI7QUFDN0IsYUFBTyxLQUFLUyxhQUFMLEVBQVA7QUFDQTtBQUNELFNBQUlFLEdBQUdDLE9BQUgsS0FBZVgsT0FBbkIsRUFBNEI7QUFDM0IsV0FBS00sU0FBTCxHQUFpQixLQUFLSixLQUF0QjtBQUNBLFdBQUtFLFNBQUwsR0FBaUIsS0FBakI7QUFDQTtBQUNELEsiLCJmaWxlIjoidG9kby1pdGVtLmpzIiwic291cmNlUm9vdCI6Ii9zcmMifQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRvZG8taXRlbS5qcyJdLCJuYW1lcyI6WyJrZXlzIiwiVG9kb0l0ZW0iLCJ0aXRsZSIsImlzQ29tcGxldGVkIiwiaXNFZGl0aW5nIiwidHJpbSIsImVkaXRUaXRsZSIsImxhYmVsRG91YmxlQ2xpY2tlZCIsImZpbmlzaEVkaXRpbmciLCJvbktleVVwIiwiZXYiLCJrZXlDb2RlIiwiRU5URVIiLCJFU0MiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFPQSxPOzs7dUJBRU1DLFE7QUFDWixzQkFBWUMsS0FBWixFQUFtQjtBQUFBOztBQUNsQixVQUFLQyxXQUFMLEdBQW1CLEtBQW5CO0FBQ0EsVUFBS0MsU0FBTCxHQUFpQixLQUFqQjtBQUNBLFVBQUtGLEtBQUwsR0FBYUEsTUFBTUcsSUFBTixFQUFiO0FBQ0EsVUFBS0MsU0FBTCxHQUFpQixJQUFqQjtBQUNBOzt1QkFFREMsa0IsaUNBQXFCO0FBQ3BCLFVBQUtELFNBQUwsR0FBaUIsS0FBS0osS0FBdEI7QUFDQSxVQUFLRSxTQUFMLEdBQWlCLElBQWpCO0FBQ0EsVUFBS0QsV0FBTCxHQUFtQixLQUFuQjtBQUNBLEs7O3VCQUVESyxhLDRCQUFnQjtBQUNmLFVBQUtOLEtBQUwsR0FBYSxLQUFLSSxTQUFMLENBQWVELElBQWYsRUFBYjtBQUNBLFVBQUtELFNBQUwsR0FBaUIsS0FBakI7QUFDQSxLOzt1QkFFREssTyxvQkFBUUMsRSxFQUFJO0FBQ1gsU0FBSUEsR0FBR0MsT0FBSCxLQUFlWCxLQUFLWSxLQUF4QixFQUErQjtBQUM5QixXQUFLSixhQUFMO0FBQ0E7QUFDRCxTQUFJRSxHQUFHQyxPQUFILEtBQWVYLEtBQUthLEdBQXhCLEVBQTZCO0FBQzVCLFdBQUtQLFNBQUwsR0FBaUIsS0FBS0osS0FBdEI7QUFDQSxXQUFLRSxTQUFMLEdBQWlCLEtBQWpCO0FBQ0E7QUFDRCxLIiwiZmlsZSI6InRvZG8taXRlbS5qcyIsInNvdXJjZVJvb3QiOiIvc3JjIn0=

@@ -15,7 +15,7 @@ var users = [{
 }];
 
 function createToken(user) {
-  return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
+  return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*24*7 });
 }
 
 function getUserScheme(req) {

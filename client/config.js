@@ -45,6 +45,7 @@ System.config({
     "jquery": "npm:jquery@2.2.4",
     "jquery-ui": "npm:jquery-ui@1.12.1",
     "js-base64": "npm:js-base64@2.1.9",
+    "moment": "npm:moment@2.18.1",
     "oauth": "npm:oauth@0.9.14",
     "qs": "npm:qs@6.2.1",
     "text": "github:systemjs/plugin-text@0.0.3",

@@ -1,6 +1,6 @@
 import {inject}        from 'aurelia-framework';
 import {I18N}          from 'aurelia-i18n'; 
-import moment from 'moment';
+import moment          from 'moment';
 
 @inject(I18N)
 export class Time {
@@ -10,10 +10,7 @@ export class Time {
         this.time = "";
 
         this.attached();
-    }
-
-    toView(value) {
-        return moment(value).format('M/D/YYYY h:mm:ss a');
+        this.toView();
     }
 
     attached() {
@@ -49,13 +46,17 @@ export class Time {
 
     clock() {
         let d = new Date();
-        console.log(d);
         this.date = this.weekdays[d.getDay()].substr(0, 3) + ', ' +this.getOrdinal(d.getDate()) + " of " + (this.month[d.getMonth()])  + " " + d.getFullYear();
         
         this.time = d.getHours()+':'+d.getMinutes();
         if(d.getMinutes().toString().length == 1) {
             this.time = d.getHours()+':0'+d.getMinutes();
         }
+    }
+
+    toView(value) {
+        //console.log(moment(new Date()).format('D.MM.YYYY'));
+        return moment(value).format(('DD.MM.YYYY'));
     }
 
     getOrdinal(n) {

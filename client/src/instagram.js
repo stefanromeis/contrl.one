@@ -1,5 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient}         from 'aurelia-fetch-client';
+import {inject}     from 'aurelia-framework';
+import {HttpClient} from 'aurelia-fetch-client';
+import config       from './services/authConfig';
 
 @inject(HttpClient)
 export class Instagram {
@@ -18,7 +19,8 @@ export class Instagram {
     this.tempInteractions = 0;
     this.updates = 0;
     this.firstLoad = true;
-
+    this.api = config.providers.instagram.api;
+    this.clientId = config.providers.instagram.clientId;
     this.token =  
                   localStorage.getItem('instagram.token') != null ? 
                   localStorage.getItem('instagram.token') : 
@@ -33,7 +35,7 @@ export class Instagram {
   signIn() {
     let self = this;
     $.ajax({
-      url: 'https://api.instagram.com/v1/users/self',
+      url: self.api +'/users/self',
       dataType: 'jsonp',
       type: 'GET',
       data: {access_token: self.token},
@@ -58,12 +60,13 @@ export class Instagram {
   getUserImages(data) {
     var self = this;
     $.ajax({
-          url: 'https://api.instagram.com/v1/users/self/media/recent/',
+          url: self.api + '/users/self/media/recent/',
           dataType: 'jsonp',
           type: 'GET',
           data: {access_token: self.token, count: self.imageCount},
         }).done(function( data ) {
           self.interactions = 0;
+          self.images = [];
           for(var x = 0; x < data.data.length; x++) {
             var image = {};
             image.urlToImage = data.data[x].images.low_resolution.url;

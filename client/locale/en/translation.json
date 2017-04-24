@@ -22,6 +22,7 @@
     "button_upload": "Upload",
     "button_delete_user": "Delete member",
     "button_transfer_master_role": "Transfer master role",
+    "calendar": "Calendar",
     "cancel": "Cancel",
     "candidates": "Candidates",
     "candidates_with_a_score_lower_than": "Candidates with a score lower than {{score}}%",

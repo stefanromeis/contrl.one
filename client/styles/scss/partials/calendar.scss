@@ -66,7 +66,7 @@
                 text-overflow: ellipsis;
             }
             .highlighted {
-                color: red;
+                color: #dd0000;
             }
         }
     }
@@ -84,7 +84,6 @@
         align-items: center;
         justify-content: center;
         .mod-content {
-            overflow-y: scroll;
             display: block;
             background-color: $color-white;
             padding: 0;
@@ -116,7 +115,6 @@
         }
 
         .modal-footer {
-            width: 710px;
             bottom: 10px;
             margin-top: 20px;
             margin-bottom: 20px;
