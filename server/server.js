@@ -6,8 +6,6 @@ var logger          = require('morgan'),
     cors            = require('cors'),
     dotenv          = require('dotenv'),
     bodyParser      = require('body-parser');
-    md5             = require('md5');
-    mysql           = require('./mysql');
 
 var app = express();
 
@@ -34,7 +32,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler())
 }
 
-app.use(require('./anonymous-routes'));
 app.use(require('./todo-routes'));
 app.use(require('./notes-routes'));
 app.use(require('./user-routes'));

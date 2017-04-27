@@ -9,6 +9,7 @@
     height: 150px;
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
+    overflow: hidden;
     .comp-header {
         .headicon {
             margin-bottom: 2px;
@@ -25,7 +26,7 @@
         }
         .logout {
             opacity: 0.7;
-            padding:0px 10px 0px 0px;
+            padding: 0px 10px 0px 0px;
             font-size: 0.75em;
             border: none;
         }
@@ -34,7 +35,7 @@
         padding: 10px;
         display: block;
         bottom: 265px;
-        height: 110px;
+        height: 120px;
         width: 100%;
         overflow-y: scroll;
         font-size: 0.9em;
@@ -44,7 +45,7 @@
             width: 100%;
             li {
                 height: 25px;
-                .view { 
+                .view {
                     .completed {
                         text-decoration: line-through;
                     }
@@ -53,8 +54,8 @@
                         display: block;
                         span {
                             display: inline-block;
-                            width:80%;
-                            white-space: nowrap; 
+                            width: 80%;
+                            white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
@@ -63,43 +64,40 @@
                             float: right;
                         }
                     }
-                    :hover {
+                     :hover {
                         color: #000;
                     }
                 }
             }
-            
-
         }
         input[type=checkbox].css-checkbox {
-		    position:absolute; 
-            z-index:-1000; 
-            left:-1000px; 
-            overflow: hidden; 
-            clip: rect(0 0 0 0); 
-            height:1px; 
-            width:1px; 
-            margin:-1px; 
-            padding:0; 
-            border:0;
-		}
-        input[type=checkbox].css-checkbox + label.css-label {
-            padding-left:26px;
-            height:20px; 
-            display:inline-block;
-            line-height:20px;
-            background-repeat:no-repeat;
+            position: absolute;
+            z-index: -1000;
+            left: -1000px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            width: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+        }
+        input[type=checkbox].css-checkbox+label.css-label {
+            padding-left: 26px;
+            height: 20px;
+            display: inline-block;
+            line-height: 20px;
+            background-repeat: no-repeat;
             background-position: 0 0;
-            vertical-align:middle;
-            cursor:pointer;
+            vertical-align: middle;
+            cursor: pointer;
             font-weight: 400;
         }
-
-        input[type=checkbox].css-checkbox:checked + label.css-label {
+        input[type=checkbox].css-checkbox:checked+label.css-label {
             background-position: 0 -20px;
         }
         label.css-label {
-            background-image:url('../images/checkbox.png');
+            background-image: url('../images/checkbox.png');
             color: #737373;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -108,30 +106,12 @@
             -ms-user-select: none;
             user-select: none;
         }
-        .notifications {
-            display: block;
-            top: 8px;
-            right: 75px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 10px;
-            font-weight:600;
-            border-radius: 14px;
-            background-color: red;
-            color:#fff;
-            height: 14px;
-            width: 14px;
-            position: absolute;
-            margin: 0;
-            line-height: 1.5;
-            opacity: 0.8;
-            text-align: center;
-        }
         a {
             display: block;
-            color:#737373;
+            color: #737373;
             text-decoration: none;
-            :hover {
-                color:#222;
+             :hover {
+                color: #222;
             }
         }
         .data {
@@ -139,8 +119,8 @@
             .title {
                 display: block;
                 width: 100%;
-                height: 15px; 
-                white-space: nowrap; 
+                height: 15px;
+                white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 b {
@@ -158,14 +138,18 @@
         }
     }
     .mod-todo {
-        display: flex; /* Hidden by default */
-        z-index: 1; /* Sit on top */
+        display: flex;
+        /* Hidden by default */
+        z-index: 1;
+        /* Sit on top */
         left: 0;
         top: 0;
-        width: 100%; 
-        height: 100%;;
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4);
+        width: 100%;
+        height: 100%;
+        ;
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4);
         overflow-y: hidden;
         vertical-align: middle;
         align-items: center;
@@ -177,26 +161,26 @@
             height: 140px;
             .background-img-blurred {
                 background: url(../images/bg.jpg) center center no-repeat;
-                position:absolute;
-                left:0;
-                right:0;
-                top:0;
-                bottom:0;
-                z-index:1;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
                 -webkit-filter: blur(20px);
                 -moz-filter: blur(20px);
                 -o-filter: blur(20px);
                 -ms-filter: blur(20px);
-                filter: blur(20px);	
-            }  
+                filter: blur(20px);
+            }
             .mod-text {
-                position:relative;
-	            z-index:100;
-                background-color: rgba(255,255,255,.8);
+                position: relative;
+                z-index: 100;
+                background-color: rgba(255, 255, 255, .8);
                 padding: 20px;
-                overflow-y:scroll;
+                overflow-y: scroll;
                 border-radius: 10px;
-                overflow:hidden;
+                overflow: hidden;
                 .mod-header {
                     padding: 0;
                 }
@@ -215,14 +199,18 @@
         }
     }
     .mod-login-todo {
-        display: flex; /* Hidden by default */
-        z-index: 1; /* Sit on top */
+        display: flex;
+        /* Hidden by default */
+        z-index: 1;
+        /* Sit on top */
         left: 0;
         top: 0;
-        width: 100%; 
-        height: 100%;;
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4);
+        width: 100%;
+        height: 100%;
+        ;
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4);
         overflow-y: hidden;
         vertical-align: middle;
         align-items: center;
@@ -233,26 +221,26 @@
             padding: 0;
             .background-img-blurred {
                 background: url(../images/bg.jpg) center center no-repeat;
-                position:absolute;
-                left:0;
-                right:0;
-                top:0;
-                bottom:0;
-                z-index:1;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
                 -webkit-filter: blur(20px);
                 -moz-filter: blur(20px);
                 -o-filter: blur(20px);
                 -ms-filter: blur(20px);
-                filter: blur(20px);	
-            }  
+                filter: blur(20px);
+            }
             .mod-text {
-                position:relative;
-	            z-index:100;
-                background-color: rgba(255,255,255,.8);
+                position: relative;
+                z-index: 100;
+                background-color: rgba(255, 255, 255, .8);
                 padding: 20px;
-                overflow-y:scroll;
+                overflow-y: scroll;
                 border-radius: 10px;
-                overflow:hidden;
+                overflow: hidden;
                 .mod-header {
                     padding: 0;
                 }
@@ -275,7 +263,7 @@
             display: none;
         }
         .headicon {
-             margin: 9px 10px;
+            margin: 9px 10px;
         }
     }
 }

@@ -9,6 +9,7 @@
     height: 200px;
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
+    overflow: hidden;
     .comp-header {
         button::before {
             width: 25px;
@@ -25,7 +26,7 @@
         padding: 6px 10px;
         display: block;
         bottom: 265px;
-        height: 165px;
+        height: 170px;
         overflow-y: scroll;
         font-size: 0.9em;
         width: 100%;

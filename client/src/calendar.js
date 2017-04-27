@@ -2,7 +2,7 @@ import { inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 import { I18N } from 'aurelia-i18n';
 import { Prompt } from 'prompt';
-import { Time } from './time'; 
+import { Time } from './time';
 
 @inject(DialogService, I18N)
 export class Calendar {
@@ -103,7 +103,7 @@ export class Calendar {
             },
             "end": {
                 "dateTime": endDate
-            }  
+            }
         };
 
         $.ajax({

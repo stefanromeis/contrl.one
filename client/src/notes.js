@@ -4,49 +4,64 @@ import { Prompt } from 'prompt';
 import { ObserverLocator } from 'aurelia-binding';
 import { NoteItem } from './notes-item';
 import { Time } from './time';
+import { Login } from 'services/login';
 import _ from 'underscore';
+import keys from 'services/keycodes';
+import config from 'services/authConfig';
 
-const STORAGE_NAME = 'notesmvc-aurelia';
-const ENTER_KEY = 13;
-
-@inject(DialogService, ObserverLocator)
+@inject(DialogService, ObserverLocator, Login)
 export class Notes {
-	constructor(DialogService, observerLocator, storage = null) {
+	constructor(DialogService, observerLocator, Login) {
 		this.dialogService = DialogService;
 		this.time = new Time();
-		this.connected = localStorage.getItem('contrl.one.token') || false;
 		this.isLoading = false;
 		this.openModal = false;
 		this.loginModalOpen = false;
+		this.login = Login;
+		this.open = false;
 
-		this.api = 'http://localhost:3001/';
+		this.api = config.providers.contrlOne.api;
 
 		this.items = [];
 		this.newNoteTitle = null;
 		this.newNoteContent = null;
 
 		this.observerLocator = observerLocator;
-		if(localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
-			this.get();
-		}
+
 	}
 
-	labelDoubleClicked(item) {
+	attached() {
+		if (localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
+			this.get();
+		}
+		this.observerLocator
+			.getObserver(this.login, 'connected')
+			.subscribe((o, n) => this.onConnectChange());
+	}
+
+	onConnectChange() {
+		if (!this.login.connected) {
+			this.items = [];
+			return;
+		}
+		this.get()
+	}
+
+	labelClicked(item) {
 		this.editTitle = item.title;
 		this.editContent = item.content;
 		item.isEditing = true;
 		this.newNoteTitle = item.title;
 		this.newNoteContent = item.content;
 	}
-	
-	
+
 	create(ev) {
 		if (this.openModal) {
 			this.addNewNote(this.newNoteTitle, this.newNoteContent);
 			this.openModal = false;
 		}
-		if(!ev) { return }
-		if (ev.keyCode === ENTER_KEY && this.loginModalOpen) {
+		if (!ev) { return }
+		if (ev.keyCode === keys.ENTER && this.loginModalOpen) {
 			this.signUp();
 		}
 	}
@@ -59,9 +74,9 @@ export class Notes {
 	}
 
 	addNewNote(title = this.newNoteTitle, content = this.newNoteContent) {
-		if (title == undefined || title.length === 0 ) { 
+		if (title == undefined || title.length === 0) {
 			title = 'No title';
-		 }
+		}
 
 		title = title.trim();
 
@@ -72,6 +87,12 @@ export class Notes {
 		this.newNoteTitle = null;
 		this.newNoteContent = null;
 		this.save();
+	}
+
+	openAndClearModal() {
+		this.openModal = true;
+		this.newNoteTitle = null;
+		this.newNoteContent = null;
 	}
 
 	observeItem(notesItem) {
@@ -116,7 +137,6 @@ export class Notes {
 	}
 
 	load(data) {
-		//const storageContent = this.storage.getItem(STORAGE_NAME);
 		let storageContent = data;
 		if (storageContent == undefined) { return; }
 
@@ -131,26 +151,11 @@ export class Notes {
 	}
 
 	get() {
-		/*
-		const storageContent = this.storage.getItem(STORAGE_NAME);
-		if (storageContent == undefined) { return; }
-
-		const simpleItems = JSON.parse(storageContent);
-		this.items = _.map(simpleItems, item => {
-			const notesItem = new NoteItem(item.title);
-			notesItem.isCompleted = item.completed;
-
-			this.observeItem(notesItem);
-
-			return notesItem;
-		});
-		this.updateAreAllCheckedState();
-		*/
 
 		let self = this;
 		$.ajax({
 			type: "GET",
-			url: this.api + 'notes',
+			url: this.api + '/notes',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -159,16 +164,18 @@ export class Notes {
 			}
 		}).done(function (res) {
 			console.log('NoteList Success', res);
-			if(res.notesData) {
+			if (res.notesData) {
 				self.load(res.notesData);
+				// self.login.connected = true;
 			}
+			self.loginModalOpen = false;
 		}).fail(function (err) {
 			console.log('Error', err);
-			if(err.responseText) {
+			if (err.responseText) {
 				if (err.responseText.includes("jwt expired")) {
 				}
 			}
-			self.connected = false;
+			self.login.connected = false;
 		});
 	}
 
@@ -184,8 +191,8 @@ export class Notes {
 
 		let self = this;
 		$.ajax({
-			type: "POST",
-			url: this.api + 'notes',
+			type: "PUT",
+			url: this.api + '/notes',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
@@ -197,71 +204,23 @@ export class Notes {
 			console.log('Success', res);
 		}).fail(function (err) {
 			console.log('Error', err);
-			if(err.responseText) {
-				if (err.responseText.includes("jwt expired")) {
-					self.connected = false;
-				}
-			}
-			self.connected = false;
+
+			self.login.connected = false;
 		});
 	}
 
-
-	signUp() {
-		let self = this;
-		$.ajax({
-			type: "POST",
-			url: this.api + "users",
-			data: {
-				'email': this.email,
-				'password': this.password
-			}
-		}).done(function (res) {
-			console.log('Success', res);
-			self.connected = true;
-			self.loginModalOpen = false;
-			localStorage.setItem('contrl.one.token', res.id_token);
-			localStorage.setItem('user', self.email);
-			self.get();
-		}).fail(function (err) {
-			if (err.status == 401) {
-				self.login();
-				return;
-			}
-			console.log('Error', err);
-		});
-
-	}
-	
-
-	login() {
-		let self = this;
-		$.ajax({
-			type: "POST",
-			url: this.api + "sessions/create",
-			data: {
-				'email': this.email,
-				'password': this.password
-			}
-		}).done(function (res) {
-			console.log('Logged in', res);
-			self.connected = true;
-			self.loginModalOpen = false;
-			localStorage.setItem('contrl.one.token', res.id_token);
-			localStorage.setItem('user', self.email);
-			self.get();
-		}).fail(function (err) {
-			console.log('Error', err);
-		});
-	}
-
-	logout() {
-		localStorage.removeItem('contrl.one.token');
-		localStorage.removeItem('user');
-		this.connected = false;
-		this.items = [];
-	}
-
+	// signUp() {
+	// 	let self = this;
+	// 	this.login.signUp()
+	// 		.catch((err) => {
+	// 			if (err.status == 401) {
+	// 				this.login.login()
+	// 			}
+	// 			else {
+	// 				console.log('Wrong mail or password.');
+	// 			}
+	// 		})
+	// }
 
 }
 

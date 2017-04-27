@@ -15,8 +15,11 @@ export class TodoItem {
 	}
 
 	finishEditing() {
+		console.log('title', this.title);
+		console.log('edittitle', this.editTitle);
 		this.title = this.editTitle.trim();
 		this.isEditing = false;
+		this.isCompleted = false;
 	}
 
 	onKeyUp(ev) {

@@ -2,6 +2,8 @@ html {
   overflow:hidden;
 }
 body {
+    margin: 0;
+    padding: 0;
 }
 .background {
   background: url(../images/bg.jpg) center center no-repeat;
@@ -21,10 +23,6 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   margin:-20px;
-}
-
-nav-bar {
-    display: none;
 }
 
 .splash {

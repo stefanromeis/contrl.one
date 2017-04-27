@@ -1,4 +1,4 @@
-import {customAttribute, inject, bindable} from 'aurelia-framework';
+import { customAttribute, inject, bindable } from 'aurelia-framework';
 import $ from 'bootstrap';
 
 @customAttribute('tooltip')
@@ -13,10 +13,9 @@ export class BootstrapTooltip {
     }
 
     attached() {
-
         $(this.element).tooltip({
-            title:this.title,
-            placement:this.placement
+            title: this.title,
+            placement: this.placement
         });
     }
 }

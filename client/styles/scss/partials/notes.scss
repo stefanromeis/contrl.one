@@ -9,6 +9,7 @@
     height: 175px;
     -moz-box-flex: 1;
     -webkit-box-flex: 1;
+    overflow: hidden;
     .comp-header {
         .headicon {
             margin-bottom: 2px;
@@ -34,7 +35,7 @@
         padding: 10px;
         display: block;
         bottom: 265px;
-        height: 135px;
+        height: 145px;
         width: 100%;
         overflow-y: scroll;
         font-size: 0.9em;

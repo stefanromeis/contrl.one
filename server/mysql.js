@@ -1,10 +1,11 @@
 var mysql = require('mysql');
+var config = require('./config');
 
 exports.createDbConnection = function() {
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '',
+        password: config.mysqlSecret,
         database: 'contrlone'
     });
 
@@ -13,7 +14,7 @@ exports.createDbConnection = function() {
             console.error('error connecting: ' + err.stack);
             return;
         }
-        console.log('connected as id ' + connection.threadId);
+        //console.log('connected as id ' + connection.threadId);
     });
 
     return connection;

@@ -7,28 +7,28 @@
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
-            <div class="devide" if.bind="connected">| </div>
-            <button class="glyphicon-plus pull-right" click.delegate="openModal = true" if.bind="connected">
+            <div class="devide" if.bind="login.connected">| </div>
+            <button class="glyphicon-plus pull-right" click.delegate="openAndClearModal()" if.bind="login.connected">
             </button>
             <button class="label-right">
                 <button class="glyphicon glyphicon-log-out pull-right logout" 
                 aria-hidden="true" 
-                if.bind="connected" 
+                if.bind="login.connected" 
                 class="btn btn-primary" 
-                click.delegate="logout()"></span>
+                click.delegate="login.logout()"></span>
         </div>
         
-        <div if.bind="!connected">
+        <div if.bind="!login.connected">
             <a class="btn btn-block btn-social" click.delegate="loginModalOpen = true">
                 <span class="fa fa-envelope-o"></span> Login
             </a>
         </div>
 
-        <div class="data-wrapper" if.bind="connected">
+        <div class="data-wrapper" if.bind="login.connected">
             <section class="main">
                 <div class="notes-list">
                     <div repeat.for="item of items">
-                        <div class="css-label" click.delegate="labelDoubleClicked(item)" >${item.title} </br>
+                        <div class="css-label" click.delegate="labelClicked(item)" >${item.title} </br>
                         <b>${item.time}</b>
                     </div>
                     <button click.delegate="$parent.deleteNote(item)" class="destroy">x</button>
@@ -107,19 +107,19 @@
                 <div class="mod-body">
                     <div class="form-group">
                         <label for="example-search-input" class="col-2 col-form-label">E-Mail</label>
-                        <input type="text" value.bind="email" 
+                        <input type="text" value.bind="login.email" 
                             class="form-control" id="email" 
                             placeholder="Email" keyup.delegate="onKeyUp($event)">
                     </div>
                     <div class="form-group">
                         <label for="example-search-input" class="col-2 col-form-label">Password</label>
-                        <input type="password" value.bind="password" 
+                        <input type="password" value.bind="login.password" 
                         class="form-control" id="password" 
                         placeholder="Password" keyup.delegate="create($event)">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" click.delegate="loginModalOpen = false">Cancel</button>
-                        <button type="submit" class="btn btn-primary" click.delegate="signUp()">Login</button>
+                        <button type="submit" class="btn btn-primary" click.delegate="login.signUp()">Login</button>
                     </div>
                 </div>
                 </div>

@@ -1,50 +1,45 @@
 <template>
     <require from="services/bootstrap-tooltip"></require>
+    <!--<require from="services/focus"></require>-->
 
     <div id="todo-wrapper" tooltip="placement:top; title: Click + to add new todo-item. Click to check/uncheck. Doubleclick to edit.">
-        <div class="comp-header" data-toggle="tooltip">
+        <div class="comp-header">
             <!--<img class='headicon' src="images/todo.png">-->
             <span class="glyphicon glyphicon-list headicon"></span>
             <h5>TODO</h5>
             <select ref="selectComp" id="selectComp" class="pull-right" value.bind="latest">
                 <option repeat.for="component of components" value.bind="component">${component}</option>
             </select>
-            <div class="devide" if.bind="connected">| </div> 
-            <button class="glyphicon-plus pull-right" click.delegate="openModal = true" if.bind="connected">
-            </button>
+            <div class="devide" if.bind="login.connected">| </div>
+            <button class="glyphicon-plus pull-right" click.delegate="openModal = true" if.bind="login.connected"></button>
             <button class="label-right">
-                <button class="glyphicon glyphicon-log-out pull-right logout" aria-hidden="true" if.bind="connected" class="btn btn-primary" click.delegate="logout()"></span>
+                <button class="glyphicon glyphicon-log-out pull-right logout" aria-hidden="true" if.bind="login.connected" class="btn btn-primary" click.delegate="login.logout()"></button>
+            </button>
         </div>
-        
-        <div if.bind="!connected">
-            <a class="btn btn-block btn-social" click.delegate="loginModalOpen = true">
+
+        <div if.bind="!login.connected">
+            <a class="btn btn-block btn-social" click.delegate="login.loginModalOpen = true">
                 <span class="fa fa-envelope-o"></span> Login
             </a>
         </div>
 
-        <div class="data-wrapper" if.bind="connected">
+        <div class="data-wrapper" if.bind="login.connected">
 
-            <import from="behaviors/focus"></import>
-            <section class="main" >
+            <section class="main">
                 <ul class="todo-list">
-                <li show.bind="!items.length">Nothin' to do!</li>
-                <li repeat.for="todoItem of items" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
-                    <div class="view">
-                        <input type="checkbox" id="checkbox-${todoItem.title}" class="css-checkbox" checked.bind="todoItem.isCompleted">
-                        <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" 
-                        dblclick.delegate="todoItem.labelDoubleClicked()" 
-                        if.bind = "!todoItem.isEditing">
-                            <span class="${todoItem.isCompleted ? 'completed' : ''}">${todoItem.title}</span>
-                            <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
-                        </label>
-                        <input id="edit" type="search" class="form-control"
-                            value.bind="todoItem.editTitle"
-                            focus.bind="todoItem.isEditing"
-                            focusout.delegate="todoItem.finishEditing($event)"
-                            keyup.delegate="todoItem.onKeyUp($event)"
-                            if.bind = "todoItem.isEditing">
-                    </div>
-                </li>
+                    <li show.bind="!items.length">Nothin' to do!</li>
+                    <li repeat.for="todoItem of items" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
+                        <div class="view">
+                            <input type="checkbox" id="checkbox-${todoItem.title}" class="css-checkbox" checked.bind="todoItem.isCompleted">
+                            <label for="checkbox-${todoItem.title}" class="css-label ${todoItem.isCompleted ? 'completed' : ''}" dblclick.delegate="todoItem.labelDoubleClicked()"
+                                if.bind="!todoItem.isEditing">
+                                <span class="${todoItem.isCompleted ? 'completed' : ''}">${todoItem.title}</span>
+                                <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy">x</button>
+                            </label>
+                            <input id="edit" type="search" class="form-control" value.bind="todoItem.editTitle" focus.bind="todoItem.isEditing" focusout.delegate="todoItem.finishEditing($event)"
+                                keyup.delegate="todoItem.onKeyUp($event)" if.bind="todoItem.isEditing">
+                        </div>
+                    </li>
                 </ul>
             </section>
 
@@ -54,53 +49,47 @@
             <div class="mod-content">
                 <div class="background-img-blurred"></div>
                 <div class="mod-text">
-                <div class="mod-header">
-                    <button type="button" class="close" click.delegate="openModal = false">  
+                    <div class="mod-header">
+                        <button type="button" class="close" click.delegate="openModal = false">  
                     <span aria-hidden="false" >&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Create new Todo - Entry</h4>
-                </div>
-                </br>
-                <div class="mod-body">
-                    <div class="form-group">
-                         <input id="search" type="search" class="form-control" placeholder="What needs to be done?"
-                            keyup.delegate="onKeyUp($event)"
-                            value.bind="newTodoTitle" focus.bind="openModal">
+                        <h4 class="modal-title" id="myModalLabel">Create new Todo - Entry</h4>
                     </div>
-                </div>
+                    <br/>
+                    <div class="mod-body">
+                        <div class="form-group">
+                            <input id="search" type="search" class="form-control" placeholder="What needs to be done?" keyup.delegate="onKeyUp($event)"
+                                value.bind="newTodoTitle" focus.bind="openModal">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="mod mod-login-todo" data-keyboard="true" data-backdrop="static" if.bind="loginModalOpen">
+        <div class="mod mod-login-todo" data-keyboard="true" data-backdrop="static" if.bind="login.loginModalOpen">
             <div class="mod-content">
                 <div class="background-img-blurred"></div>
                 <div class="mod-text">
-                <div class="mod-header">
-                    <button type="button" class="close" click.delegate="loginModalOpen = false">  
+                    <div class="mod-header">
+                        <button type="button" class="close" click.delegate="login.loginModalOpen = false">  
                     <span aria-hidden="false" >&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Login to Contrl.one</h4>
-                </div>
-                </br>
-                <div class="mod-body">
-                    <div class="form-group">
-                        <label for="example-search-input" class="col-2 col-form-label">E-Mail</label>
-                        <input type="text" value.bind="email" 
-                            class="form-control" id="email" 
-                            placeholder="Email" keyup.delegate="onKeyUp($event)">
+                        <h4 class="modal-title" id="myModalLabel">Login to Contrl.one</h4>
                     </div>
-                    <div class="form-group">
-                        <label for="example-search-input" class="col-2 col-form-label">Password</label>
-                        <input type="password" value.bind="password" 
-                        class="form-control" id="password" 
-                        placeholder="Password" keyup.delegate="onKeyUp($event)">
+                    <br/>
+                    <div class="mod-body">
+                        <div class="form-group">
+                            <label for="example-search-input" class="col-2 col-form-label">E-Mail</label>
+                            <input type="text" value.bind="login.email" class="form-control" id="email" placeholder="Email" keyup.delegate="onKeyUp($event)">
+                        </div>
+                        <div class="form-group">
+                            <label for="example-search-input" class="col-2 col-form-label">Password</label>
+                            <input type="password" value.bind="login.password" class="form-control" id="password" placeholder="Password" keyup.delegate="create($event)">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" click.delegate="login.loginModalOpen = false">Cancel</button>
+                            <button type="submit" class="btn btn-primary" click.delegate="login.signUp()">Login</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" click.delegate="loginModalOpen = false">Cancel</button>
-                        <button type="submit" class="btn btn-primary" click.delegate="signUp()">Login</button>
-                    </div>
-                </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-</template> 
+</template>

@@ -217,7 +217,7 @@ export class Gmail {
     this.setMessageAsRead(id);
   }
 
-  closeModal() {
+  closeModal() { 
 
     $('.mod, .reply-mod').attr('style', 'display:none !important');
     var ifrm = $('#message-content')[0].contentWindow.document;
@@ -257,7 +257,6 @@ export class Gmail {
         'Content-Type': 'message/rfc822',
       },
       data: mail
-
     }).done(function () {
       self.openDialog();
     })

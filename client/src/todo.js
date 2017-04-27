@@ -5,24 +5,37 @@ import { ObserverLocator } from 'aurelia-binding';
 import { Prompt } from 'prompt';
 import config from 'services/authConfig';
 import keys from 'services/keycodes';
+import { Login } from 'services/login'
 import _ from 'underscore';
 
-@inject(DialogService, ObserverLocator)
+@inject(DialogService, ObserverLocator, Login)
 export class Todo {
-	constructor(DialogService, ObserverLocator) {
+	constructor(DialogService, ObserverLocator, Login) {
 		this.dialogService = DialogService;
 		this.observerLocator = ObserverLocator;
 		this.api = config.providers.contrlOne.api;
 		this.items = [];
 		this.newTodoTitle = null;
 		this.openModal = false;
-		this.loginModalOpen = false;
-	}
-
-	attached() {
+		this.login = Login;
 		if (localStorage.getItem('user') && localStorage.getItem('contrl.one.token')) {
 			this.get();
+			this.login.connected = true;
 		}
+	}
+
+	created() {
+		this.observerLocator
+			.getObserver(this.login, 'connected')
+			.subscribe((o, n) => this.onConnectChange());
+	}
+
+	onConnectChange() {
+		if (!this.login.connected) {
+			this.items = [];
+			return;
+		}
+		this.get()
 	}
 
 	onKeyUp(ev) {
@@ -32,8 +45,8 @@ export class Todo {
 		if (ev.keyCode === keys.ESC && this.openModal) {
 			this.openModal = false;
 		}
-		if (ev.keyCode === keys.ENTER && this.loginModalOpen) {
-			this.signUp();
+		if (ev.keyCode === keys.ENTER && this.login.loginModalOpen) {
+			this.login.login();
 		}
 	}
 
@@ -48,7 +61,6 @@ export class Todo {
 		this.newTodoTitle = null;
 		this.save();
 		this.openDialog("Entry created!");
-
 	}
 
 	observeItem(todoItem) {
@@ -103,17 +115,14 @@ export class Todo {
 			}
 		}).done(function (res) {
 			console.log('ToDoListGet Success', res);
-			self.connected = true;
+			// self.login.connected = true;
 			if (res.todoData) {
 				self.load(res.todoData);
 			}
 		}).fail(function (err) {
 			console.log('Error', err);
-			if (err.responseText) {
-				if (err.responseText.includes("jwt expired")) {
-				}
-			}
-			self.connected = false;
+			self.items = [];
+			self.login.connected = false;
 		});
 	}
 
@@ -127,13 +136,12 @@ export class Todo {
 
 		const self = this;
 		$.ajax({
-			type: "POST",
+			type: "PUT",
 			url: this.api + '/todo',
 			headers: {
 				"Authorization": 'Bearer ' + localStorage.getItem('contrl.one.token')
 			},
 			data: {
-				'email': localStorage.getItem('user'),
 				'todoData': JSON.stringify(simpleItems)
 			}
 		}).done(function (res) {
@@ -142,69 +150,32 @@ export class Todo {
 			console.log('Error', err);
 			if (err.responseText) {
 				if (err.responseText.includes("jwt expired")) {
-					self.connected = false;
+					self.login.connected = false;
 				}
 			}
-			self.connected = false;
+			self.login.connected = false;
 		});
-	}
-
-
-	signUp() {
-		const self = this;
-		$.ajax({
-			type: "POST",
-			url: this.api + "/users",
-			data: {
-				'email': this.email,
-				'password': this.password
-			}
-		}).done(function (res) {
-			console.log('Success', res);
-			self.connected = true;
-			self.loginModalOpen = false;
-			localStorage.setItem('contrl.one.token', res.id_token);
-			localStorage.setItem('user', self.email);
-			self.get();
-		}).fail(function (err) {
-			if (err.status == 401) {
-				self.login();
-				return;
-			}
-			console.log('Error', err);
-		});
-	}
-
-	login() {
-		const self = this;
-		$.ajax({
-			type: "POST",
-			url: this.api + "/sessions/create",
-			data: {
-				'email': this.email,
-				'password': this.password
-			}
-		}).done(function (res) {
-			console.log('Logged in', res);
-			self.connected = true;
-			self.loginModalOpen = false;
-			localStorage.setItem('contrl.one.token', res.id_token);
-			localStorage.setItem('user', self.email);
-			self.get();
-		}).fail(function (err) {
-			console.log('Error', err);
-		});
-	}
-
-	logout() {
-		localStorage.removeItem('contrl.one.token');
-		localStorage.removeItem('user');
-		this.connected = false;
-		this.items = [];
 	}
 
 	openDialog(model) {
 		this.dialogService.open({ viewModel: Prompt, model: model });
 	}
+
+	// signUp() {
+	// 	let self = this;
+	// 	this.login.signUp()
+	// 		.catch((err) => {
+	// 			if (err.status == 401) {
+	// 				this.login.login()
+	// 					.then((res) => this.get());
+	// 			}
+	// 			else {
+	// 				console.log('Wrong mail or password.');
+	// 				this.login.login()
+	// 					.then((res) => this.get());
+	// 			}
+	// 		})
+	// 		.then((res) => this.get());
+	// }
 }
 
