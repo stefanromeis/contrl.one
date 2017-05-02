@@ -14,7 +14,7 @@ var connection = mysql.createDbConnection();
 var salt = bcrypt.genSaltSync(10);
 
 function createToken(email) {
-  return jwt.sign({ email: email }, config.secret, { expiresInMinutes: 60 * 24 * 7 });
+  return jwt.sign({ email: email }, config.secret, { expiresIn: 60 * 60 * 24 * 7 });
 }
 
 app.post('/users', function (req, res) {

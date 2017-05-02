@@ -36,15 +36,15 @@ export class Facebook {
         window.fbAsyncInit = function () {
             FB.init({
                 appId: self.appId,
-                xfbml: true,
                 cookie: true,
                 status: true,
-                version: 'v2.6'
+                xfbml: false,
+                version: 'v2.9'
             });
 
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
-                    //console.log("Facebook Status: OK");
+                    console.log("Facebook Status: OK");
                     self.connect();
                 }
                 else if (response.status === 'not_authorized') {
@@ -88,7 +88,6 @@ export class Facebook {
         }, { scope: 'email' });
     }
 
-
     logout() {
         this.isLoading = true;
         let self = this;
@@ -105,7 +104,6 @@ export class Facebook {
         });
     }
 
-
     getInfo() {
         FB.api('me', 'GET', { fields: 'name, first_name, last_name, age_range, link, gender, locale, picture, timezone, updated_time, email' }
             , function (response) {
@@ -121,33 +119,35 @@ export class Facebook {
             "me/posts?fields=caption,link,name,message,description,shares,updated_time,from,story,comments,reactions,place,full_picture",
             function (response) {
                 if (response && !response.error) {
-                    //console.log('res ', response);
                     let tempFeed = [];
                     for (var x = 0; x < response.data.length; x++) {
                         var data = response.data[x];
-                        let post = {};
-                        
-                        post.id = data.id;
-                        post.author = data.from.name;
-                        post.date = data.updated_time.split(/-|T/);
-                        if (data.place) {
-                            post.place = data.place.name;
-                        }
-                        if (data.full_picture) {
-                            post.picture = data.full_picture;
-                        }
-                        post.link = data.link;
-                        post.message = data.message;
-                        post.story = data.story;
-                        post.discription = data.description;
-                        if (data.reactions) {
-                            post.reactions = data.reactions.data.length;
-                        }
-                        if (data.comments) {
-                            post.comments = data.comments.data.length;
-                        }
 
-                        tempFeed.push(post);
+                        // let post = {};
+
+                        // post.id = data.id;
+                        // post.author = data.from.name;
+                        // post.date = data.updated_time.split(/-|T/);
+                        // if (data.place) {
+                        //     post.place = data.place.name;
+                        // }
+                        // if (data.full_picture) {
+                        //     post.picture = data.full_picture;
+                        // }
+                        // post.link = data.link;
+                        // post.message = data.message;
+                        // post.story = data.story;
+                        // post.discription = data.description;
+                        // if (data.reactions) {
+                        //     post.reactions = data.reactions.data.length;
+                        // }
+                        // if (data.comments) {
+                        //     post.comments = data.comments.data.length;
+                        // }
+
+                        data.date = data.updated_time.split(/-|T/);
+
+                        tempFeed.push(data);
 
                     }
                     if (self.feed.length > 0) {
@@ -250,5 +250,3 @@ export class Facebook {
     }
 
 }
-
-

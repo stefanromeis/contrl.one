@@ -2,11 +2,11 @@
 
     <div class="facebook-wrapper">
         <div if.bind="!connected" click.delegate="connect()">
-           <a class="btn btn-block btn-social btn-facebook" >
+            <a class="btn btn-block btn-social btn-facebook">
                 <span class="fa fa-facebook"></span> Login into Facebook
             </a>
         </div>
-        <div class="label-bar" if.bind="connected" > 
+        <div class="label-bar" if.bind="connected">
             <button class='labels' click.delegate="getFeed()" if.bind="!isLoading">
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
             </button>
@@ -30,34 +30,31 @@
             </button>
             <span class="notifications pull-right" if.bind="notifications > 0">${notifications}</span>
         </div>
-        
+
         <div class="feed">
-            <div>${da}</div>
-            <div class="post" repeat.for="post of feed" >
-                    <div class="post-author">${post.author}</div>
-                    <div class="post-place" if.bind="post.place"> hier: <strong>${post.place} </strong></div>
-                    <div class="post-date">${post.date[2]}.${post.date[1]}.${post.date[0]}</div>
-                    <div class="post-message">${post.message}</div>
-                    <div class="post-message">${post.story}</div>
-                    <div class="post-picture" if.bind="post.picture" click.delegate="openNewTab(post.link, post.id)">
-                        <img src="${post.picture}">
+            <div class="post" repeat.for="post of feed">
+                <div class="post-author">${post.from.name}</div>
+                <div class="post-place" if.bind="post.place"> hier: <strong>${post.place.name} </strong></div>
+                <div class="post-date">${post.date[2]}.${post.date[1]}.${post.date[0]}</div>
+                <div class="post-message">${post.message}</div>
+                <div class="post-message">${post.story}</div>
+                <div class="post-picture" if.bind="post.full_picture" click.delegate="openNewTab(post.link, post.id)">
+                    <img src="${post.full_picture}">
+                </div>
+                <div class="post-discription" if.bind="post.discription">${post.description}</div>
+                <div class="post-footer">
+                    <div class="post-reactions" if.bind="post.reactions">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> ${post.reactions.data.length}
                     </div>
-                    <div class="post-discription" if.bind="post.discription">${post.discription}</div>
-                    <div class="post-footer">
-                        <div class="post-reactions" if.bind="post.reactions">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                            ${post.reactions}
-                        </div>
-                        <div class="post-comments" if.bind="post.comments">
-                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                            ${post.comments}
-                        </div>
-                        <div class="post-trash">
-                            <button click.delegate="deletePost(post.id)">
+                    <div class="post-comments" if.bind="post.comments">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> ${post.comments.data.length}
+                    </div>
+                    <div class="post-trash">
+                        <button click.delegate="deletePost(post.id)">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
-                        </div>
-                    </div>    
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mod mod-fb" data-keyboard="true" data-backdrop="static" if.bind="modalOpen">
@@ -102,6 +99,6 @@
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
     </div>
 </template>

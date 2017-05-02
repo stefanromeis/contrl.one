@@ -151,6 +151,7 @@ export class Gmail {
       mail.content = data.payload;
       mail.id = id;
       mail.from = self.getHeader(data.payload.headers, 'From').split('<')[0].replace(/"/g, '');
+      mail.mailAdress = self.getHeader(data.payload.headers, 'From').split('<')[1].replace('>', '');
       mail.subject = self.getHeader(data.payload.headers, 'Subject');
       mail.date = self.getHeader(data.payload.headers, 'Date');
       mail.unread = $.inArray('UNREAD', data.labelIds) > -1;
@@ -205,6 +206,7 @@ export class Gmail {
     this.modalMessage.subject = result[0].subject;
     this.modalMessage.from = result[0].from;
     this.modalMessage.date = result[0].date;
+    this.modalMessage.mailAdress = result[0].mailAdress;
 
     var ifrm = $('#message-content')[0].contentWindow.document;
     $('body', ifrm).html(this.getBody(result[0].content));
@@ -217,7 +219,7 @@ export class Gmail {
     this.setMessageAsRead(id);
   }
 
-  closeModal() { 
+  closeModal() {
 
     $('.mod, .reply-mod').attr('style', 'display:none !important');
     var ifrm = $('#message-content')[0].contentWindow.document;
@@ -232,7 +234,7 @@ export class Gmail {
     if (from.includes("<")) {
       from = from.substring(from.lastIndexOf("<") + 1, from.lastIndexOf(">"));
     }
-    this.modalMessage.mailadress = from;
+    this.modalMessage.mailadress = this.modalMessage.mailAdress;
     this.modalMessage.subject = 'Re: ' + this.modalMessage.subject;
 
     $('.mod').attr('style', 'display:none !important');

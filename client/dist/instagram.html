@@ -24,7 +24,7 @@
     <div class="images" repeat.for="image of images" >
       <div class="col-md-6">
         <img if.bind="image.urlToImage" src.bind="image.urlToImage" >
-        <a href="${image.link}" target="_blank" mousedown.delegate="updates = 0" >
+        <a href="${image.link}" target="_blank" mousedown.delegate="resetUpdates()" >
           <div class="image-details" >
             <div class="image-details-center" >
               <div class="detail">Likes: ${image.likes}</div>
